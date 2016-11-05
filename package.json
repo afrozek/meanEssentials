@@ -1,0 +1,24 @@
+{
+  "name": "meanEssentials",
+  "version": "1.0.0",
+  "description": "A MEAN Stack Boiler Plate with build system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Afroze Khan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-config": "^0.3.0",
+    "gulp-flatten": "^0.3.1",
+    "gulp-inject": "^4.1.0",
+    "gulp-load-plugins": "^1.3.0",
+    "nodemon": "^1.11.0",
+    "wiredep": "^4.0.0"
+  }
+}
