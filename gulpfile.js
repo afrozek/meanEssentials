@@ -6,7 +6,6 @@ var wiredep = require('wiredep')({src: 'src/index.html',  ignorePath: 'bower_com
 
 console.log(wiredep)
 var config = {};
-
 config.wiredep = {
 
 }	
