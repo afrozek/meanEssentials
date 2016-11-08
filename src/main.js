@@ -46,10 +46,10 @@
     .module('app')
     .config(routerConfig);
 
-
+    routerConfig.$inject = ['$stateProvider','$urlRouterProvider', '$locationProvider'];
 
   /** @ngInject */
-   function routerConfig($stateProvider, $urlRouterProvider,$locationProvider) {
+   function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
   
 
