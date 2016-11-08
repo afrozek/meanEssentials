@@ -6,6 +6,8 @@
     	'ui.router'
     ]);
 })();
+
+
 (function() {
   'use strict';
 
@@ -32,8 +34,6 @@
 
   
   /////////////
-
-
 
 
 (function() {

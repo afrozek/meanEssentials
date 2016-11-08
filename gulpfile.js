@@ -18,7 +18,7 @@ var nodemon = require('gulp-nodemon');
 
 //tasks
 gulp.task('buildScripts', function(){
-	 return gulp.src('src/app/**/*.js')
+	 return gulp.src(['src/app/**/*.module.js','src/app/**/*.js'])
 	  .pipe(sourcemaps.init())
 	 .pipe(concat('src/main.js'))
 	 // .pipe(uglify())
