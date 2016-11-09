@@ -12,6 +12,7 @@
     var vm = this;
     vm.controllerName = "appController";
 
+
   
 
   }//end appController
