@@ -1,0 +1,1 @@
+{"version":3,"sources":["appComponents/landing/styles/landing.scss"],"names":[],"mappings":"AAEA,QAAQ,CAAA;EACP,UAAU,EAHE,GAAG,GAIf","file":"main.css","sourcesContent":["$background: red;\n\n#landing{\n\tbackground: $background;\n}"]}

@@ -16,10 +16,20 @@
   
 
       .state('app', {
-        url: '/',
+        abstract: true,
         templateUrl: 'app/app.view.html',
         controller: 'appController',
         controllerAs: 'appCtrl',
+        data: {
+          requireLogin: false
+        }
+      })
+
+      .state('app.landing', {
+        url: '/',
+        templateUrl: 'app/appComponents/landing/views/landing.view.html',
+        controller: 'landingController',
+        controllerAs: 'landingCtrl',
         data: {
           requireLogin: false
         }
