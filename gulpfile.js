@@ -1,9 +1,9 @@
 
 
 
-/*======================================
-				CONFIG
-======================================*/
+/*=========================================================
+						CONFIG
+=========================================================*/
 
 
 //path
@@ -22,16 +22,19 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var nodemon = require('gulp-nodemon');
 
+var angularTemplateCache = require('gulp-angular-templatecache');
 
 
 
-/*======================================
-				TASKS
-======================================*/
+
+/*=========================================================
+					DEVELOPMENT TASKS
+=========================================================*/
 
 //paths
 var jsPaths = ['src/app/**/*.module.js','src/app/**/*.js'];
 var sassPaths  = ['src/app/**/*.scss'];
+var htmlTemplatePaths  = ['src/app/**/*.html'];
 
 
 
@@ -120,9 +123,109 @@ gulp.task('serve',['buildScripts','buildStyles','injectScripts','injectStyles','
 
 
 
-/*======================================
-			  DIST BUILD
-======================================*/
+/*=========================================================
+					PRODUCTION TASKS
+=========================================================*/
+
+gulp.task('build',function(){
+
+
+	//declare paths
+	var jsPaths = ['src/app/**/*.module.js', '.temp/templates.js', 'src/app/**/*.js'];
+	var sassPaths  = ['src/app/**/*.scss'];
+	var htmlTemplatePaths  = ['src/app/**/*.html'];
+
+	//first copy index file to dist folder
+	gulp.src('./src/index.html')
+	.pipe(gulp.dest('./dist'));
+
+
+	//build template cache and convert to angular script
+	//put in temp folder to later reference in js build
+	gulp.src(htmlTemplatePaths)
+	.pipe(angularTemplateCache({standAlone: false}))
+	.pipe(gulp.dest('./.temp'));
+
+
+	//js build
+	//ends in dist folder
+	gulp.src(jsPaths)
+
+	.pipe(concat('./dist/main.js'))
+	.pipe(uglify())
+
+	.pipe(gulp.dest('./'));
+
+
+	//styles build
+	//ends in dist folder
+	gulp.src(sassPaths)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(concat('./dist/main.css'))
+    .pipe(gulp.dest('./'));
+
+
+
+
+    //inject scripts
+    gulp.src('./dist/index.html')
+ 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css']),{relative: true}))	
+ 	.pipe(gulp.dest('./dist'));
+
+
+
+
+ 	//inject css
+ 	gulp.src('./dist/index.html')
+ 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css']),{relative: true}))	
+ 	.pipe(gulp.dest('./dist'));
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
