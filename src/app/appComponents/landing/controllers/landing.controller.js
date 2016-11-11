@@ -3,11 +3,11 @@
 
 	angular
 		.module('landing')
-		.controller('landingCtrl', landingCtrl)
+		.controller('landingController', landingController)
 
-	landingCtrl.$inject = []
+	landingController.$inject = []
 
-	function landingCtrl() {
+	function landingController() {
 
 	    var vm = this;
 

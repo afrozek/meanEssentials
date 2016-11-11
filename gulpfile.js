@@ -47,10 +47,10 @@ var htmlTemplatePaths  = ['src/app/**/*.html'];
 gulp.task('buildScripts', function() {
 //outputs main.js to src folder
 
-	 gulp.src(jsPaths)
+	return gulp.src(jsPaths)
 		.pipe(sourcemaps.init())
 		.pipe(concat('src/main.js'))
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('./'));
 	
@@ -59,7 +59,7 @@ gulp.task('buildScripts', function() {
 gulp.task('buildStyles', function() {
 //outputs main.css to src folder
 
-	gulp.src(sassPaths)
+	return gulp.src(sassPaths)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('src/main.css'))
@@ -77,7 +77,7 @@ gulp.task('buildStyles', function() {
 gulp.task('injectScripts', function() {
 //injects main.js into index.html
 
-	gulp.src('./src/index.html')
+	return gulp.src('./src/index.html')
  	.pipe(inject(gulp.src(['./src/main.js','./src/main.css']),{relative: true}))	
  	.pipe(gulp.dest('./src'));
 	
@@ -87,7 +87,7 @@ gulp.task('injectScripts', function() {
 gulp.task('injectStyles', function() {
 //injects main.css into index.html
 
-	gulp.src('./src/index.html')
+	return gulp.src('./src/index.html')
  	.pipe(inject(gulp.src(['./src/main.js','./src/main.css']),{relative: true}))	
  	.pipe(gulp.dest('./src'));
 	
@@ -100,11 +100,11 @@ gulp.task('injectStyles', function() {
 /*------------WATCHERS------------*/
 
 gulp.task('watchScripts', function() {
-	gulp.watch(jsPaths,['buildScripts','injectScripts'])
+	return gulp.watch(jsPaths,['buildScripts','injectScripts'])
 });
 
 gulp.task('watchStyles', function() {
-	gulp.watch(sassPaths,['buildStyles','injectStyles'])
+	return gulp.watch(sassPaths,['buildStyles','injectStyles'])
 });
 
 
@@ -140,27 +140,49 @@ var htmlTemplatePaths  = ['src/app/**/*.html'];
 
 
 
-gulp.task('production.cloneIndex', function() {
+gulp.task('production.cloneCleanIndex', function() {
 
 	//INDEX CLONE
 	//first copy index file to dist folder
-	gulp.src('./src/index.html')
-	.pipe(gulp.dest('./dist'));
-})
-
-
-gulp.task('production.removeWiredep',['production.cloneIndex'], function() {
-  gulp.src('./dist/index.html')
-   .pipe(deleteLines({
+	return gulp.src('./src/index.html')
+	.pipe(gulp.dest('./dist'))
+	.pipe(deleteLines({
       'filters': [
-			      /<script\s+type=["']text\/javascript["']\s+src=/i,
+			      /<script/i
+      			 ]
+    }))
+    .pipe(deleteLines({
+      'filters': [
 			      /<link\s+rel=["']/i
       			 ]
     }))
-  .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('./dist'));
+})
+
+
+gulp.task('production.removeScriptTags', function() {
+//removes script tags from wiredep 	
+  return gulp.src('./dist/index.html')
+   .pipe(deleteLines({
+      'filters': [
+			      /<script/i
+      			 ]
+    }))
+  .pipe(gulp.dest('./dist'));
 });
 
 
+
+gulp.task('production.removeLinkTags', function() {
+//removes link tags from wiredep
+  return gulp.src('./dist/index.html')
+   .pipe(deleteLines({
+      'filters': [
+			      /<link\s+rel=["']/i
+      			 ]
+    }))
+  .pipe(gulp.dest('./dist'));
+});
 
 
 /*------------BUILDERS------------*/
@@ -169,8 +191,8 @@ gulp.task('production.buildTemplateCache', function() {
 	//TEMPLATE CACHE
 	//build template cache and convert to angular script
 	//put in temp folder to later reference in js build
-	gulp.src(htmlTemplatePaths)
-	.pipe(angularTemplateCache({standAlone: false}))
+	return gulp.src(htmlTemplatePaths)
+	.pipe(angularTemplateCache({standAlone: false, module: 'app', root: 'app'}))
 	.pipe(gulp.dest('./.temp'));
 })
 
@@ -179,7 +201,7 @@ gulp.task('production.buildTemplateCache', function() {
 gulp.task('production.buildVendorScripts', function() {
 	//VENDOR SCRIPTS BUILD
 	//builds bower componenets js files
-	//ends in dist folder
+	//ends in dist/app folder
 	var filterJS = filter('**/*.js', { restore: true });
 	return gulp.src('./bower.json')
     .pipe(mainBowerFiles('**/*.js'))
@@ -196,7 +218,7 @@ gulp.task('production.buildVendorStyles', function() {
 
     //VENDOR STYLES BUILD
 	//builds bower componenets css files
-	//ends in dist folder
+	//ends in dist/app folder
 	return gulp.src(['./bower_components/**/*.min.css'])
     .pipe(concat('./dist/vendorStyles.min.css'))
     .pipe(gulp.dest('./'))
@@ -208,7 +230,7 @@ gulp.task('production.buildVendorStyles', function() {
 gulp.task('production.buildScripts',['production.buildVendorScripts'], function() {
 
 	//JS BUILD
-	//ends in dist folder
+	//ends in dist/app folder
 	return gulp.src(jsPaths)
 	.pipe(concat('./dist/main.js'))
 	.pipe(uglify())
@@ -220,7 +242,7 @@ gulp.task('production.buildScripts',['production.buildVendorScripts'], function(
 gulp.task('production.buildStyles', ['production.buildVendorStyles'], function() {
 
 	//STYLES BUILD
-	//ends in dist folder
+	//ends in dist/app folder
 	return gulp.src(sassPaths)
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('./dist/main.css'))
@@ -256,8 +278,8 @@ gulp.task('production.injectAll',[
 gulp.task('production.build', function(){
 	
 	//runs tasks in sequence
-	runSequence([
-					'production.removeWiredep',
+	return runSequence([
+					'production.cloneCleanIndex',
 					'production.buildTemplateCache',
 					'production.injectAll'
 				],   productionBuildCompleteCB)
@@ -273,26 +295,6 @@ function productionBuildCompleteCB() {
 
 
 
-
-
-
-
-
-
-// gulp.task('restoreTest', function(){
-
-// 	// var filterJS = filter('**/*.js', { restore: true });
-
-// 	gulp.src('./restoreTest/*.js')
-//     // .pipe(filterJS)
-//     .pipe(concat('vendor.js'))
-//     .pipe(uglify()).on('error', function(error){
-//     	console.log("error");
-//     	console.log(error);
-//     })
-//     // .pipe(filterJS.restore)
-//     .pipe(gulp.dest('./restoreDest'));
-// })
 
 
 

@@ -35,6 +35,12 @@
         }
       })
 
+      .state('test', {
+        url: '/test',
+        template: '<h1>HI!</h1>',
+
+      })
+
 
 
     $urlRouterProvider.otherwise('/');
