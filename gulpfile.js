@@ -9,8 +9,6 @@
 //path
 var path = require('path');
 
-//wiredep
-var wiredep = require('wiredep')({src: 'src/index.html',  ignorePath: '/bower_components'});
 
 
 //gulp
@@ -23,6 +21,9 @@ var sass = require('gulp-sass');
 var nodemon = require('gulp-nodemon');
 
 var angularTemplateCache = require('gulp-angular-templatecache');
+var mainBowerFiles = require('gulp-main-bower-files');
+var filter = require('gulp-filter');
+var saveLicense = require('uglify-save-license');
 
 
 
@@ -112,6 +113,9 @@ gulp.task('watchStyles', function() {
 
 gulp.task('serve',['buildScripts','buildStyles','injectScripts','injectStyles','watchScripts','watchStyles'], function() {
 // starts server, runs tasks
+	
+	//wiredep injects bower components
+	var wiredep = require('wiredep')({src: 'src/index.html',  ignorePath: '/bower_components'});
 
 	nodemon({
 		script: 'index.js'
@@ -130,34 +134,58 @@ gulp.task('serve',['buildScripts','buildStyles','injectScripts','injectStyles','
 gulp.task('build',function(){
 
 
+
 	//declare paths
 	var jsPaths = ['src/app/**/*.module.js', '.temp/templates.js', 'src/app/**/*.js'];
 	var sassPaths  = ['src/app/**/*.scss'];
 	var htmlTemplatePaths  = ['src/app/**/*.html'];
 
+	//INDEX CLONE
 	//first copy index file to dist folder
 	gulp.src('./src/index.html')
 	.pipe(gulp.dest('./dist'));
 
-
+	//TEMPLATE CACHE
 	//build template cache and convert to angular script
 	//put in temp folder to later reference in js build
 	gulp.src(htmlTemplatePaths)
 	.pipe(angularTemplateCache({standAlone: false}))
 	.pipe(gulp.dest('./.temp'));
 
+/*------------BUILDERS------------*/
 
-	//js build
+	//VENDOR SCRIPTS BUILD
+	//builds bower componenets js files
+	//ends in dist folder
+	var filterJS = filter('**/*.js', { restore: true });
+	gulp.src('./bower.json')
+    .pipe(mainBowerFiles('**/*.js'))
+    .pipe(filterJS)
+    .pipe(concat('vendorScripts.js'))
+    .pipe(uglify({output: {comments: saveLicense}}))
+    .pipe(filterJS.restore)
+    .pipe(gulp.dest('./dist'));
+
+
+    //VENDOR STYLES BUILD
+	//builds bower componenets css files
+	//ends in dist folder
+	gulp.src(['./bower_components/**/*.min.css'])
+    .pipe(concat('./dist/vendorStyles.min.css'))
+    .pipe(gulp.dest('./'))
+
+
+
+
+	//JS BUILD
 	//ends in dist folder
 	gulp.src(jsPaths)
-
 	.pipe(concat('./dist/main.js'))
 	.pipe(uglify())
-
 	.pipe(gulp.dest('./'));
 
 
-	//styles build
+	//STYLES BUILD
 	//ends in dist folder
 	gulp.src(sassPaths)
     .pipe(sass().on('error', sass.logError))
@@ -166,28 +194,19 @@ gulp.task('build',function(){
 
 
 
+/*------------INJECTORS------------*/
 
-    //inject scripts
+
+
+    //INJECT SCRIPTS
     gulp.src('./dist/index.html')
- 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css']),{relative: true}))	
+ 	.pipe(inject(gulp.src(['./dist/vendorScripts.js', './dist/main.js','./dist/main.css']),{relative: true}))	
  	.pipe(gulp.dest('./dist'));
 
-
-
-
- 	//inject css
+ 	//INJECT STYLES
  	gulp.src('./dist/index.html')
- 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css']),{relative: true}))	
+ 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css','./dist/vendorStyles.min.css']),{relative: true}))	
  	.pipe(gulp.dest('./dist'));
-
-
-
-
-
-
-
-
-
 
 
 });
@@ -196,6 +215,23 @@ gulp.task('build',function(){
 
 
 
+
+
+
+// gulp.task('restoreTest', function(){
+
+// 	// var filterJS = filter('**/*.js', { restore: true });
+
+// 	gulp.src('./restoreTest/*.js')
+//     // .pipe(filterJS)
+//     .pipe(concat('vendor.js'))
+//     .pipe(uglify()).on('error', function(error){
+//     	console.log("error");
+//     	console.log(error);
+//     })
+//     // .pipe(filterJS.restore)
+//     .pipe(gulp.dest('./restoreDest'));
+// })
 
 
 
