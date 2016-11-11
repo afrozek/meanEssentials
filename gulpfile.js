@@ -24,7 +24,8 @@ var angularTemplateCache = require('gulp-angular-templatecache');
 var mainBowerFiles = require('gulp-main-bower-files');
 var filter = require('gulp-filter');
 var saveLicense = require('uglify-save-license');
-
+var runSequence = require('run-sequence');
+var deleteLines = require('gulp-delete-lines');
 
 
 
@@ -130,86 +131,146 @@ gulp.task('serve',['buildScripts','buildStyles','injectScripts','injectStyles','
 /*=========================================================
 					PRODUCTION TASKS
 =========================================================*/
+//declare paths
+var jsPaths = ['src/app/**/*.module.js', '.temp/templates.js', 'src/app/**/*.js'];
+var sassPaths  = ['src/app/**/*.scss'];
+var htmlTemplatePaths  = ['src/app/**/*.html'];
 
-gulp.task('build',function(){
 
 
 
-	//declare paths
-	var jsPaths = ['src/app/**/*.module.js', '.temp/templates.js', 'src/app/**/*.js'];
-	var sassPaths  = ['src/app/**/*.scss'];
-	var htmlTemplatePaths  = ['src/app/**/*.html'];
+
+gulp.task('production.cloneIndex', function() {
 
 	//INDEX CLONE
 	//first copy index file to dist folder
 	gulp.src('./src/index.html')
 	.pipe(gulp.dest('./dist'));
+})
 
+
+gulp.task('production.removeWiredep',['production.cloneIndex'], function() {
+  gulp.src('./dist/index.html')
+   .pipe(deleteLines({
+      'filters': [
+			      /<script\s+type=["']text\/javascript["']\s+src=/i,
+			      /<link\s+rel=["']/i
+      			 ]
+    }))
+  .pipe(gulp.dest('dist'));
+});
+
+
+
+
+/*------------BUILDERS------------*/
+
+gulp.task('production.buildTemplateCache', function() {
 	//TEMPLATE CACHE
 	//build template cache and convert to angular script
 	//put in temp folder to later reference in js build
 	gulp.src(htmlTemplatePaths)
 	.pipe(angularTemplateCache({standAlone: false}))
 	.pipe(gulp.dest('./.temp'));
+})
 
-/*------------BUILDERS------------*/
 
+
+gulp.task('production.buildVendorScripts', function() {
 	//VENDOR SCRIPTS BUILD
 	//builds bower componenets js files
 	//ends in dist folder
 	var filterJS = filter('**/*.js', { restore: true });
-	gulp.src('./bower.json')
+	return gulp.src('./bower.json')
     .pipe(mainBowerFiles('**/*.js'))
     .pipe(filterJS)
     .pipe(concat('vendorScripts.js'))
     .pipe(uglify({output: {comments: saveLicense}}))
     .pipe(filterJS.restore)
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'));	
+})
 
+
+
+gulp.task('production.buildVendorStyles', function() {
 
     //VENDOR STYLES BUILD
 	//builds bower componenets css files
 	//ends in dist folder
-	gulp.src(['./bower_components/**/*.min.css'])
+	return gulp.src(['./bower_components/**/*.min.css'])
     .pipe(concat('./dist/vendorStyles.min.css'))
     .pipe(gulp.dest('./'))
 
+})
 
 
+
+gulp.task('production.buildScripts',['production.buildVendorScripts'], function() {
 
 	//JS BUILD
 	//ends in dist folder
-	gulp.src(jsPaths)
+	return gulp.src(jsPaths)
 	.pipe(concat('./dist/main.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('./'));
+})
 
+
+
+gulp.task('production.buildStyles', ['production.buildVendorStyles'], function() {
 
 	//STYLES BUILD
 	//ends in dist folder
-	gulp.src(sassPaths)
+	return gulp.src(sassPaths)
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('./dist/main.css'))
     .pipe(gulp.dest('./'));
+
+})
 
 
 
 /*------------INJECTORS------------*/
 
 
+gulp.task('production.injectAll',[	
+	'production.buildScripts',
+	'production.buildStyles',
+	], 
 
-    //INJECT SCRIPTS
-    gulp.src('./dist/index.html')
- 	.pipe(inject(gulp.src(['./dist/vendorScripts.js', './dist/main.js','./dist/main.css']),{relative: true}))	
- 	.pipe(gulp.dest('./dist'));
+	function() {
+	    //INJECT ALL
+	    return gulp.src('./dist/index.html')
+	 	.pipe(inject(gulp.src(['./dist/vendorScripts.js','./dist/main.js','./dist/**.css']),{relative: true}))	
+	 	.pipe(gulp.dest('./dist'));
 
- 	//INJECT STYLES
- 	gulp.src('./dist/index.html')
- 	.pipe(inject(gulp.src(['./dist/main.js','./dist/main.css','./dist/vendorStyles.min.css']),{relative: true}))	
- 	.pipe(gulp.dest('./dist'));
+})
 
 
-});
+
+
+/*------------DOERS------------*/
+
+
+
+gulp.task('production.build', function(){
+	
+	//runs tasks in sequence
+	runSequence([
+					'production.removeWiredep',
+					'production.buildTemplateCache',
+					'production.injectAll'
+				],   productionBuildCompleteCB)
+
+})//end production.build
+
+
+
+function productionBuildCompleteCB() {
+	console.log("Completed production build.")
+}
+
+
 
 
 
