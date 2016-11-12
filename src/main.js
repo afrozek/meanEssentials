@@ -106,6 +106,23 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 })();
 
 
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
 (function() {
 	'use strict'
 
@@ -146,23 +163,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
 
 
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
 
 (function(){
 	'use strict'
