@@ -1,0 +1,90 @@
+@import 'helpers';
+@import 'variables';
+@import 'fonts';
+@import 'colors';
+
+
+
+
+
+
+
+
+//specific to stargaze helpers
+
+.hasMainNav{
+	padding-top: 55px;
+}
+
+
+
+//bg colors
+
+.blueSkyBg{
+	background: $azul;
+}
+
+.whiteBg{
+	background: white;
+}
+
+
+
+.navbar{
+	margin-bottom: 0px;
+}
+
+
+
+
+.floatingFormContainer{
+	position: relative;
+	padding: 40px;
+	border-radius: $mediumRadius;
+
+}
+
+
+
+
+
+#horizontalLogoContainer{
+	max-width: 220px;
+	margin: 90px auto;
+}
+
+
+#horizontalLogoImage{
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

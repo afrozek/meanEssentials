@@ -3,7 +3,13 @@
 
   angular
     .module('app', [
+    	'api',
     	'ui.router',
-    	'landing'
+    	'landing',
+    	'auth',
+    	'token',
+    	'login',
+    	'dashboard'
+
     ]);
 })();

@@ -1,3 +1,269 @@
+/*------------COLORS------------*/
+
+@font-face {
+  font-family: 'Muli-ExtraLight';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-ExtraLight.ttf"); }
+
+@font-face {
+  font-family: 'Muli-ExtraLightItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-ExtraLightItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Bold';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Bold.ttf"); }
+
+@font-face {
+  font-family: 'Muli-BoldItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-BoldItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Light';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Light.ttf"); }
+
+@font-face {
+  font-family: 'Muli-LightItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-LightItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-SemiBold';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-SemiBold.ttf"); }
+
+@font-face {
+  font-family: 'Muli-SemiBoldItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-SemiBoldItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Normal';
+  font-style: normal;
+  src: url("../assets/fonts/Muli.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Italic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Italic.ttf"); }
+
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Book.otf"); }
+
+@font-face {
+  font-family: 'Avenir-Light';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Light.otf"); }
+
+/*=========================================================
+						              HELPERS
+=========================================================*/
+.clearFix:before, .clearFix:after {
+  content: "";
+  display: table; }
+
+.clearFix:after {
+  clear: both; }
+
+.fullHeight {
+  height: 100%; }
+
+.fullWidth {
+  width: 100%; }
+
+.centerElement {
+  margin-left: auto;
+  margin-right: auto; }
+
+.centerText {
+  text-align: center; }
+
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
+.cm {
+  margin: 0; }
+
+.clm {
+  margin-left: 0; }
+
+.crm {
+  margin-right: 0; }
+
+.ctm {
+  margin-top: 0; }
+
+.cbm {
+  margin-bottom: 0; }
+
+.cp {
+  padding: 0; }
+
+.clp {
+  padding-left: 0; }
+
+.crp {
+  padding-right: 0; }
+
+.ctp {
+  padding-top: 0; }
+
+.cbp {
+  padding-bottom: 0; }
+
+/*=========================================================
+						              HELPERS
+=========================================================*/
+.clearFix:before, .clearFix:after {
+  content: "";
+  display: table; }
+
+.clearFix:after {
+  clear: both; }
+
+.fullHeight {
+  height: 100%; }
+
+.fullWidth {
+  width: 100%; }
+
+.centerElement {
+  margin-left: auto;
+  margin-right: auto; }
+
+.centerText {
+  text-align: center; }
+
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
+.cm {
+  margin: 0; }
+
+.clm {
+  margin-left: 0; }
+
+.crm {
+  margin-right: 0; }
+
+.ctm {
+  margin-top: 0; }
+
+.cbm {
+  margin-bottom: 0; }
+
+.cp {
+  padding: 0; }
+
+.clp {
+  padding-left: 0; }
+
+.crp {
+  padding-right: 0; }
+
+.ctp {
+  padding-top: 0; }
+
+.cbp {
+  padding-bottom: 0; }
+
+@font-face {
+  font-family: 'Muli-ExtraLight';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-ExtraLight.ttf"); }
+
+@font-face {
+  font-family: 'Muli-ExtraLightItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-ExtraLightItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Bold';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Bold.ttf"); }
+
+@font-face {
+  font-family: 'Muli-BoldItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-BoldItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Light';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Light.ttf"); }
+
+@font-face {
+  font-family: 'Muli-LightItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-LightItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-SemiBold';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-SemiBold.ttf"); }
+
+@font-face {
+  font-family: 'Muli-SemiBoldItalic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-SemiBoldItalic.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Normal';
+  font-style: normal;
+  src: url("../assets/fonts/Muli.ttf"); }
+
+@font-face {
+  font-family: 'Muli-Italic';
+  font-style: normal;
+  src: url("../assets/fonts/Muli-Italic.ttf"); }
+
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Book.otf"); }
+
+@font-face {
+  font-family: 'Avenir-Light';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Light.otf"); }
+
+/*------------COLORS------------*/
+.hasMainNav {
+  padding-top: 55px; }
+
+.blueSkyBg {
+  background: #1340df; }
+
+.whiteBg {
+  background: white; }
+
+.navbar {
+  margin-bottom: 0px; }
+
+.floatingFormContainer {
+  position: relative;
+  padding: 40px;
+  border-radius: 6px; }
+
+#horizontalLogoContainer {
+  max-width: 220px;
+  margin: 90px auto; }
+
+#horizontalLogoImage {
+  width: 100%; }
+
+
 #landing {
   background: red; }
 

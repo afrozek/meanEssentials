@@ -1,0 +1,101 @@
+/*=========================================================
+						              HELPERS
+=========================================================*/
+
+//common helpers
+
+.clearFix{
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+
+}
+
+
+.fullHeight{
+	height: 100%;
+}
+
+.fullWidth{
+  width: 100%;
+}
+
+.centerElement{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centerText{
+  text-align: center;
+}
+
+.fl{
+  float: left;
+}
+
+.fr{
+  float: right;
+}
+
+//clear margins
+.cm{
+  margin: 0;
+}
+
+.clm{
+  margin-left: 0;
+}
+
+.crm{
+  margin-right: 0;
+}
+
+.ctm{
+  margin-top: 0;
+}
+
+.cbm{
+  margin-bottom: 0;
+}
+
+//clear paddings
+.cp{
+  padding: 0;
+}
+
+.clp{
+  padding-left: 0;
+}
+
+.crp{
+  padding-right: 0;
+}
+
+.ctp{
+  padding-top: 0;
+}
+
+.cbp{
+  padding-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

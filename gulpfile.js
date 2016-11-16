@@ -35,7 +35,7 @@ var deleteLines = require('gulp-delete-lines');
 
 //paths
 var jsPaths = ['src/app/**/*.module.js','src/app/**/*.js'];
-var sassPaths  = ['src/app/**/*.scss'];
+var sassPaths  = ['src/**/*.scss'];
 var htmlTemplatePaths  = ['src/app/**/*.html'];
 
 
@@ -133,7 +133,7 @@ gulp.task('serve',['buildScripts','buildStyles','injectScripts','injectStyles','
 =========================================================*/
 //declare paths
 var jsPaths = ['src/app/**/*.module.js', '.temp/templates.js', 'src/app/**/*.js'];
-var sassPaths  = ['src/app/**/*.scss'];
+var sassPaths  = ['src/**/*.scss'];
 var htmlTemplatePaths  = ['src/app/**/*.html'];
 
 

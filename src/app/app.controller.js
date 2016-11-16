@@ -5,14 +5,14 @@
     .module('app')
     .controller('appController', appController);
 
-  appController.$inject = [];
+  appController.$inject = ['apiService','$log'];
 
   /** @ngInject */
-  function appController() {
+  function appController(apiService, $log) {
     var vm = this;
     vm.controllerName = "appController";
 
-
+    $log.debug(apiService);
   
 
   }//end appController

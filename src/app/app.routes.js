@@ -15,7 +15,7 @@
     $stateProvider
   
 
-      .state('app', {
+      .state('app', { 
         abstract: true,
         templateUrl: 'app/app.view.html',
         controller: 'appController',
@@ -26,13 +26,33 @@
       })
 
       .state('app.landing', {
-        url: '/',
-        templateUrl: 'app/appComponents/landing/views/landing.view.html',
+        abstract: true,
+        templateUrl: 'app/appModules/landing/landing.view.html',
         controller: 'landingController',
         controllerAs: 'landingCtrl',
         data: {
           requireLogin: false
         }
+      })
+
+      .state('app.landing.home', {
+        url: '/',
+        template: '<h1> Home </h1>',
+        
+      })
+
+      .state('app.auth', {
+        abstract: true,
+        templateUrl: 'app/appModules/auth/auth.view.html',
+        
+      })
+
+      .state('app.auth.login', {
+        url: '/login',
+        templateUrl: 'app/appModules/login/login.view.html',
+        controller: 'loginController',
+        controllerAs: 'loginCtrl'
+        
       })
 
       .state('test', {
