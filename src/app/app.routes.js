@@ -50,8 +50,6 @@
       .state('app.auth.login', {
         url: '/login',
         templateUrl: 'app/appModules/login/login.view.html',
-        controller: 'loginController',
-        controllerAs: 'loginCtrl'
         
       })
 

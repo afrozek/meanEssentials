@@ -29,17 +29,8 @@ angular
 
 angular
 	.module('auth', [
-	  'token'
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('landing', [
-	  
+	  'token',
+	  'api'
 	]);
 
 })();
@@ -58,13 +49,11 @@ angular
 	'use strict'
 
 angular
-	.module('login', [
-	  'token',
-	  'auth'
+	.module('landing', [
+	  
 	]);
 
 })();
-
 
 (function(){
 	'use strict'
@@ -75,6 +64,18 @@ angular
 	]);
 
 })();
+
+(function(){
+	'use strict'
+
+angular
+	.module('login', [
+	  'token',
+	  'auth'
+	]);
+
+})();
+
 
 angular.module('app').run(['$templateCache', function($templateCache) {$templateCache.put('app/app.view.html','<h1>appView</h1>\n<h2>controllerTest: {{appCtrl.controllerName}}</h2>\n<div ui-view></div>');
 $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id="landing" class="container" >\n\t<div class="page-header centerText">\n\t  <h1>landing</h1>\n\t</div>\n</div>\n');}]);
@@ -160,8 +161,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
       .state('app.auth.login', {
         url: '/login',
         templateUrl: 'app/appModules/login/login.view.html',
-        controller: 'loginController',
-        controllerAs: 'loginCtrl'
         
       })
 
@@ -302,261 +301,28 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
     	.module('auth')
     	.factory('authService', authService);
 
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope']
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
 
-    function authService( tokenService, $state, $http , $q, $rootScope) {
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
 
-     //    var path = "http://localhost:3100/api/users";
+        var service = {
+            login: login
+        }
 
+        var ripple = apiService.rippleBaseUrl;
+        console.log(ripple);
 
-    	// var service = {
-     //        isAuthenticated: isAuthenticated,
-    	// 	isAuthorized: isAuthorized,
-    	// 	redirectDefault: redirectDefault,
-    	// 	getProfile: getProfile
-    	// };
+        
 
-    	// return service;
+        function login(formData) {
+            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
+                        return res;
+                    })//end then
+        }//end login function
 
-    	// ////////////
+        return service;
 
-     //    //basically are they logged in
-     //    function isAuthenticated () {
-
-     //        var token = tokenService.getToken();
-
-     //        if(token){
-     //            $http.post(path + '/authorize')
-     //                .then(function (res) {
-     //                    if( res.data.success == true) {
-     //                        console.log("authenticated")
-     //                        $rootScope.$emit("loggedIn");
-     //                        return true;
-     //                    } 
-     //                    else {
-     //                        console.log("Authentication Failed")
-     //                        return false;
-     //                    }
-     //                })
-     //        }
-     //        else{
-     //            console.log("authentication failed, no token present")
-     //        } 
-           
-     //    } //end isAuthenticated
-
-
-
-
-     //    function isAuthorized (event, fromState, toState) {
-     //            //return $q.reject();
-     //            console.log("running is authorized")
-
-     //            var token = tokenService.getToken();
-     //            var userLevel = null;
-     //            var proceed = false;
-
-     //            if(token){
-     //              //  return $q.reject;
-     //               return $http.post(path + '/authorize')
-     //                    .then(function (res) {
-     //                        console.log('authorizing..')
-     //                        if( res.data.success == true && res.data.profile.userLevel){
-                                
-     //                            console.log(res.data.profile.userLevel)
-     //                            userLevel = res.data.profile.userLevel;
-
-     //                                    //loop through permission list
-     //                                     for(var i=0; i < toState.data.permissionLevel.length; i++){
-     //                                       //if current userlevel matches permission level
-     //                                       //then set proceed to true and break the for loop 
-     //                                       console.log("current loop i : " + toState.data.permissionLevel[i])
-                                           
-     //                                       if(userLevel == toState.data.permissionLevel[i]){
-     //                                            console.log("permission match")
-     //                                            console.log("setting proceed true")
-     //                                            proceed = true;
-     //                                            break;
-     //                                            //return toastr.success("proceed")
-     //                                        }
-     //                                       else {
-     //                                            console.log("keep looking")
-     //                                            console.log("setting proceed false")
-     //                                            proceed = false;
-     //                                        }  
-     //                                    }//end for loop  
-     //                        } // end if profile returned
-     //                        // else no profile
-     //                        else{
-     //                            toastr.error("bad request")
-     //                            proceed = false;
-     //                        }
-
-     //                        console.log("last check")
-     //                        if(proceed == false) {
-     //                            console.log("ITS FALSE")
-     //                            return $q.reject();
-     //                            $state.go('app.docs')
-     //                        }
-     //                    },
-     //                    function(err){
-     //                        console.log(err)
-     //                    }) //end then
-     //            }//end if token
-
-     //            //else no token 
-     //            else{
-     //                toastr.error("no token present")
-     //                return $q.reject();
-     //            }
-                 
-            
-
-     //    }//end isAuthorized
-
-
-
-
-
-     //    //redirects to default page based on the profile user role
-	    // function redirectDefault() {
-	    //   $http.post('/api/users/authorize').then(function(res) {
-
-     //        console.log("getting profile info")
-     //        console.log(res)
-     //        //if profile was returned
-     //        var userLevel = res.data.profile.userLevel;
-
-     //        if(userLevel){
-
-     //            switch(userLevel){
-
-     //                case 'superuser': 
-     //                $state.go('app.user.documents.documentStatuses');
-     //                break;
-
-     //                case 'admin': 
-     //                $state.go('app.user.documents.documentStatuses');
-     //                break;
-
-     //                case 'author': 
-     //                $state.go('app.user.documents.documentStatuses');
-     //                break;
-
-     //            }//end switched
-     //        }
-     //      })
-	    // }
-
-     //    //return profile
-	    // function getProfile() {
-	    //   return  $http.post(path + '/authorize');
-	    // }
-
-        return {};
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
+    }//end authService 
 
 	
 // end IIFE
@@ -668,31 +434,181 @@ function dashboardDir() {
 	'use strict'
 
 	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('token')
+    	.factory('tokenService', tokenService);
+
+    tokenService.$inject = ['$window']
+
+    function tokenService($window) {
+    	
+        var service = {
+
+    		setToken: setToken,
+            getToken: getToken,
+            removeToken: removeToken
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function setToken (token) {
+            $window.sessionStorage.setItem('userToken', token);
+        }
+
+        function getToken () {
+            var token = $window.sessionStorage.getItem('userToken');
+            return token;
+        }
+
+        function removeToken () {
+            $window.sessionStorage.removeItem('userToken');
+        }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
 		.module('login')
 		.controller('loginController', loginController)
 
 	loginController.$inject = ['loginService', '$state','tokenService', 'authService'];
 
 	function loginController( loginService, $state, tokenService, authService) {
-
+		console.log("login ctrl")
 	    var vm = this;
 
 	    vm.login = login;
-	    vm.loginForm = {}
-	    vm.loginForm.username = "";
-	    vm.loginForm.password = "";
+	    vm.loginForm = {};
+	    vm.loginSuccess = null;
+
 
 
 	    ////////////
 
 	    function login() {
 
-	    	//make copy of data
-	    	// var formData = angular.copy(vm.)
+	    	// make copy of data
+	    	var formData = angular.copy(vm.loginForm)
 
-	    	// authService.login(vm.loginForm).then(){
-
-	    	// };
+	    	authService.login(formData).then(function(res) {
+	    		console.log(res);
+	    		vm.loginSuccess = true;
+	    	});
 	    }
 
 	    function clearForm() {
@@ -783,61 +699,43 @@ angular
 
 function loginFormDirective() {
 	return{
-		restrict: 'AE',
+		restrict: 'E',
 		templateUrl: 'app/appModules/login/loginForm.view.html',
-		replace: true
-		// scope: {}
+		replace: true,
+		controller: 'loginController',
+		controllerAs: 'loginCtrl',
+		link: link
 	}
-}
+
+	function link(scope, elem, attrs) {
+		var vm = scope.loginCtrl;
+		console.log(vm.loginSuccess);
+		console.log(scope)
+
+		// if(vm.loginSuccess == true) {
+		// 	alert("success");
+		// }
+
+		// scope.$watch('scope.loginCtrl.loginSuccess', function(newValue, oldValue) {
+  //           if (newValue)
+  //                   console.log("I see a data change!");
+  //           }, true);
+
+		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
+            if (newValue){
+                    console.log("I see a data change!");
+                console.log(elem)
+                elem.css("display", "none");
+            }
+            }, true);
+
+
+		
+	}//end link function
+
+
+}//end loginFormDirective function
 
 //end IIFE
 })();
-(function(){
-	'use strict'
-
-	angular
-    	.module('token')
-    	.factory('tokenService', tokenService);
-
-    tokenService.$inject = ['$window']
-
-    function tokenService($window) {
-    	
-        var service = {
-
-    		setToken: setToken,
-            getToken: getToken,
-            removeToken: removeToken
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function setToken (token) {
-            $window.sessionStorage.setItem('userToken', token);
-        }
-
-        function getToken () {
-            var token = $window.sessionStorage.getItem('userToken');
-            return token;
-        }
-
-        function removeToken () {
-            $window.sessionStorage.removeItem('userToken');
-        }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
 //# sourceMappingURL=main.js.map
