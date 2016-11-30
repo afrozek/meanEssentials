@@ -15,6 +15,10 @@ $muliSemiBoldItalic: 'Muli-SemiBoldItalic';
 $muliBold: 'Muli-Bold';
 $muliBoldItalic: 'Muli-BoldItalic';
 
+$avenir: 'Avenir';
+$avenirLight: 'Avenir-Light';
+$avenirRoman: 'Avenir-Roman';
+
 
 
 
@@ -88,4 +92,10 @@ $muliBoldItalic: 'Muli-BoldItalic';
   font-family: 'Avenir-Light';
   font-style: normal;
   src: url('../assets/fonts/AvenirLTStd-Light.otf');
+}
+
+@font-face {
+  font-family: 'Avenir-Roman';
+  font-style: normal;
+  src: url('../assets/fonts/AvenirLTStd-Roman.otf');
 }

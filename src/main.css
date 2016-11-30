@@ -72,6 +72,11 @@
   font-style: normal;
   src: url("../assets/fonts/AvenirLTStd-Light.otf"); }
 
+@font-face {
+  font-family: 'Avenir-Roman';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Roman.otf"); }
+
 /*=========================================================
 						              HELPERS
 =========================================================*/
@@ -272,6 +277,11 @@
   font-style: normal;
   src: url("../assets/fonts/AvenirLTStd-Light.otf"); }
 
+@font-face {
+  font-family: 'Avenir-Roman';
+  font-style: normal;
+  src: url("../assets/fonts/AvenirLTStd-Roman.otf"); }
+
 /*------------COLORS------------*/
 .fadeTransition {
   /* start 'enter' transition */
@@ -284,6 +294,10 @@
   .fadeTransition.ng-enter-active {
     /* end with opacity 1 (fade in) */
     opacity: 1; }
+
+body {
+  font-family: "Avenir", "Muli-Normal", helvetica, arial, "sans-serif";
+  font-size: 16px; }
 
 .hasMainNav {
   padding-top: 55px; }
@@ -300,7 +314,10 @@
 .floatingFormContainer {
   position: relative;
   padding: 40px;
-  border-radius: 6px; }
+  border-radius: 6px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto; }
 
 #horizontalLogoContainer {
   max-width: 220px;
@@ -308,6 +325,43 @@
 
 #horizontalLogoImage {
   width: 100%; }
+
+/*------------FORMS------------*/
+.formSmall {
+  max-width: 347px; }
+
+.formTitle {
+  font-family: "Avenir-Roman";
+  font-weight: 900;
+  margin: 30px auto;
+  color: #202f42; }
+
+.formLabel {
+  font-size: 1em;
+  font-family: "Muli-Normal";
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: #52647b;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px; }
+
+.form-control {
+  margin-bottom: 30px;
+  border-radius: 2px;
+  border-color: #d7e1ea;
+  height: 47px; }
+  .form-control:focus {
+    border-color: #d7e1ea;
+    box-shadow: 0 0 5px 0 #d7e1ea; }
+
+.btn {
+  line-height: 25px;
+  margin: 30px 0px;
+  border-radius: 3px; }
+
+.btn-success {
+  background: #36ca75;
+  border-color: #36ca75; }
 
 
 #landing {

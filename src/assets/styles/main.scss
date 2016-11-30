@@ -4,7 +4,14 @@
 @import 'colors';
 @import 'animations';
 
+html{
 
+}
+
+body{
+	font-family: $avenir, $muli, helvetica, arial, 'sans-serif';
+	font-size: 16px;
+}
 
 
 //specific to stargaze helpers
@@ -38,7 +45,9 @@
 	position: relative;
 	padding: 40px;
 	border-radius: $mediumRadius;
-
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
@@ -52,6 +61,62 @@
 #horizontalLogoImage{
 	width: 100%;
 }
+
+
+
+
+/*------------FORMS------------*/
+//hyphens indicate bootstrap overrides
+
+.form{
+
+}
+
+.formSmall{
+	max-width: 347px;
+}
+
+.formTitle{
+	font-family: $avenirRoman;
+	font-weight: 900;
+	margin: 30px auto;
+	color: $darkThree;
+}
+
+.formLabel{
+	font-size: 1em;
+	font-family: $muli;
+	font-weight: 600;
+	letter-spacing: .3px;
+	color: $slate;
+	margin-bottom: 10px;
+	letter-spacing: 0.3px;
+}
+
+.form-control{
+	margin-bottom: 30px;
+	border-radius: 2px;
+	border-color: $lightBlueGrey;
+	height: 47px;
+
+	&:focus{
+		border-color: $lightBlueGrey;
+		box-shadow: 0 0 5px 0 $lightBlueGrey;
+	}
+}
+
+.btn{
+	line-height: 25px;
+	margin: 30px 0px;
+	border-radius: 3px;
+}
+
+.btn-success{
+	background: $greenishTeal;
+	border-color: $greenishTeal;
+}
+
+
 
 
 
