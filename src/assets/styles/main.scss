@@ -2,10 +2,7 @@
 @import 'variables';
 @import 'fonts';
 @import 'colors';
-
-
-
-
+@import 'animations';
 
 
 
@@ -46,8 +43,6 @@
 
 
 
-
-
 #horizontalLogoContainer{
 	max-width: 220px;
 	margin: 90px auto;
@@ -57,6 +52,10 @@
 #horizontalLogoImage{
 	width: 100%;
 }
+
+
+
+
 
 
 

@@ -5,6 +5,7 @@
     .module('app', [
     	'api',
     	'ui.router',
+        'ngAnimate',
     	'landing',
     	'auth',
     	'token',
@@ -13,3 +14,5 @@
 
     ]);
 })();
+
+

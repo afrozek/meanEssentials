@@ -59,6 +59,24 @@
 
       })
 
+      .state('app.dashboard', {
+        abstract: true,
+        templateUrl: 'app/appModules/dashboard/dashboard.view.html',
+        controller: 'dashboardController',
+        controllerAs: 'dashboardCtrl',
+        data: {
+          requireLogin: false
+        }
+      })
+
+      .state('app.dashboard.home', {
+        url: '/dashboard',
+        template: '<h1> dashboard home </h1>',
+        
+      })
+
+
+
 
 
     $urlRouterProvider.otherwise('/');

@@ -5,6 +5,7 @@
     .module('app', [
     	'api',
     	'ui.router',
+        'ngAnimate',
     	'landing',
     	'auth',
     	'token',
@@ -14,11 +15,23 @@
     ]);
 })();
 
+
+
 (function(){
 	'use strict'
 
 angular
 	.module('api', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('dashboard', [
 	  
 	]);
 
@@ -39,11 +52,14 @@ angular
 	'use strict'
 
 angular
-	.module('dashboard', [
-	  
+	.module('login', [
+	  'token',
+	  'auth',
+	  'ngAnimate'
 	]);
 
 })();
+
 
 (function(){
 	'use strict'
@@ -64,18 +80,6 @@ angular
 	]);
 
 })();
-
-(function(){
-	'use strict'
-
-angular
-	.module('login', [
-	  'token',
-	  'auth'
-	]);
-
-})();
-
 
 angular.module('app').run(['$templateCache', function($templateCache) {$templateCache.put('app/app.view.html','<h1>appView</h1>\n<h2>controllerTest: {{appCtrl.controllerName}}</h2>\n<div ui-view></div>');
 $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id="landing" class="container" >\n\t<div class="page-header centerText">\n\t  <h1>landing</h1>\n\t</div>\n</div>\n');}]);
@@ -109,6 +113,24 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
   /////////////
 
 
+// (function(){
+// 'use strict';
+
+// angular
+// .module('app')
+// .directive('transitionDirective', ['$animate', function($animate) {
+  
+//   return function(scope, element, attrs) {
+    
+//     attrs.$observe('fadeIn', function(value) {
+//       value ? $animate.addClass(element, 'on') : $animate.removeClass(element, 'on');
+//     });
+    
+//   };
+  
+// }]);
+	
+// })();
 (function() {
   'use strict';
 
@@ -170,6 +192,24 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
       })
 
+      .state('app.dashboard', {
+        abstract: true,
+        templateUrl: 'app/appModules/dashboard/dashboard.view.html',
+        controller: 'dashboardController',
+        controllerAs: 'dashboardCtrl',
+        data: {
+          requireLogin: false
+        }
+      })
+
+      .state('app.dashboard.home', {
+        url: '/dashboard',
+        template: '<h1> dashboard home </h1>',
+        
+      })
+
+
+
 
 
     $urlRouterProvider.otherwise('/');
@@ -225,6 +265,107 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	    function info() {
 	      /* */
           console.log("apiService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('dashboard')
+		.controller('dashboardController', dashboardController)
+
+	dashboardController.$inject = []
+
+	function dashboardController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'dashboard';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('dashboard')
+    .directive('dashboardDir', dashboardDir);
+
+function dashboardDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('dashboard')
+    	.factory('dashboardService', dashboardService);
+
+    dashboardService.$inject = [];
+
+    function dashboardService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("dashboardService");
 	    }
 
 	    function success() {
@@ -333,34 +474,49 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
-		.module('dashboard')
-		.controller('dashboardCtrl', dashboardCtrl)
+		.module('login')
+		.controller('loginController', loginController)
 
-	dashboardCtrl.$inject = []
+	loginController.$inject = ['loginService', '$state','tokenService', 'authService'];
 
-	function dashboardCtrl() {
-
+	function loginController( loginService, $state, tokenService, authService) {
+		console.log("login ctrl")
 	    var vm = this;
 
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'dashboard';
+	    vm.login = login;
+	    vm.loginForm = {};
+	    vm.loginSuccess = null;
+	    vm.submitForm = false;
+
+
 
 	    ////////////
 
-	    function gotoSession() {
-	      /* */
+	    function login() {
+	    	vm.submitForm = true;
+	    	setTimeout(sendRequest, 1000)
+	    	
+
+	    	function sendRequest(){
+
+	    		// make copy of data
+	    		var formData = angular.copy(vm.loginForm)
+
+	    		//send request
+	    		authService.login(formData).then(function(res) {
+		    		console.log(res);
+		    		vm.loginSuccess = true;
+		    		//$state.go('app.dashboard.home');
+		    	});
+	    	}//end sendRequest function
+
+	    }//end login function
+
+	    function clearForm() {
+	    	vm.loginForm = {};
 	    }
 
-	    function refresh() {
-	      /* */
-	    }
 
-	    function search() {
-	      /* */
-	    }
 	}
 
 
@@ -368,40 +524,25 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 })();
 
 
-
-
-(function(){
-angular
-    .module('dashboard')
-    .directive('dashboardDir', dashboardDir);
-
-function dashboardDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
 
 (function(){
 	'use strict'
 
 	angular
-    	.module('dashboard')
-    	.factory('dashboardService', dashboardService);
+    	.module('login')
+    	.factory('loginService', loginService);
 
-    dashboardService.$inject = [];
+    loginService.$inject = ['$http','tokenService', '$state', 'authService','$rootScope' ];
 
-    function dashboardService() {
+    function loginService( $http , tokenService, $state, authService, $rootScope) {
+
+        var path = "http://localhost:3100/api/users";
+
     	var service = {
 
-    		error: error,
-    		info: info,
-    		success: success
+    		login: login,
+            logout: logout,
+            isLoggedIn : isLoggedIn
 
     	};
 
@@ -409,18 +550,41 @@ function dashboardDir() {
 
     	////////////
 
-    	function error() {
-	      /* */
-	    }
+    	function login( form ) {
+             $http.post(path + "/login", form).then(function(res) {
 
-	    function info() {
-	      /* */
-          console.log("dashboardService");
-	    }
+                console.log(res);
+                if(res.data.success == true){
+                    //clear the form
+                    form = {};
 
-	    function success() {
-	      /* */
-	    }
+                    //emit loggedin to appCtrl
+                    $rootScope.$emit("loggedIn");
+
+                    //set the token
+                    tokenService.setToken(res.data.token)
+
+                    //send user message
+                    toastr.success(res.data.message);
+                    
+                    //redirects based on the profile user level
+                    authService.redirectDefault();
+                }
+                else toastr.error(res.data.message);
+            })
+        }
+
+        function logout() {
+            tokenService.removeToken();
+            $rootScope.$emit("loggedOut");
+            $state.go('app.login')
+
+        }
+
+        function isLoggedIn() {
+              // emits loggedin, else does nothing 
+              authService.isAuthenticated();
+        }
 
 
     }
@@ -429,7 +593,51 @@ function dashboardDir() {
 // end IIFE
 })();
 
+(function(){
+angular
+    .module('login')
+    .directive('loginFormDirective', loginFormDirective);
 
+function loginFormDirective() {
+	return{
+		restrict: 'E',
+		templateUrl: 'app/appModules/login/loginForm.view.html',
+		replace: true,
+		controller: 'loginController',
+		controllerAs: 'loginCtrl',
+		link: link
+	}
+
+	function link(scope, elem, attrs) {
+		var vm = scope.loginCtrl;
+		console.log(vm.loginSuccess);
+		console.log(scope)
+
+		// if(vm.loginSuccess == true) {
+		// 	alert("success");
+		// }
+
+		// scope.$watch('scope.loginCtrl.loginSuccess', function(newValue, oldValue) {
+  //           if (newValue)
+  //                   console.log("I see a data change!");
+  //           }, true);
+
+		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
+            if (newValue){
+                console.log("I see a data change!");
+                elem.css("display", "none");
+            }
+            }, true);
+
+
+		
+	}//end link function
+
+
+}//end loginFormDirective function
+
+//end IIFE
+})();
 (function() {
 	'use strict'
 
@@ -579,163 +787,4 @@ function landingDir() {
 })();
 
 
-(function() {
-	'use strict'
-
-	angular
-		.module('login')
-		.controller('loginController', loginController)
-
-	loginController.$inject = ['loginService', '$state','tokenService', 'authService'];
-
-	function loginController( loginService, $state, tokenService, authService) {
-		console.log("login ctrl")
-	    var vm = this;
-
-	    vm.login = login;
-	    vm.loginForm = {};
-	    vm.loginSuccess = null;
-
-
-
-	    ////////////
-
-	    function login() {
-
-	    	// make copy of data
-	    	var formData = angular.copy(vm.loginForm)
-
-	    	authService.login(formData).then(function(res) {
-	    		console.log(res);
-	    		vm.loginSuccess = true;
-	    	});
-	    }
-
-	    function clearForm() {
-	    	vm.loginForm = {};
-	    }
-
-
-	}
-
-
-//end IIFE
-})();
-
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('login')
-    	.factory('loginService', loginService);
-
-    loginService.$inject = ['$http','tokenService', '$state', 'authService','$rootScope' ];
-
-    function loginService( $http , tokenService, $state, authService, $rootScope) {
-
-        var path = "http://localhost:3100/api/users";
-
-    	var service = {
-
-    		login: login,
-            logout: logout,
-            isLoggedIn : isLoggedIn
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function login( form ) {
-             $http.post(path + "/login", form).then(function(res) {
-
-                console.log(res);
-                if(res.data.success == true){
-                    //clear the form
-                    form = {};
-
-                    //emit loggedin to appCtrl
-                    $rootScope.$emit("loggedIn");
-
-                    //set the token
-                    tokenService.setToken(res.data.token)
-
-                    //send user message
-                    toastr.success(res.data.message);
-                    
-                    //redirects based on the profile user level
-                    authService.redirectDefault();
-                }
-                else toastr.error(res.data.message);
-            })
-        }
-
-        function logout() {
-            tokenService.removeToken();
-            $rootScope.$emit("loggedOut");
-            $state.go('app.login')
-
-        }
-
-        function isLoggedIn() {
-              // emits loggedin, else does nothing 
-              authService.isAuthenticated();
-        }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-(function(){
-angular
-    .module('login')
-    .directive('loginFormDirective', loginFormDirective);
-
-function loginFormDirective() {
-	return{
-		restrict: 'E',
-		templateUrl: 'app/appModules/login/loginForm.view.html',
-		replace: true,
-		controller: 'loginController',
-		controllerAs: 'loginCtrl',
-		link: link
-	}
-
-	function link(scope, elem, attrs) {
-		var vm = scope.loginCtrl;
-		console.log(vm.loginSuccess);
-		console.log(scope)
-
-		// if(vm.loginSuccess == true) {
-		// 	alert("success");
-		// }
-
-		// scope.$watch('scope.loginCtrl.loginSuccess', function(newValue, oldValue) {
-  //           if (newValue)
-  //                   console.log("I see a data change!");
-  //           }, true);
-
-		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
-            if (newValue){
-                    console.log("I see a data change!");
-                console.log(elem)
-                elem.css("display", "none");
-            }
-            }, true);
-
-
-		
-	}//end link function
-
-
-}//end loginFormDirective function
-
-//end IIFE
-})();
 //# sourceMappingURL=main.js.map
