@@ -14,13 +14,27 @@ body{
 }
 
 
-//specific to stargaze helpers
+/*------------HTML DEFAULTS------------*/
 
-.hasMainNav{
-	padding-top: 55px;
+hr{
+  border-color: $silver;	
+  box-shadow: 0 1px 2px 0 $paleGrey;
 }
 
+h6{ font-size: 0.75em;}
+h5{ font-size: 0.875em;}
+h4{ font-size: 1em;}
+h3{ font-size: 1.125em;}
+h2{ font-size: 1.5em;}
+h1{ font-size: 2em;}
 
+
+
+
+
+
+
+/*------------BG CLASSES------------*/
 
 //bg colors
 
@@ -33,18 +47,22 @@ body{
 }
 
 
+/*------------ NAVBAR ------------*/
 
 .navbar{
 	margin-bottom: 0px;
 }
 
 
+.hasMainNav{
+	padding-top: 55px;
+}
 
 
 .floatingFormContainer{
 	position: relative;
 	padding: 40px;
-	border-radius: $mediumRadius;
+	border-radius: 6px;
 	max-width: 600px;
 	margin-left: auto;
 	margin-right: auto;
@@ -69,54 +87,104 @@ body{
 //hyphens indicate bootstrap overrides
 
 .form{
-
+	color: $slate;
 }
 
 .formSmall{
 	max-width: 347px;
 }
 
-.formTitle{
-	font-family: $avenirRoman;
-	font-weight: 900;
-	margin: 30px auto;
+.formHeading{
+	font-family: $muliExtraLight;
+	font-weight: 200;
 	color: $darkThree;
+	margin-bottom: 30px;
+}
+
+.formSubHeading{
+	font-family: $muliExtraLight;
+	color: $slateTwo;
+	letter-spacing: .3px;
+	margin-bottom: 30px;
 }
 
 .formLabel{
-	font-size: 1em;
+	font-size: $em16px;
 	font-family: $muli;
-	font-weight: 600;
+	font-weight: 300;
 	letter-spacing: .3px;
-	color: $slate;
 	margin-bottom: 10px;
 	letter-spacing: 0.3px;
 }
 
 .form-control{
-	margin-bottom: 30px;
 	border-radius: 2px;
 	border-color: $lightBlueGrey;
 	height: 47px;
 
 	&:focus{
-		border-color: $lightBlueGrey;
+		border-color: $aquaGreen;
 		box-shadow: 0 0 5px 0 $lightBlueGrey;
 	}
 }
 
+.fieldErrors{
+	height: 30px;
+	margin: 5px 0px 0px 0px;
+	p{
+		color: $red;
+		font-size: $em12px;
+		margin: 0;
+	}
+}
+
+.fieldErrorBorder{
+	border-color: $red !important;
+}
+
 .btn{
-	line-height: 25px;
+	height: 39px;
 	margin: 30px 0px;
 	border-radius: 3px;
+	font-size: $em14px;
+	letter-spacing: .3px;
 }
+
+.btn-sm{
+	font-size: $em12px;
+}
+
+.btn-md{
+	font-size: $em14px;
+}
+
+.btn-lg{
+	font-size: $em16px;
+}
+
+
 
 .btn-success{
 	background: $greenishTeal;
 	border-color: $greenishTeal;
+
+	&:hover,&:focus{
+		background: $greenishTealDarker;
+		border-color: $greenishTealDarker;
+	}
 }
 
 
+
+
+
+.helpBox{
+	color: $slate;
+
+	.heading{
+		font-family: $avenirRoman;
+	}
+}
 
 
 
