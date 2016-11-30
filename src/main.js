@@ -21,9 +21,8 @@
 	'use strict'
 
 angular
-	.module('auth', [
-	  'token',
-	  'api'
+	.module('api', [
+	  
 	]);
 
 })();
@@ -32,8 +31,9 @@ angular
 	'use strict'
 
 angular
-	.module('api', [
-	  
+	.module('auth', [
+	  'token',
+	  'api'
 	]);
 
 })();
@@ -239,6 +239,50 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
+    	.module('api')
+    	.factory('apiService', apiService);
+
+    apiService.$inject = [];
+
+    function apiService() {
+    	var service = {
+
+    		rippleBaseUrl: 'http://192.168.14.12:8000/2e720b4',
+            tangentBaseUrl: 'http://192.168.14.99/c73e2b3',
+            customerSupportBaseUrl: 'http://192.168.1.11:8000'
+
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("apiService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
     	.module('auth')
     	.factory('interceptorService', interceptorService);
 
@@ -319,50 +363,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         return service;
 
     }//end authService 
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('api')
-    	.factory('apiService', apiService);
-
-    apiService.$inject = [];
-
-    function apiService() {
-    	var service = {
-
-    		rippleBaseUrl: 'http://192.168.14.12:8000/2e720b4',
-            tangentBaseUrl: 'http://192.168.14.99/c73e2b3',
-            customerSupportBaseUrl: 'http://192.168.1.11:8000'
-
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("apiService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
 
 	
 // end IIFE
@@ -587,25 +587,33 @@ function landingDir() {
 	    vm.loginForm = {};
 	    vm.loginSuccess = null;
 	    vm.submitForm = false;
-	    vm.validateUsernameField = validateUsernameField;
+	    // vm.validateUsernameField = validateUsernameField;
 	    // console.log(vm.loginForm.username.$pristine);
 	     // console.log($scope);
+	    var fieldNames = ['username','password'] 
 	     
-$scope.$watch('loginForm', function(loginForm) {
-    if(loginForm) { 
-        console.log("asdfasfsadfas")
-        console.log($scope.loginForm);
-    }
-    else {
-        
-    }        
-});
-
+		$scope.$watch('loginForm', function(loginForm) {
+		    if(loginForm) { 
+		        console.log($scope.loginForm);
+		    }
+		    else {
+		        
+		    }        
+		});
 
 
 	    ////////////
 
 	    function login() {
+	    	// return console.log($scope.loginForm)
+
+	    	// console.log($scope.loginForm.username.$isEmpty)
+	    	// var x = $scope.loginForm.username.$isEmpty($scope.loginForm.username.$modelValue);
+
+	    	return validateFormFields($scope.loginForm);
+
+
+	    	//
 	    	vm.submitForm = true;
 	    	setTimeout(sendRequest, 1000)
 	    	
@@ -625,9 +633,26 @@ $scope.$watch('loginForm', function(loginForm) {
 
 	    }//end login function
 
-	    function validateUsernameField(){
-	    	// if()
-	    }
+	    function validateFormFields(form){
+	    	// return console.log(form.$error)
+
+	    	//loop through all fields
+
+	    	 for(var i = 0; i < fieldNames.length; i++){
+	    		
+	    		var fieldName = fieldNames[i];
+	  			//sets scope form field to variable
+	    		var field = form[fieldName];
+	    		return console.log(field)
+
+	    		if(field.$isEmpty(field.$modelValue)){
+	    			return field.customError = "you gotta fill this out";
+	    		}
+
+
+
+	    	}//end for
+	   	} //end validateFormFields
 
 	    function clearForm() {
 	    	vm.loginForm = {};
@@ -728,23 +753,14 @@ function loginFormDirective() {
 	function link(scope, elem, attrs) {
 		var vm = scope.loginCtrl;
 		console.log(vm.loginSuccess);
-		// console.log(scope.loginForm);
 
-		// if(vm.loginSuccess == true) {
-		// 	alert("success");
-		// }
-
-		// scope.$watch('scope.loginCtrl.loginSuccess', function(newValue, oldValue) {
-  //           if (newValue)
-  //                   console.log("I see a data change!");
-  //           }, true);
 
 		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
             if (newValue){
                 console.log("I see a data change!");
                 elem.css("display", "none");
             }
-            }, true);
+        }, true);
 
 
 		

@@ -29,6 +29,7 @@
 
 .fullHeight{
 	height: 100%;
+  overflow: auto;
 }
 
 .fullWidth{
@@ -98,6 +99,56 @@
   padding-bottom: 0;
 }
 
+
+
+
+.mt10{
+  margin-top: 10px;
+}
+
+.mt20{
+  margin-top: 20px;
+}
+
+.mt30{
+  margin-top: 30px;
+}
+
+.mb20{
+  margin-bottom: 20px;
+}
+
+.mb30{
+  margin-bottom: 30px;
+}
+
+.mb40{
+  margin-bottom: 40px;
+}
+
+.mb60{
+  margin-bottom: 60px !important;
+}
+
+.mt100{
+  margin-top: 100px;
+}
+
+.mb100{
+  margin-bottom: 100px;
+}
+
+.pl10{
+  padding-left: 10px;
+}
+
+.pl20{
+  padding-left: 20px;
+}
+
+.pb60{
+  padding-bottom: 60px;
+}
 
 
 
