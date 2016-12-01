@@ -21,6 +21,26 @@
 	'use strict'
 
 angular
+	.module('api', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('dashboard', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('auth', [
 	  'token',
 	  'api'
@@ -32,27 +52,7 @@ angular
 	'use strict'
 
 angular
-	.module('api', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('landing', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('dashboard', [
 	  
 	]);
 
@@ -239,96 +239,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
-    	.module('auth')
-    	.factory('interceptorService', interceptorService);
-
-    interceptorService.$inject = ['tokenService' ]
-
-    function interceptorService( tokenService ) {
-
-    	var service = {
-
-    		request: request,
-            reponseError: responseError
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function request(config) {
-
-	      var token = tokenService.getToken();
-
-          if(token){
-            // console.log("setting Headers");
-            config.headers['token'] = token;
-          }
-
-          return config;
-
-	    }
-
-	    function responseError(response) {
-	      
-            // if our server returns a 403 forbidden response
-            if (response.status == 401 || response.status == 403) {
-                 $state.go('/login');
-            }
-
-            // return the errors from the server as a promise
-            return $q.reject(response);
-	    }
-
-
-
-    } //end authService
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('authService', authService);
-
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
-
-    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
-
-        var service = {
-            login: login
-        }
-
-        var ripple = apiService.rippleBaseUrl;
-        console.log(ripple);
-
-        
-
-        function login(formData) {
-            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
-                        return res;
-                    })//end then
-        }//end login function
-
-        return service;
-
-    }//end authService 
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
     	.module('api')
     	.factory('apiService', apiService);
 
@@ -355,107 +265,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	    function info() {
 	      /* */
           console.log("apiService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
 	    }
 
 	    function success() {
@@ -571,6 +380,197 @@ function dashboardDir() {
 })();
 
 
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('interceptorService', interceptorService);
+
+    interceptorService.$inject = ['tokenService' ]
+
+    function interceptorService( tokenService ) {
+
+    	var service = {
+
+    		request: request,
+            reponseError: responseError
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function request(config) {
+
+	      var token = tokenService.getToken();
+
+          if(token){
+            // console.log("setting Headers");
+            config.headers['token'] = token;
+          }
+
+          return config;
+
+	    }
+
+	    function responseError(response) {
+	      
+            // if our server returns a 403 forbidden response
+            if (response.status == 401 || response.status == 403) {
+                 $state.go('/login');
+            }
+
+            // return the errors from the server as a promise
+            return $q.reject(response);
+	    }
+
+
+
+    } //end authService
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('authService', authService);
+
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
+
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
+
+        var service = {
+            login: login
+        }
+
+        var ripple = apiService.rippleBaseUrl;
+        console.log(ripple);
+
+        
+
+        function login(formData) {
+            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
+                        return res;
+                    })//end then
+        }//end login function
+
+        return service;
+
+    }//end authService 
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
 (function() {
 	'use strict'
 
@@ -578,9 +578,9 @@ function dashboardDir() {
 		.module('login')
 		.controller('loginController', loginController)
 
-	loginController.$inject = ['loginService', '$state','tokenService', 'authService','$scope'];
+	loginController.$inject = ['loginService', '$state','tokenService', 'authService'];
 
-	function loginController( loginService, $state, tokenService, authService,$scope) {
+	function loginController( loginService, $state, tokenService, authService) {
 	    var vm = this;
 
 	    vm.login = login;
@@ -588,30 +588,15 @@ function dashboardDir() {
 	    vm.loginSuccess = null;
 	    vm.submitForm = false;
 	    vm.validateFormFields = validateFormFields;
-	    // console.log(vm.loginForm.username.$pristine);
-	     // console.log($scope);
-	    var fieldNames = ['username','password'] 
-	     
-		$scope.$watch('loginForm', function(loginForm) {
-			console.log("im watching")
-
-		    if(loginForm) { 
-		        
-		    }
-		    else {
-		        
-		    }        
-		});
 
 
 	    ////////////
 
-	    function login() {
+	    function login(form) {
 
-	    	 return validateFormFields($scope.loginForm);
+	    	if(validateFormFields(form) == false)
+	    		return false;
 	    	 
-
-
 	    	//
 	    	vm.submitForm = true;
 	    	setTimeout(sendRequest, 1000)
@@ -633,53 +618,66 @@ function dashboardDir() {
 	    }//end login function
 
 	    function validateFormFields(form){
-	    	console.log("triggered");
-	    	console.log(form)
 
-	    	var isValid = false;
+	    	var isValid = true;
 
-	    	//loop through all fields
+	    	//username check
+	    	if(form.username.$dirty || form.username.$touched ){
+				var username = vm.loginForm.username;
+				console.log("touched")
+				//empty check
+				if( typeof(username) == 'undefined' || username == "" || username == null){
+					 form.username.customError = "Username field is required.";
+					 isValid = false;
+				}
+				else if(username.length < 3){
+					form.username.customError = "Minimum 3 characters";
+					isValid = false;
+				}
+				else if(username.length > 8){
+					form.username.customError = "Maximum 8 characters";
+					isValid = false;
+				}
+				else{
+					form.username.customError = "";
+				}	
 
-	    	 for(var i = 0; i < fieldNames.length; i++){
-	    		
-	    		var fieldName = fieldNames[i];
-	  			//sets scope form field to variable
-	    		var field = form[fieldName];
-	    		// return console.log(field)
+	    	}
 
-	    		// return console.log(field.$error)
+	    	//password check
+	    	if(form.password.$dirty || form.password.$touched ){
+				var password = vm.loginForm.password;
+				console.log("touched")
+				//empty check
+				if( typeof(password) == 'undefined' || password == "" || password == null){
+					 form.password.customError = "password field is required.";
+					 isValid = false;
+				}
+				else if(password.length < 3){
+					form.password.customError = "Minimum 3 characters";
+					isValid = false;
+				}
+				else if(password.length > 8){
+					form.password.customError = "Maximum 8 characters";
+					isValid = false;
+				}
+				else{
+					form.password.customError = "";
+				}	
 
-	    		// if(field.$isEmpty(field.$viewValue))
-	    		// 	return field.customError = "Required";	 
-	    		// else if(field.$error.minlength) 
-	    		// 	return field.customError = "Not enough bits";
-	    		// else if(field.$error.maxlength) 
-	    		// 	return field.customError = "Too many bits";
-	    		// else
-	    		// 	return field.customError = null;
+	    	}
 
-	    		if(field.$isEmpty(field.$viewValue) && field.$touched)
-	    			 field.customError = "Required";	 
-	    		else if(field.$error.minlength) 
-	    			 field.customError = "Minimum 5 characters";
-	    		else if(field.$error.maxlength) 
-	    			 field.customError = "Maximum 8 characters";
-	    		else if(field.$error.pattern) 
-	    			 field.customError = "Only characters and numbers, no whitespaces";
-	    		else {
-	    			 field.customError = null;
-	    			 isValid = true;
-	    		}
+	    	return isValid;
 
-	    	}//end for
-	    	
-	    	return isValid;		
+			
 	    		
 	   	} //end validateFormFields
 
 	    function clearForm() {
 	    	vm.loginForm = {};
 	    }
+			
+			
 
 
 	}//end loginController

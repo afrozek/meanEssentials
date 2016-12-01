@@ -47,7 +47,7 @@ h1{ font-size: 2em;}
 }
 
 
-/*------------ NAVBAR ------------*/
+/*------------  NAVBAR  ------------*/
 
 .navbar{
 	margin-bottom: 0px;
@@ -59,16 +59,6 @@ h1{ font-size: 2em;}
 }
 
 
-.floatingFormContainer{
-	position: relative;
-	padding: 40px;
-	border-radius: 6px;
-	max-width: 600px;
-	margin-left: auto;
-	margin-right: auto;
-
-	
-}
 
 
 
@@ -95,6 +85,16 @@ h1{ font-size: 2em;}
 //hyphens indicate bootstrap overrides
 
 
+.floatingFormContainer{
+	position: relative;
+	padding: 40px;
+	border-radius: 6px;
+	max-width: 600px;
+	min-height: 555px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
 
 
 
@@ -204,6 +204,8 @@ h1{ font-size: 2em;}
 	}
 }
 
+
+/*------------LOGIN FORM------------*/
 
 
 

@@ -1,10 +1,12 @@
 
+@import 'colors';
+
 
 .fadeTransition{
     /* start 'enter' transition */
     &.ng-enter {
         /* transition on enter for .5s */
-        transition: .5s;
+        transition: 1s;
  
         /* start with opacity 0 (invisible) */
         opacity: 0;
@@ -15,10 +17,70 @@
         /* end with opacity 1 (fade in) */
         opacity: 1;
     }
+
+    &.ng-leave {
+        /* transition on leave for .5 */
+        transition: .3s;
+ 
+        /* start with opacity 0 (invisible) */
+        opacity: 1;
+    }
+ 
+    /* end 'leave' transition */
+    &.ng-leave-active {
+        /* end with opacity 1 (fade in) */
+        opacity: 0;
+    }
 }
 
 
 
+
+// spinners
+
+.bounceSpinner {
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+  margin: 20px auto;
+}
+
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: $greenishTeal;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+  background: $aquaGreen;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
 
 
 
