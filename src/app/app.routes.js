@@ -61,6 +61,7 @@
 
       .state('app.dashboard', {
         abstract: true,
+        url: '/dashboard',
         templateUrl: 'app/appModules/dashboard/dashboard.view.html',
         controller: 'dashboardController',
         controllerAs: 'dashboardCtrl',
@@ -70,8 +71,14 @@
       })
 
       .state('app.dashboard.home', {
-        url: '/dashboard',
+        url: '/home',
         template: '<h1> dashboard home </h1>',
+        
+      })
+
+      .state('app.dashboard.orbits', {
+        url: '/orbits',
+        template: '<h1> dashboard orbits </h1>',
         
       })
 

@@ -31,16 +31,6 @@ angular
 	'use strict'
 
 angular
-	.module('landing', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('auth', [
 	  'token',
 	  'api'
@@ -53,6 +43,16 @@ angular
 
 angular
 	.module('dashboard', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('landing', [
 	  
 	]);
 
@@ -194,6 +194,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
       .state('app.dashboard', {
         abstract: true,
+        url: '/dashboard',
         templateUrl: 'app/appModules/dashboard/dashboard.view.html',
         controller: 'dashboardController',
         controllerAs: 'dashboardCtrl',
@@ -203,8 +204,14 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
       })
 
       .state('app.dashboard.home', {
-        url: '/dashboard',
+        url: '/home',
         template: '<h1> dashboard home </h1>',
+        
+      })
+
+      .state('app.dashboard.orbits', {
+        url: '/orbits',
+        template: '<h1> dashboard orbits </h1>',
         
       })
 
@@ -265,107 +272,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	    function info() {
 	      /* */
           console.log("apiService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
 	    }
 
 	    function success() {
@@ -557,6 +463,107 @@ function dashboardDir() {
 	    function info() {
 	      /* */
           console.log("dashboardService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
 	    }
 
 	    function success() {

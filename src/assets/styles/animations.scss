@@ -1,7 +1,7 @@
 
 @import 'colors';
 
-
+/*------------BASIC FADE------------*/
 .fadeTransition{
     &.ng-enter {
         transition: .3s;
@@ -36,6 +36,8 @@
     }
 }
 
+/*------------SLIDING DOWN FADE------------*/
+
 .fadeSlideDownEnterTransition{
     &.ng-enter {
         transition: .3s;
@@ -65,6 +67,40 @@
 }
 
 
+
+/*------------LEFT TO RIGHT FADE------------*/
+
+.fadeSlideFromLeftEnterTransition{
+    &.ng-enter {
+        transition: .3s;
+        opacity: 0;
+        transform: translate(-1000px,0px);
+    }
+ 
+    &.ng-enter-active {
+        opacity: 1;
+        transform: translate(0px, 0px);
+    }
+}
+
+.fadeSlideToRightLeaveTransition{
+
+    &.ng-leave {
+        transition: .3s;
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+ 
+  
+    &.ng-leave-active {
+      transform: translate(1000px,0px);
+        opacity: 0;
+    }
+}
+
+
+
+/*------------GREEN LOADING SPINNER------------*/
 
 // spinners
 

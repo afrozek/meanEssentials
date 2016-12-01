@@ -42,6 +42,10 @@ h1{ font-size: 2em;}
 	background-color: $azul;
 }
 
+.darkSpaceBg{
+	background-color: $dark;
+}
+
 .whiteBg{
 	background: white;
 }
@@ -227,9 +231,14 @@ h1{ font-size: 2em;}
 
 
 
+/*------------DASHBOARD------------*/
 
 
 
+.dashNavBgContainer{
+	background-color: $darkTwo;
+	color: white;
+}
 
 
 

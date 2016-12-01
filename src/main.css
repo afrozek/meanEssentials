@@ -1,4 +1,5 @@
 /*------------COLORS------------*/
+/*------------BASIC FADE------------*/
 .fadeTransition.ng-enter {
   transition: .3s;
   opacity: 0; }
@@ -20,6 +21,7 @@
 .fadeLeaveTransition.ng-leave-active {
   opacity: 0; }
 
+/*------------SLIDING DOWN FADE------------*/
 .fadeSlideDownEnterTransition.ng-enter {
   transition: .3s;
   opacity: 0;
@@ -38,6 +40,26 @@
   transform: translate(0px, -500px);
   opacity: 0; }
 
+/*------------LEFT TO RIGHT FADE------------*/
+.fadeSlideFromLeftEnterTransition.ng-enter {
+  transition: .3s;
+  opacity: 0;
+  transform: translate(-1000px, 0px); }
+
+.fadeSlideFromLeftEnterTransition.ng-enter-active {
+  opacity: 1;
+  transform: translate(0px, 0px); }
+
+.fadeSlideToRightLeaveTransition.ng-leave {
+  transition: .3s;
+  transform: translate(0px, 0px);
+  opacity: 1; }
+
+.fadeSlideToRightLeaveTransition.ng-leave-active {
+  transform: translate(1000px, 0px);
+  opacity: 0; }
+
+/*------------GREEN LOADING SPINNER------------*/
 .bounceSpinnerContainer {
   position: absolute;
   top: 50%;
@@ -447,6 +469,7 @@ h1 {
 
 /*------------COLORS------------*/
 /*------------COLORS------------*/
+/*------------BASIC FADE------------*/
 .fadeTransition.ng-enter {
   transition: .3s;
   opacity: 0; }
@@ -468,6 +491,7 @@ h1 {
 .fadeLeaveTransition.ng-leave-active {
   opacity: 0; }
 
+/*------------SLIDING DOWN FADE------------*/
 .fadeSlideDownEnterTransition.ng-enter {
   transition: .3s;
   opacity: 0;
@@ -486,6 +510,26 @@ h1 {
   transform: translate(0px, -500px);
   opacity: 0; }
 
+/*------------LEFT TO RIGHT FADE------------*/
+.fadeSlideFromLeftEnterTransition.ng-enter {
+  transition: .3s;
+  opacity: 0;
+  transform: translate(-1000px, 0px); }
+
+.fadeSlideFromLeftEnterTransition.ng-enter-active {
+  opacity: 1;
+  transform: translate(0px, 0px); }
+
+.fadeSlideToRightLeaveTransition.ng-leave {
+  transition: .3s;
+  transform: translate(0px, 0px);
+  opacity: 1; }
+
+.fadeSlideToRightLeaveTransition.ng-leave-active {
+  transform: translate(1000px, 0px);
+  opacity: 0; }
+
+/*------------GREEN LOADING SPINNER------------*/
 .bounceSpinnerContainer {
   position: absolute;
   top: 50%;
@@ -562,6 +606,9 @@ h1 {
 /*------------BG CLASSES------------*/
 .blueSkyBg {
   background-color: #1340df; }
+
+.darkSpaceBg {
+  background-color: #1f2732; }
 
 .whiteBg {
   background: white; }
@@ -676,6 +723,10 @@ h1 {
   background-color: #1340df; }
 
 /*------------LOGIN PAGE------------*/
+/*------------DASHBOARD------------*/
+.dashNavBgContainer {
+  background-color: #262f3c;
+  color: white; }
 
 h6 {
   font-size: 0.75em; }
