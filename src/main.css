@@ -13,6 +13,13 @@
 .fadeTransition.ng-leave-active {
   opacity: 0; }
 
+.fadeLeaveTransition.ng-leave {
+  transition: .3s;
+  opacity: 1; }
+
+.fadeLeaveTransition.ng-leave-active {
+  opacity: 0; }
+
 .fadeSlideDownEnterTransition.ng-enter {
   transition: .3s;
   opacity: 0;
@@ -454,6 +461,13 @@ h1 {
 .fadeTransition.ng-leave-active {
   opacity: 0; }
 
+.fadeLeaveTransition.ng-leave {
+  transition: .3s;
+  opacity: 1; }
+
+.fadeLeaveTransition.ng-leave-active {
+  opacity: 0; }
+
 .fadeSlideDownEnterTransition.ng-enter {
   transition: .3s;
   opacity: 0;
@@ -547,7 +561,7 @@ h1 {
 
 /*------------BG CLASSES------------*/
 .blueSkyBg {
-  background: #1340df; }
+  background-color: #1340df; }
 
 .whiteBg {
   background: white; }
@@ -573,9 +587,9 @@ h1 {
 .floatingFormContainer {
   position: relative;
   padding: 40px;
-  border-radius: 6px;
-  max-width: 600px;
-  height: 555px;
+  border-radius: 4px;
+  max-width: 500px;
+  height: 520px;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden; }
@@ -598,7 +612,7 @@ h1 {
       border-color: #13e17f;
       box-shadow: 0 0 5px 0 #d7e1ea; }
   .form .fieldErrors {
-    height: 30px;
+    height: 20px;
     margin: 5px 0px 0px 0px; }
     .form .fieldErrors p {
       color: #d41616;
@@ -606,6 +620,11 @@ h1 {
       margin: 0; }
   .form .fieldErrorBorder {
     border-color: #d41616 !important; }
+  .form .formError {
+    min-height: 22px;
+    color: #d41616;
+    text-align: center;
+    font-size: 0.75em; }
 
 .formSmall {
   max-width: 347px; }
@@ -649,7 +668,14 @@ h1 {
   .helpBox .heading {
     font-family: "Avenir-Roman"; }
 
-/*------------LOGIN FORM------------*/
+.starfieldAlphaBg {
+  background: url("assets/images/starfieldAlpha.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #1340df; }
+
+/*------------LOGIN PAGE------------*/
 
 h6 {
   font-size: 0.75em; }

@@ -22,6 +22,20 @@
     }
 }
 
+.fadeLeaveTransition{
+
+
+    &.ng-leave {
+        transition: .3s;  
+        opacity: 1;
+    }
+ 
+    
+    &.ng-leave-active {
+        opacity: 0;
+    }
+}
+
 .fadeSlideDownEnterTransition{
     &.ng-enter {
         transition: .3s;

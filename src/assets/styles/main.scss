@@ -39,7 +39,7 @@ h1{ font-size: 2em;}
 //bg colors
 
 .blueSkyBg{
-	background: $azul;
+	background-color: $azul;
 }
 
 .whiteBg{
@@ -88,9 +88,9 @@ h1{ font-size: 2em;}
 .floatingFormContainer{
 	position: relative;
 	padding: 40px;
-	border-radius: 6px;
-	max-width: 600px;
-	height: 555px;
+	border-radius: 4px;
+	max-width: 500px;
+	height: 520px;
 	margin-left: auto;
 	margin-right: auto;
 	overflow: hidden;
@@ -125,7 +125,7 @@ h1{ font-size: 2em;}
 	}
 
 	.fieldErrors{
-		height: 30px;
+		height: 20px;
 		margin: 5px 0px 0px 0px;
 		p{
 			color: $red;
@@ -136,6 +136,13 @@ h1{ font-size: 2em;}
 
 	.fieldErrorBorder{
 		border-color: $red !important;
+	}
+
+	.formError{
+		min-height: 22px;
+		color: $red;
+		text-align: center;
+		font-size: $em12px;
 	}
 
 } //end form
@@ -205,8 +212,15 @@ h1{ font-size: 2em;}
 	}
 }
 
+.starfieldAlphaBg{
+	background: url('assets/images/starfieldAlpha.svg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: $azul;
+}
 
-/*------------LOGIN FORM------------*/
+/*------------LOGIN PAGE------------*/
 
 
 

@@ -31,6 +31,16 @@ angular
 	'use strict'
 
 angular
+	.module('landing', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('auth', [
 	  'token',
 	  'api'
@@ -43,16 +53,6 @@ angular
 
 angular
 	.module('dashboard', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('landing', [
 	  
 	]);
 
@@ -279,6 +279,107 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 })();
 
 
+(function() {
+	'use strict'
+
+	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
 (function(){
 	'use strict'
 
@@ -474,107 +575,6 @@ function dashboardDir() {
 	'use strict'
 
 	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
 		.module('login')
 		.controller('loginController', loginController)
 
@@ -626,6 +626,8 @@ function landingDir() {
 	    	console.log(err);
 	    	vm.loginSuccess = false;
 	    	vm.submitForm = false;
+	    	vm.loginError = "Login Failed"
+	    	vm.loginForm.password = null;
 	    }
 
 	    function validateFormFields(form){
@@ -641,14 +643,14 @@ function landingDir() {
 					 form.username.customError = "Username field is required.";
 					 isValid = false;
 				}
-				else if(username.length < 3){
-					form.username.customError = "Minimum 3 characters";
-					isValid = false;
-				}
-				else if(username.length > 8){
-					form.username.customError = "Maximum 8 characters";
-					isValid = false;
-				}
+				// else if(username.length < 3){
+				// 	form.username.customError = "Minimum 3 characters";
+				// 	isValid = false;
+				// }
+				// else if(username.length > 8){
+				// 	form.username.customError = "Maximum 8 characters";
+				// 	isValid = false;
+				// }
 				else{
 					form.username.customError = "";
 				}	
@@ -656,7 +658,7 @@ function landingDir() {
 	    	}
 
 	    	//password check
-	    	if(form.password.$dirty || form.password.$touched ){
+	    	if(form.username.$dirty || form.username.$touched ){
 				var password = vm.loginForm.password;
 				console.log("touched")
 				//empty check
@@ -664,14 +666,14 @@ function landingDir() {
 					 form.password.customError = "password field is required.";
 					 isValid = false;
 				}
-				else if(password.length < 3){
-					form.password.customError = "Minimum 3 characters";
-					isValid = false;
-				}
-				else if(password.length > 8){
-					form.password.customError = "Maximum 8 characters";
-					isValid = false;
-				}
+				// else if(password.length < 3){
+				// 	form.password.customError = "Minimum 3 characters";
+				// 	isValid = false;
+				// }
+				// else if(password.length > 8){
+				// 	form.password.customError = "Maximum 8 characters";
+				// 	isValid = false;
+				// }
 				else{
 					form.password.customError = "";
 				}	
