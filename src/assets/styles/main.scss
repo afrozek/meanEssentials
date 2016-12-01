@@ -96,23 +96,7 @@ h1{ font-size: 2em;}
 
 
 
-.formSmall{
-	max-width: 347px;
-}
 
-.formHeading{
-	font-family: $muliExtraLight;
-	font-weight: 200;
-	color: $darkThree;
-	margin-bottom: 30px;
-}
-
-.formSubHeading{
-	font-family: $muliExtraLight;
-	color: $slateTwo;
-	letter-spacing: .3px;
-	margin-bottom: 30px;
-}
 
 .form{
  	color: $slate;
@@ -131,6 +115,7 @@ h1{ font-size: 2em;}
 		border-radius: 2px;
 		border-color: $lightBlueGrey;
 		height: 47px;
+		transition: .3s;
 
 		&:focus{
 			border-color: $aquaGreen;
@@ -153,6 +138,27 @@ h1{ font-size: 2em;}
 	}
 
 } //end form
+
+
+
+
+.formSmall{
+	max-width: 347px;
+}
+
+.formHeading{
+	font-family: $muliExtraLight;
+	font-weight: 200;
+	color: $darkThree;
+	margin-bottom: 30px;
+}
+
+.formSubHeading{
+	font-family: $muliExtraLight;
+	color: $slateTwo;
+	letter-spacing: .3px;
+	margin-bottom: 30px;
+}
 
 .btn{
 	height: 39px;

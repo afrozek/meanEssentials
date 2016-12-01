@@ -21,16 +21,6 @@
 	'use strict'
 
 angular
-	.module('api', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('auth', [
 	  'token',
 	  'api'
@@ -42,7 +32,7 @@ angular
 	'use strict'
 
 angular
-	.module('dashboard', [
+	.module('api', [
 	  
 	]);
 
@@ -53,6 +43,16 @@ angular
 
 angular
 	.module('landing', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('dashboard', [
 	  
 	]);
 
@@ -239,50 +239,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
-    	.module('api')
-    	.factory('apiService', apiService);
-
-    apiService.$inject = [];
-
-    function apiService() {
-    	var service = {
-
-    		rippleBaseUrl: 'http://192.168.14.12:8000/2e720b4',
-            tangentBaseUrl: 'http://192.168.14.99/c73e2b3',
-            customerSupportBaseUrl: 'http://192.168.1.11:8000'
-
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("apiService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
     	.module('auth')
     	.factory('interceptorService', interceptorService);
 
@@ -369,79 +325,22 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 })();
 
 
-(function() {
-	'use strict'
-
-	angular
-		.module('dashboard')
-		.controller('dashboardController', dashboardController)
-
-	dashboardController.$inject = []
-
-	function dashboardController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'dashboard';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('dashboard')
-    .directive('dashboardDir', dashboardDir);
-
-function dashboardDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
 (function(){
 	'use strict'
 
 	angular
-    	.module('dashboard')
-    	.factory('dashboardService', dashboardService);
+    	.module('api')
+    	.factory('apiService', apiService);
 
-    dashboardService.$inject = [];
+    apiService.$inject = [];
 
-    function dashboardService() {
+    function apiService() {
     	var service = {
 
-    		error: error,
-    		info: info,
-    		success: success
+    		rippleBaseUrl: 'http://192.168.14.12:8000/2e720b4',
+            tangentBaseUrl: 'http://192.168.14.99/c73e2b3',
+            customerSupportBaseUrl: 'http://192.168.1.11:8000'
+
 
     	};
 
@@ -455,7 +354,7 @@ function dashboardDir() {
 
 	    function info() {
 	      /* */
-          console.log("dashboardService");
+          console.log("apiService");
 	    }
 
 	    function success() {
@@ -575,6 +474,107 @@ function landingDir() {
 	'use strict'
 
 	angular
+		.module('dashboard')
+		.controller('dashboardController', dashboardController)
+
+	dashboardController.$inject = []
+
+	function dashboardController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'dashboard';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('dashboard')
+    .directive('dashboardDir', dashboardDir);
+
+function dashboardDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('dashboard')
+    	.factory('dashboardService', dashboardService);
+
+    dashboardService.$inject = [];
+
+    function dashboardService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("dashboardService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
 		.module('login')
 		.controller('loginController', loginController)
 
@@ -587,14 +587,16 @@ function landingDir() {
 	    vm.loginForm = {};
 	    vm.loginSuccess = null;
 	    vm.submitForm = false;
-	    // vm.validateUsernameField = validateUsernameField;
+	    vm.validateFormFields = validateFormFields;
 	    // console.log(vm.loginForm.username.$pristine);
 	     // console.log($scope);
 	    var fieldNames = ['username','password'] 
 	     
 		$scope.$watch('loginForm', function(loginForm) {
+			console.log("im watching")
+
 		    if(loginForm) { 
-		        console.log($scope.loginForm);
+		        
 		    }
 		    else {
 		        
@@ -605,12 +607,9 @@ function landingDir() {
 	    ////////////
 
 	    function login() {
-	    	// return console.log($scope.loginForm)
 
-	    	// console.log($scope.loginForm.username.$isEmpty)
-	    	// var x = $scope.loginForm.username.$isEmpty($scope.loginForm.username.$modelValue);
-
-	    	return validateFormFields($scope.loginForm);
+	    	 return validateFormFields($scope.loginForm);
+	    	 
 
 
 	    	//
@@ -634,7 +633,10 @@ function landingDir() {
 	    }//end login function
 
 	    function validateFormFields(form){
-	    	// return console.log(form.$error)
+	    	console.log("triggered");
+	    	console.log(form)
+
+	    	var isValid = false;
 
 	    	//loop through all fields
 
@@ -643,15 +645,36 @@ function landingDir() {
 	    		var fieldName = fieldNames[i];
 	  			//sets scope form field to variable
 	    		var field = form[fieldName];
-	    		return console.log(field)
+	    		// return console.log(field)
 
-	    		if(field.$isEmpty(field.$modelValue)){
-	    			return field.customError = "you gotta fill this out";
+	    		// return console.log(field.$error)
+
+	    		// if(field.$isEmpty(field.$viewValue))
+	    		// 	return field.customError = "Required";	 
+	    		// else if(field.$error.minlength) 
+	    		// 	return field.customError = "Not enough bits";
+	    		// else if(field.$error.maxlength) 
+	    		// 	return field.customError = "Too many bits";
+	    		// else
+	    		// 	return field.customError = null;
+
+	    		if(field.$isEmpty(field.$viewValue) && field.$touched)
+	    			 field.customError = "Required";	 
+	    		else if(field.$error.minlength) 
+	    			 field.customError = "Minimum 5 characters";
+	    		else if(field.$error.maxlength) 
+	    			 field.customError = "Maximum 8 characters";
+	    		else if(field.$error.pattern) 
+	    			 field.customError = "Only characters and numbers, no whitespaces";
+	    		else {
+	    			 field.customError = null;
+	    			 isValid = true;
 	    		}
 
-
-
 	    	}//end for
+	    	
+	    	return isValid;		
+	    		
 	   	} //end validateFormFields
 
 	    function clearForm() {
@@ -659,7 +682,7 @@ function landingDir() {
 	    }
 
 
-	}
+	}//end loginController
 
 
 //end IIFE

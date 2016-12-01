@@ -450,6 +450,33 @@ h1 {
   width: 100%; }
 
 /*------------FORMS------------*/
+.form {
+  color: #52647b; }
+  .form .formLabel {
+    font-size: 1em;
+    font-family: "Muli-Normal";
+    font-weight: 300;
+    letter-spacing: .3px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px; }
+  .form .form-control {
+    border-radius: 2px;
+    border-color: #d7e1ea;
+    height: 47px;
+    transition: .3s; }
+    .form .form-control:focus {
+      border-color: #13e17f;
+      box-shadow: 0 0 5px 0 #d7e1ea; }
+  .form .fieldErrors {
+    height: 30px;
+    margin: 5px 0px 0px 0px; }
+    .form .fieldErrors p {
+      color: #d41616;
+      font-size: 0.75em;
+      margin: 0; }
+  .form .fieldErrorBorder {
+    border-color: #d41616 !important; }
+
 .formSmall {
   max-width: 347px; }
 
@@ -464,32 +491,6 @@ h1 {
   color: #3c4858;
   letter-spacing: .3px;
   margin-bottom: 30px; }
-
-.form {
-  color: #52647b; }
-  .form .formLabel {
-    font-size: 1em;
-    font-family: "Muli-Normal";
-    font-weight: 300;
-    letter-spacing: .3px;
-    margin-bottom: 10px;
-    letter-spacing: 0.3px; }
-  .form .form-control {
-    border-radius: 2px;
-    border-color: #d7e1ea;
-    height: 47px; }
-    .form .form-control:focus {
-      border-color: #13e17f;
-      box-shadow: 0 0 5px 0 #d7e1ea; }
-  .form .fieldErrors {
-    height: 30px;
-    margin: 5px 0px 0px 0px; }
-    .form .fieldErrors p {
-      color: #d41616;
-      font-size: 0.75em;
-      margin: 0; }
-  .form .fieldErrorBorder {
-    border-color: #d41616 !important; }
 
 .btn {
   height: 39px;
