@@ -1,28 +1,45 @@
 /*------------COLORS------------*/
-.fadeTransition {
-  /* start 'enter' transition */
-  /* end 'enter' transition */
-  /* end 'leave' transition */ }
-  .fadeTransition.ng-enter {
-    /* transition on enter for .5s */
-    transition: 1s;
-    /* start with opacity 0 (invisible) */
-    opacity: 0; }
-  .fadeTransition.ng-enter-active {
-    /* end with opacity 1 (fade in) */
-    opacity: 1; }
-  .fadeTransition.ng-leave {
-    /* transition on leave for .5 */
-    transition: .3s;
-    /* start with opacity 0 (invisible) */
-    opacity: 1; }
-  .fadeTransition.ng-leave-active {
-    /* end with opacity 1 (fade in) */
-    opacity: 0; }
+.fadeTransition.ng-enter {
+  transition: .3s;
+  opacity: 0; }
+
+.fadeTransition.ng-enter-active {
+  opacity: 1; }
+
+.fadeTransition.ng-leave {
+  transition: .3s;
+  opacity: 1; }
+
+.fadeTransition.ng-leave-active {
+  opacity: 0; }
+
+.fadeSlideDownEnterTransition.ng-enter {
+  transition: .3s;
+  opacity: 0;
+  transform: translate(0px, -500px); }
+
+.fadeSlideDownEnterTransition.ng-enter-active {
+  opacity: 1;
+  transform: translate(0px, 0px); }
+
+.fadeSlideDownLeaveTransition.ng-leave {
+  transition: .3s;
+  transform: translate(0px, 0px);
+  opacity: 1; }
+
+.fadeSlideDownLeaveTransition.ng-leave-active {
+  transform: translate(0px, -500px);
+  opacity: 0; }
+
+.bounceSpinnerContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .bounceSpinner {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   position: relative;
   margin: 20px auto; }
 
@@ -423,30 +440,47 @@ h1 {
 
 /*------------COLORS------------*/
 /*------------COLORS------------*/
-.fadeTransition {
-  /* start 'enter' transition */
-  /* end 'enter' transition */
-  /* end 'leave' transition */ }
-  .fadeTransition.ng-enter {
-    /* transition on enter for .5s */
-    transition: 1s;
-    /* start with opacity 0 (invisible) */
-    opacity: 0; }
-  .fadeTransition.ng-enter-active {
-    /* end with opacity 1 (fade in) */
-    opacity: 1; }
-  .fadeTransition.ng-leave {
-    /* transition on leave for .5 */
-    transition: .3s;
-    /* start with opacity 0 (invisible) */
-    opacity: 1; }
-  .fadeTransition.ng-leave-active {
-    /* end with opacity 1 (fade in) */
-    opacity: 0; }
+.fadeTransition.ng-enter {
+  transition: .3s;
+  opacity: 0; }
+
+.fadeTransition.ng-enter-active {
+  opacity: 1; }
+
+.fadeTransition.ng-leave {
+  transition: .3s;
+  opacity: 1; }
+
+.fadeTransition.ng-leave-active {
+  opacity: 0; }
+
+.fadeSlideDownEnterTransition.ng-enter {
+  transition: .3s;
+  opacity: 0;
+  transform: translate(0px, -500px); }
+
+.fadeSlideDownEnterTransition.ng-enter-active {
+  opacity: 1;
+  transform: translate(0px, 0px); }
+
+.fadeSlideDownLeaveTransition.ng-leave {
+  transition: .3s;
+  transform: translate(0px, 0px);
+  opacity: 1; }
+
+.fadeSlideDownLeaveTransition.ng-leave-active {
+  transform: translate(0px, -500px);
+  opacity: 0; }
+
+.bounceSpinnerContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .bounceSpinner {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   position: relative;
   margin: 20px auto; }
 
@@ -541,9 +575,10 @@ h1 {
   padding: 40px;
   border-radius: 6px;
   max-width: 600px;
-  min-height: 555px;
+  height: 555px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  overflow: hidden; }
 
 .form {
   color: #52647b; }

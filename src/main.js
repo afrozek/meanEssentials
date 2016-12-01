@@ -31,8 +31,9 @@ angular
 	'use strict'
 
 angular
-	.module('dashboard', [
-	  
+	.module('auth', [
+	  'token',
+	  'api'
 	]);
 
 })();
@@ -41,9 +42,8 @@ angular
 	'use strict'
 
 angular
-	.module('auth', [
-	  'token',
-	  'api'
+	.module('dashboard', [
+	  
 	]);
 
 })();
@@ -279,6 +279,96 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 })();
 
 
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('interceptorService', interceptorService);
+
+    interceptorService.$inject = ['tokenService' ]
+
+    function interceptorService( tokenService ) {
+
+    	var service = {
+
+    		request: request,
+            reponseError: responseError
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function request(config) {
+
+	      var token = tokenService.getToken();
+
+          if(token){
+            // console.log("setting Headers");
+            config.headers['token'] = token;
+          }
+
+          return config;
+
+	    }
+
+	    function responseError(response) {
+	      
+            // if our server returns a 403 forbidden response
+            if (response.status == 401 || response.status == 403) {
+                 $state.go('/login');
+            }
+
+            // return the errors from the server as a promise
+            return $q.reject(response);
+	    }
+
+
+
+    } //end authService
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('authService', authService);
+
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
+
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
+
+        var service = {
+            login: login
+        }
+
+        var ripple = apiService.rippleBaseUrl;
+        console.log(ripple);
+
+        
+
+        function login(formData) {
+            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
+                        return res;
+                    })//end then
+        }//end login function
+
+        return service;
+
+    }//end authService 
+
+	
+// end IIFE
+})();
+
+
 (function() {
 	'use strict'
 
@@ -374,96 +464,6 @@ function dashboardDir() {
 
 
     }
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('interceptorService', interceptorService);
-
-    interceptorService.$inject = ['tokenService' ]
-
-    function interceptorService( tokenService ) {
-
-    	var service = {
-
-    		request: request,
-            reponseError: responseError
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function request(config) {
-
-	      var token = tokenService.getToken();
-
-          if(token){
-            // console.log("setting Headers");
-            config.headers['token'] = token;
-          }
-
-          return config;
-
-	    }
-
-	    function responseError(response) {
-	      
-            // if our server returns a 403 forbidden response
-            if (response.status == 401 || response.status == 403) {
-                 $state.go('/login');
-            }
-
-            // return the errors from the server as a promise
-            return $q.reject(response);
-	    }
-
-
-
-    } //end authService
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('authService', authService);
-
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
-
-    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
-
-        var service = {
-            login: login
-        }
-
-        var ripple = apiService.rippleBaseUrl;
-        console.log(ripple);
-
-        
-
-        function login(formData) {
-            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
-                        return res;
-                    })//end then
-        }//end login function
-
-        return service;
-
-    }//end authService 
 
 	
 // end IIFE
@@ -585,7 +585,7 @@ function landingDir() {
 
 	    vm.login = login;
 	    vm.loginForm = {};
-	    vm.loginSuccess = null;
+	    vm.loginSuccess = false;
 	    vm.submitForm = false;
 	    vm.validateFormFields = validateFormFields;
 
@@ -599,7 +599,7 @@ function landingDir() {
 	    	 
 	    	//
 	    	vm.submitForm = true;
-	    	setTimeout(sendRequest, 1000)
+	    	setTimeout(sendRequest, 500)
 	    	
 
 	    	function sendRequest(){
@@ -608,14 +608,25 @@ function landingDir() {
 	    		var formData = angular.copy(vm.loginForm)
 
 	    		//send request
-	    		authService.login(formData).then(function(res) {
-		    		console.log(res);
-		    		vm.loginSuccess = true;
-		    		//$state.go('app.dashboard.home');
-		    	});
+	    		authService.login(formData).then(loginRequestHandler,loginRequestErrorHandler);
 	    	}//end sendRequest function
 
 	    }//end login function
+
+	    function loginRequestHandler(res){
+	    	console.log("handled");
+	    	console.log(res);
+		    vm.loginSuccess = true;
+		    setTimeout(function(){
+		    	$state.go('app.dashboard.home');
+		    },100)
+	    }
+
+	    function loginRequestErrorHandler(err){
+	    	console.log(err);
+	    	vm.loginSuccess = false;
+	    	vm.submitForm = false;
+	    }
 
 	    function validateFormFields(form){
 
@@ -779,7 +790,7 @@ function loginFormDirective() {
 		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
             if (newValue){
                 console.log("I see a data change!");
-                elem.css("display", "none");
+                // elem.css("display", "none");
             }
         }, true);
 
