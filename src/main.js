@@ -42,27 +42,17 @@ angular
 	'use strict'
 
 angular
-	.module('dashboard', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('token', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('landing', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('dashboard', [
 	  
 	]);
 
@@ -80,6 +70,16 @@ angular
 
 })();
 
+
+(function(){
+	'use strict'
+
+angular
+	.module('token', [
+	  
+	]);
+
+})();
 
 angular.module('app').run(['$templateCache', function($templateCache) {$templateCache.put('app/app.view.html','<h1>appView</h1>\n<h2>controllerTest: {{appCtrl.controllerName}}</h2>\n<div ui-view></div>');
 $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id="landing" class="container" >\n\t<div class="page-header centerText">\n\t  <h1>landing</h1>\n\t</div>\n</div>\n');}]);
@@ -363,7 +363,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         
 
         function login(formData) {
-            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
+            return $http.post(ripple + '/account/login/', formData).then(function(res) {
                         return res;
                     })//end then
         }//end login function
@@ -371,155 +371,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         return service;
 
     }//end authService 
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('dashboard')
-		.controller('dashboardController', dashboardController)
-
-	dashboardController.$inject = []
-
-	function dashboardController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'dashboard';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('dashboard')
-    .directive('dashboardDir', dashboardDir);
-
-function dashboardDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('dashboard')
-    	.factory('dashboardService', dashboardService);
-
-    dashboardService.$inject = [];
-
-    function dashboardService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("dashboardService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('token')
-    	.factory('tokenService', tokenService);
-
-    tokenService.$inject = ['$window']
-
-    function tokenService($window) {
-    	
-        var service = {
-
-    		setToken: setToken,
-            getToken: getToken,
-            removeToken: removeToken
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function setToken (token) {
-            $window.sessionStorage.setItem('userToken', token);
-        }
-
-        function getToken () {
-            var token = $window.sessionStorage.getItem('userToken');
-            return token;
-        }
-
-        function removeToken () {
-            $window.sessionStorage.removeItem('userToken');
-        }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
 
 	
 // end IIFE
@@ -613,6 +464,107 @@ function landingDir() {
 	    function info() {
 	      /* */
           console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('dashboard')
+		.controller('dashboardController', dashboardController)
+
+	dashboardController.$inject = []
+
+	function dashboardController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'dashboard';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('dashboard')
+    .directive('dashboardDir', dashboardDir);
+
+function dashboardDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('dashboard')
+    	.factory('dashboardService', dashboardService);
+
+    dashboardService.$inject = [];
+
+    function dashboardService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("dashboardService");
 	    }
 
 	    function success() {
@@ -861,4 +813,52 @@ function loginFormDirective() {
 
 //end IIFE
 })();
+(function(){
+	'use strict'
+
+	angular
+    	.module('token')
+    	.factory('tokenService', tokenService);
+
+    tokenService.$inject = ['$window']
+
+    function tokenService($window) {
+    	
+        var service = {
+
+    		setToken: setToken,
+            getToken: getToken,
+            removeToken: removeToken
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function setToken (token) {
+            $window.sessionStorage.setItem('userToken', token);
+        }
+
+        function getToken () {
+            var token = $window.sessionStorage.getItem('userToken');
+            return token;
+        }
+
+        function removeToken () {
+            $window.sessionStorage.removeItem('userToken');
+        }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
 //# sourceMappingURL=main.js.map

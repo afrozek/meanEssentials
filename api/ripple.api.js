@@ -2,7 +2,7 @@ module.exports = ripple;
 
 var request = require("request");
 var apiConfig = require('./api.config.js')();
-var ripple = apiConfig.rippleBaseUrl;
+var rippleBaseUrl = apiConfig.rippleBaseUrl;
 
 
 
@@ -20,12 +20,14 @@ var ripple = express.Router();
 		var data = req.body;
 
 		request({
-		  uri: ripple + '/auth/login/',
+		  uri: rippleBaseUrl + '/auth/login/',
 		  method: "POST",
 		  form: data
 		}, function(error, response, body) {
+		  	// res.send(response)
 		  	if(response.statusCode == 400)
-		  		res.status(401).send("error");
+		  		res.status(400).json({status: false})
+		  	else res.send(response.body)
 
 		});
 

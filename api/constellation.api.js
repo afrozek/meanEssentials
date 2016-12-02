@@ -2,7 +2,7 @@ module.exports = constellation;
 
 var request = require("request");
 var apiConfig = require('./api.config.js')();
-var constellation = apiConfig.constellationBaseUrl;
+var constellationBaseUrl = apiConfig.constellationBaseUrl;
 
 
 

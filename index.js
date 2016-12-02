@@ -52,13 +52,18 @@ app.use(function(req,res,next){
 	next();
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
 // log all requests to console
 app.use(morgan('dev'));
 
 //routes
 
 var rippleApi = require('./api/ripple.api.js')(app,express);
-app.use('/auth', rippleApi);
+app.use('/account', rippleApi);
 
 var tangentApi = require('./api/tangent.api.js')(app,express);
 app.use('/compute', tangentApi);

@@ -2,7 +2,7 @@ module.exports = tangent;
 
 var request = require("request");
 var apiConfig = require('./api.config.js')();
-var tangent = apiConfig.tangentBaseUrl;
+var tangentBaseUrl = apiConfig.tangentBaseUrl;
 
 
 
