@@ -52,6 +52,16 @@ angular
 	'use strict'
 
 angular
+	.module('token', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('landing', [
 	  
 	]);
@@ -70,16 +80,6 @@ angular
 
 })();
 
-
-(function(){
-	'use strict'
-
-angular
-	.module('token', [
-	  
-	]);
-
-})();
 
 angular.module('app').run(['$templateCache', function($templateCache) {$templateCache.put('app/app.view.html','<h1>appView</h1>\n<h2>controllerTest: {{appCtrl.controllerName}}</h2>\n<div ui-view></div>');
 $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id="landing" class="container" >\n\t<div class="page-header centerText">\n\t  <h1>landing</h1>\n\t</div>\n</div>\n');}]);
@@ -254,9 +254,10 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
     function apiService() {
     	var service = {
 
-    		rippleBaseUrl: 'http://192.168.14.12:8000/2e720b4',
-            tangentBaseUrl: 'http://192.168.14.99/c73e2b3',
-            customerSupportBaseUrl: 'http://192.168.1.11:8000'
+    		rippleBaseUrl: '',
+            tangentBaseUrl: '',
+            consellationBaseUrl: '',
+            customerSupportBaseUrl: ''
 
 
     	};
@@ -362,7 +363,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         
 
         function login(formData) {
-            return $http.post('/api/login/', formData).then(function(res) {
+            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
                         return res;
                     })//end then
         }//end login function
@@ -464,6 +465,54 @@ function dashboardDir() {
 	      /* */
           console.log("dashboardService");
 	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('token')
+    	.factory('tokenService', tokenService);
+
+    tokenService.$inject = ['$window']
+
+    function tokenService($window) {
+    	
+        var service = {
+
+    		setToken: setToken,
+            getToken: getToken,
+            removeToken: removeToken
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function setToken (token) {
+            $window.sessionStorage.setItem('userToken', token);
+        }
+
+        function getToken () {
+            var token = $window.sessionStorage.getItem('userToken');
+            return token;
+        }
+
+        function removeToken () {
+            $window.sessionStorage.removeItem('userToken');
+        }
 
 	    function success() {
 	      /* */
@@ -812,52 +861,4 @@ function loginFormDirective() {
 
 //end IIFE
 })();
-(function(){
-	'use strict'
-
-	angular
-    	.module('token')
-    	.factory('tokenService', tokenService);
-
-    tokenService.$inject = ['$window']
-
-    function tokenService($window) {
-    	
-        var service = {
-
-    		setToken: setToken,
-            getToken: getToken,
-            removeToken: removeToken
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function setToken (token) {
-            $window.sessionStorage.setItem('userToken', token);
-        }
-
-        function getToken () {
-            var token = $window.sessionStorage.getItem('userToken');
-            return token;
-        }
-
-        function removeToken () {
-            $window.sessionStorage.removeItem('userToken');
-        }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
 //# sourceMappingURL=main.js.map

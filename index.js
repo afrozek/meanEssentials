@@ -1,14 +1,19 @@
+
+
+//==============================================================
+// DEPENDENCIES
+//==============================================================
 var express = require('express');
 var app = express();
 var path = require('path');
-
 var port = 3000;
-
-
 var bodyParser = require('body-parser'); // reads post contents
 var morgan = require('morgan'); // logs all requests to console
 
 
+//==============================================================
+// CONFIG
+//==============================================================
 
 var env = "development";
 // var env = "production";
@@ -32,14 +37,50 @@ else{
 	});
 }
 
-var api = require('./api.js')(app,express);
-app.use('/api', api);
+
+
+//==============================================================
+// API
+//==============================================================
+
+
+// handle CORS requests(cross origin resource sharing)
+app.use(function(req,res,next){
+	res.setHeader('Access-Control-Allow-Origin','*');
+	res.setHeader('Access-Control-Allow-Methods','GET,POST');
+	res.setHeader('Access-Control-Allow-Headers','X-Requested-With,content-type,Authorization');
+	next();
+});
+
+// log all requests to console
+app.use(morgan('dev'));
+
+//routes
+
+var rippleApi = require('./api/ripple.api.js')(app,express);
+app.use('/auth', rippleApi);
+
+var tangentApi = require('./api/tangent.api.js')(app,express);
+app.use('/compute', tangentApi);
+
+var constellationApi = require('./api/constellation.api.js')(app,express);
+app.use('/billing', constellationApi);
 
 
 
-// app.use(express.static(__dirname));
+
+//==============================================================
+// SERVER START
+//==============================================================
 
 
 app.listen(port, function(){
 	console.log("listening on port: " + port);
 });
+
+
+
+
+
+
+
