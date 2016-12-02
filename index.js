@@ -5,6 +5,9 @@ var path = require('path');
 var port = 3000;
 
 
+var bodyParser = require('body-parser'); // reads post contents
+var morgan = require('morgan'); // logs all requests to console
+
 
 
 var env = "development";
@@ -28,6 +31,9 @@ else{
 		res.sendFile(path.join(__dirname + '/src/index.html'));
 	});
 }
+
+var api = require('./api.js')(app,express);
+app.use('/api', api);
 
 
 

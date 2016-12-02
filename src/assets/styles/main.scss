@@ -64,6 +64,7 @@ h1{ font-size: 2em;}
 
 
 
+/*------------  LOGOS  ------------*/
 
 
 #horizontalLogoContainer{
@@ -81,6 +82,12 @@ h1{ font-size: 2em;}
 #horizontalLogoImage{
 	width: 100%;
 }
+
+.vertLogoContainer{
+	max-width: 120px;
+}
+
+
 
 
 
@@ -224,6 +231,13 @@ h1{ font-size: 2em;}
 	background-color: $azul;
 }
 
+
+
+.pageHeader{
+
+}
+
+
 /*------------LOGIN PAGE------------*/
 
 
@@ -234,10 +248,35 @@ h1{ font-size: 2em;}
 /*------------DASHBOARD------------*/
 
 
+.dashHeader{
+	padding: 60px 65px 0px 65px;
+
+	.dashGreeting{
+		color: white;
+		text-align: center;
+		font-family: $muliExtraLight;
+		font-weight: 100;
+		letter-spacing: .6px;
+
+		h1{
+			margin: 30px 0px 40px 0px;
+		}
+	}
+
+
+	.dashMenuContainer{
+		float: right;
+
+		.dropdown{
+			width: 200px;
+		}
+	}
+}
 
 .dashNavBgContainer{
 	background-color: $darkTwo;
 	color: white;
+
 }
 
 

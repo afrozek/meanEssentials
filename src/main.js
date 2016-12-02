@@ -362,7 +362,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         
 
         function login(formData) {
-            return $http.post(ripple + '/auth/login/', formData).then(function(res) {
+            return $http.post('/api/login/', formData).then(function(res) {
                         return res;
                     })//end then
         }//end login function

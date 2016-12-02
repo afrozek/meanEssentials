@@ -202,6 +202,12 @@
   margin-left: auto;
   margin-right: auto; }
 
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
 .centerText {
   text-align: center; }
 
@@ -308,6 +314,12 @@
 .centerElement {
   margin-left: auto;
   margin-right: auto; }
+
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
 
 .centerText {
   text-align: center; }
@@ -620,6 +632,7 @@ h1 {
 .hasMainNav {
   padding-top: 55px; }
 
+/*------------  LOGOS  ------------*/
 #horizontalLogoContainer {
   max-width: 220px;
   margin: 40px auto; }
@@ -629,6 +642,9 @@ h1 {
 
 #horizontalLogoImage {
   width: 100%; }
+
+.vertLogoContainer {
+  max-width: 120px; }
 
 /*------------FORMS------------*/
 .floatingFormContainer {
@@ -724,6 +740,21 @@ h1 {
 
 /*------------LOGIN PAGE------------*/
 /*------------DASHBOARD------------*/
+.dashHeader {
+  padding: 60px 65px 0px 65px; }
+  .dashHeader .dashGreeting {
+    color: white;
+    text-align: center;
+    font-family: "Muli-ExtraLight";
+    font-weight: 100;
+    letter-spacing: .6px; }
+    .dashHeader .dashGreeting h1 {
+      margin: 30px 0px 40px 0px; }
+  .dashHeader .dashMenuContainer {
+    float: right; }
+    .dashHeader .dashMenuContainer .dropdown {
+      width: 200px; }
+
 .dashNavBgContainer {
   background-color: #262f3c;
   color: white; }

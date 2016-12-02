@@ -9,7 +9,10 @@
   "author": "Afroze Khan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "bower": "^1.7.9",
