@@ -266,12 +266,76 @@ h1{ font-size: 2em;}
 
 	.dashMenuContainer{
 		float: right;
+		width: 190px;
+		font-family: $muliExtraLight;
+		color: $whiteTwo;
 
-		.dropdown{
-			width: 200px;
+		.dropdown, button, ul, li{
+			width: 100%;
 		}
+
+		button{
+			background: none;
+			border-radius: 5px;
+			border: 1px solid $azulTwo;
+			padding: 10px;
+			height: auto;
+			
+
+			.dropdownAvatar{
+				width: 30px;
+				height: 30px;
+				float: left;
+			}
+
+			.profileName{
+				font-family: inherit;
+				color: $whiteTwo;
+				float: left;
+				padding: 5px 0px 0px 12px;
+				letter-spacing: 0.2px;
+			}
+
+			i{ color: $whiteTwo;}
+
+		}//end button
+
+		ul {
+			border-radius: 5px;
+			border-top-right-radius: 0px;
+			border-top-left-radius: 0px;
+			border: 1px solid $azulTwo;
+			background: $azul;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			box-shadow: none;
+			
+			li{
+				background: $azul;
+				padding: 10px 5px 10px 40px;
+				border-bottom: 1px solid $azulTwo;
+
+				&:last-child{
+					border-bottom: 0;
+				}
+
+				&:hover{
+					background: $azulTwo;
+				}
+			}//end li
+		}//end ul
+
+		//removes radius when dropdown is open	
+		.open > button{
+			border-bottom-right-radius: 0px;
+			border-bottom-left-radius: 0px;
+		}
+
+		
 	}
-}
+
+}//end dashHeader
 
 .dashNavBgContainer{
 	background-color: $darkTwo;

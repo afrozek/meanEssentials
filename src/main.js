@@ -42,7 +42,7 @@ angular
 	'use strict'
 
 angular
-	.module('landing', [
+	.module('dashboard', [
 	  
 	]);
 
@@ -52,7 +52,7 @@ angular
 	'use strict'
 
 angular
-	.module('dashboard', [
+	.module('landing', [
 	  
 	]);
 
@@ -381,107 +381,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
 		.module('dashboard')
 		.controller('dashboardController', dashboardController)
 
@@ -565,6 +464,107 @@ function dashboardDir() {
 	    function info() {
 	      /* */
           console.log("dashboardService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
 	    }
 
 	    function success() {
