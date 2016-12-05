@@ -85,6 +85,12 @@ h1{ font-size: 2em;}
 
 .vertLogoContainer{
 	max-width: 120px;
+
+	@include tablet{
+		margin: 10px auto;
+		float: none;
+		
+	}
 }
 
 
@@ -261,7 +267,10 @@ h1{ font-size: 2em;}
 		h1{
 			margin: 30px 0px 40px 0px;
 		}
-	}
+
+			
+
+	}//end dashgreeting
 
 
 	.dashMenuContainer{
@@ -269,6 +278,12 @@ h1{ font-size: 2em;}
 		width: 190px;
 		font-family: $muliExtraLight;
 		color: $whiteTwo;
+
+		@include tablet{
+			display: block;
+			float: none;
+			width: 100%;
+		}
 
 		.dropdown, button, ul, li{
 			width: 100%;
@@ -310,11 +325,17 @@ h1{ font-size: 2em;}
 			padding: 0;
 			overflow: hidden;
 			box-shadow: none;
+
+
 			
 			li{
 				background: $azul;
-				padding: 10px 5px 10px 40px;
+				padding: 12px 5px 12px 52px;
 				border-bottom: 1px solid $azulTwo;
+
+				@include tablet{
+
+				}
 
 				&:last-child{
 					border-bottom: 0;
@@ -333,6 +354,11 @@ h1{ font-size: 2em;}
 		}
 
 		
+	}
+
+
+	@include tablet{
+		padding: 15px;
 	}
 
 }//end dashHeader

@@ -2,7 +2,9 @@
 						              HELPERS
 =========================================================*/
 
-//common helpers
+/*
+* common helpers
+*/
 
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
@@ -159,6 +161,46 @@
 }
 
 
+
+
+/*
+* Media queries
+*/
+$extraSmallWidth: 360px;
+$smallerWidth: 420px;
+$smallWidth: 768px;
+$mediumWidth: 1280px;
+$largeWidth: 1900px;
+
+@mixin phone {
+  @media (max-width: #{$extraSmallWidth - 1px}) {
+    @content;
+  }
+}
+
+@mixin bigPhone{
+  @media(max-width: #{$smallerWidth}){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$smallWidth - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$mediumWidth}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{$largeWidth}) {
+    @content;
+  }
+}
 
 
 

@@ -173,6 +173,9 @@
 /*=========================================================
 						              HELPERS
 =========================================================*/
+/*
+* common helpers
+*/
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
   templates compile.  The !important is important given that there may be 
@@ -282,10 +285,17 @@
 
 .pb60 {
   padding-bottom: 60px; }
+
+/*
+* Media queries
+*/
 
 /*=========================================================
 						              HELPERS
 =========================================================*/
+/*
+* common helpers
+*/
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
   templates compile.  The !important is important given that there may be 
@@ -396,6 +406,9 @@
 .pb60 {
   padding-bottom: 60px; }
 
+/*
+* Media queries
+*/
 h6 {
   font-size: 0.75em; }
 
@@ -645,6 +658,10 @@ h1 {
 
 .vertLogoContainer {
   max-width: 120px; }
+  @media (max-width: 767px) {
+    .vertLogoContainer {
+      margin: 10px auto;
+      float: none; } }
 
 /*------------FORMS------------*/
 .floatingFormContainer {
@@ -755,6 +772,11 @@ h1 {
     width: 190px;
     font-family: "Muli-ExtraLight";
     color: #f6f6f6; }
+    @media (max-width: 767px) {
+      .dashHeader .dashMenuContainer {
+        display: block;
+        float: none;
+        width: 100%; } }
     .dashHeader .dashMenuContainer .dropdown, .dashHeader .dashMenuContainer button, .dashHeader .dashMenuContainer ul, .dashHeader .dashMenuContainer li {
       width: 100%; }
     .dashHeader .dashMenuContainer button {
@@ -787,7 +809,7 @@ h1 {
       box-shadow: none; }
       .dashHeader .dashMenuContainer ul li {
         background: #1340df;
-        padding: 10px 5px 10px 40px;
+        padding: 12px 5px 12px 52px;
         border-bottom: 1px solid #1659ef; }
         .dashHeader .dashMenuContainer ul li:last-child {
           border-bottom: 0; }
@@ -796,6 +818,9 @@ h1 {
     .dashHeader .dashMenuContainer .open > button {
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px; }
+  @media (max-width: 767px) {
+    .dashHeader {
+      padding: 15px; } }
 
 .dashNavBgContainer {
   background-color: #262f3c;
