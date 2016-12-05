@@ -10,7 +10,8 @@
     	'auth',
     	'token',
     	'login',
-    	'dashboard'
+    	'dashboard',
+        'orbit'
 
     ]);
 })();

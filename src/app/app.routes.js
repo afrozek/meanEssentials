@@ -77,10 +77,21 @@
       })
 
       .state('app.dashboard.orbits', {
+        abstract: true,
         url: '/orbits',
-        template: '<h1> dashboard orbits </h1>',
-        
+        controller: 'orbitController',
+        controllerAs: 'orbitCtrl',
+        templateUrl: 'app/appModules/orbit/orbit.view.html',
       })
+
+      .state('app.dashboard.orbits.home', {
+        url: '/home',
+        templateUrl: 'app/appModules/orbit/orbitHome.view.html',
+      })
+
+
+
+
 
 
 

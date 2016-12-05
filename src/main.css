@@ -250,6 +250,9 @@
 .cbp {
   padding-bottom: 0; }
 
+.mt5 {
+  margin-top: 5px; }
+
 .mt10 {
   margin-top: 10px; }
 
@@ -369,6 +372,9 @@
 
 .cbp {
   padding-bottom: 0; }
+
+.mt5 {
+  margin-top: 5px; }
 
 .mt10 {
   margin-top: 10px; }
@@ -822,9 +828,42 @@ h1 {
     .dashHeader {
       padding: 15px; } }
 
-.dashNavBgContainer {
+.dashNavContainer {
   background-color: #262f3c;
   color: white; }
+  .dashNavContainer ul {
+    list-style: none;
+    margin: 0;
+    padding: 16px 10px;
+    float: left; }
+  .dashNavContainer li {
+    display: inline-block;
+    letter-spacing: 0.2px;
+    margin-right: 40px; }
+    .dashNavContainer li a {
+      color: #3c4858;
+      text-decoration: none;
+      font-size: 0.875em;
+      transition: .3s;
+      padding: 10px;
+      letter-spacing: 0.3px; }
+      .dashNavContainer li a img {
+        mix-blend-mode: luminosity;
+        opacity: .4;
+        position: relative;
+        top: -2px;
+        margin-right: 10px;
+        height: 18px;
+        transition: .3s; }
+      .dashNavContainer li a:hover {
+        color: #ffffff; }
+      .dashNavContainer li a:hover img {
+        color: #ffffff;
+        mix-blend-mode: normal;
+        opacity: 1; }
+
+#dashNestedView {
+  min-height: 800px; }
 
 h6 {
   font-size: 0.75em; }

@@ -10,7 +10,8 @@
     	'auth',
     	'token',
     	'login',
-    	'dashboard'
+    	'dashboard',
+        'orbit'
 
     ]);
 })();
@@ -23,17 +24,6 @@
 angular
 	.module('api', [
 	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('auth', [
-	  'token',
-	  'api'
 	]);
 
 })();
@@ -70,6 +60,27 @@ angular
 
 })();
 
+
+(function(){
+	'use strict'
+
+angular
+	.module('auth', [
+	  'token',
+	  'api'
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('orbit', [
+	  
+	]);
+
+})();
 
 (function(){
 	'use strict'
@@ -210,10 +221,21 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
       })
 
       .state('app.dashboard.orbits', {
+        abstract: true,
         url: '/orbits',
-        template: '<h1> dashboard orbits </h1>',
-        
+        controller: 'orbitController',
+        controllerAs: 'orbitCtrl',
+        templateUrl: 'app/appModules/orbit/orbit.view.html',
       })
+
+      .state('app.dashboard.orbits.home', {
+        url: '/home',
+        templateUrl: 'app/appModules/orbit/orbitHome.view.html',
+      })
+
+
+
+
 
 
 
@@ -281,96 +303,6 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
 
     }
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('interceptorService', interceptorService);
-
-    interceptorService.$inject = ['tokenService' ]
-
-    function interceptorService( tokenService ) {
-
-    	var service = {
-
-    		request: request,
-            reponseError: responseError
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function request(config) {
-
-	      var token = tokenService.getToken();
-
-          if(token){
-            // console.log("setting Headers");
-            config.headers['token'] = token;
-          }
-
-          return config;
-
-	    }
-
-	    function responseError(response) {
-	      
-            // if our server returns a 403 forbidden response
-            if (response.status == 401 || response.status == 403) {
-                 $state.go('/login');
-            }
-
-            // return the errors from the server as a promise
-            return $q.reject(response);
-	    }
-
-
-
-    } //end authService
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('authService', authService);
-
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
-
-    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
-
-        var service = {
-            login: login
-        }
-
-        var ripple = apiService.rippleBaseUrl;
-        console.log(ripple);
-
-        
-
-        function login(formData) {
-            return $http.post(ripple + '/account/login/', formData).then(function(res) {
-                        return res;
-                    })//end then
-        }//end login function
-
-        return service;
-
-    }//end authService 
 
 	
 // end IIFE
@@ -813,6 +745,197 @@ function loginFormDirective() {
 
 //end IIFE
 })();
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('interceptorService', interceptorService);
+
+    interceptorService.$inject = ['tokenService' ]
+
+    function interceptorService( tokenService ) {
+
+    	var service = {
+
+    		request: request,
+            reponseError: responseError
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function request(config) {
+
+	      var token = tokenService.getToken();
+
+          if(token){
+            // console.log("setting Headers");
+            config.headers['token'] = token;
+          }
+
+          return config;
+
+	    }
+
+	    function responseError(response) {
+	      
+            // if our server returns a 403 forbidden response
+            if (response.status == 401 || response.status == 403) {
+                 $state.go('/login');
+            }
+
+            // return the errors from the server as a promise
+            return $q.reject(response);
+	    }
+
+
+
+    } //end authService
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('authService', authService);
+
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
+
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
+
+        var service = {
+            login: login
+        }
+
+        var ripple = apiService.rippleBaseUrl;
+        console.log(ripple);
+
+        
+
+        function login(formData) {
+            return $http.post(ripple + '/account/login/', formData).then(function(res) {
+                        return res;
+                    })//end then
+        }//end login function
+
+        return service;
+
+    }//end authService 
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('orbit')
+		.controller('orbitController', orbitController)
+
+	orbitController.$inject = []
+
+	function orbitController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'orbit';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('orbit')
+    .directive('orbitDir', orbitDir);
+
+function orbitDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('orbit')
+    	.factory('orbitService', orbitService);
+
+    orbitService.$inject = []
+
+    function orbitService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("orbitService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
 (function(){
 	'use strict'
 

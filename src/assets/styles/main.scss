@@ -363,15 +363,60 @@ h1{ font-size: 2em;}
 
 }//end dashHeader
 
-.dashNavBgContainer{
+.dashNavContainer{
 	background-color: $darkTwo;
 	color: white;
 
-}
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 16px 10px;
+		float: left;
+	}
+
+	li{
+		display: inline-block;
+		letter-spacing: 0.2px;
+		margin-right: 40px;
+
+		a{
+			color: $slateTwo;
+			text-decoration: none;
+			font-size: $em14px;
+			transition: .3s;
+			padding: 10px;
+			letter-spacing: 0.3px;
+
+			img{
+			    mix-blend-mode: luminosity;
+			    opacity: .4;
+			    position: relative;
+			    top: -2px;
+			    margin-right: 10px;
+			    height: 18px;	
+			    transition: .3s;
+			}
+
+			&:hover {color: $white;}
+			&:hover img{
+				color: $white;
+				mix-blend-mode: normal;
+				opacity: 1;
+			}
+		}
+
+		
+		
+
+	}//end li
+
+}//end dashNavContainer
 
 
 
-
+#dashNestedView{
+	min-height: 800px;
+} 
 
 
 
