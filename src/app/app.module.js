@@ -11,7 +11,8 @@
     	'token',
     	'login',
     	'dashboard',
-        'orbit'
+        'orbit',
+        'notify'
 
     ]);
 })();

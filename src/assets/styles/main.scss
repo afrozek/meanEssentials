@@ -50,6 +50,28 @@ h1{ font-size: 2em;}
 	background: white;
 }
 
+/*------------  NOTIFY  ------------*/
+#notifyContainer{
+	position: fixed;
+
+	.notification{
+		overflow: hidden;
+		background: $whiteTwo;
+	
+		transition: .3s;
+
+		img{
+			width: 50px;
+		}
+		
+		span{
+			width: 100px;
+			display: block;
+			float: left;
+		}
+	}
+}
+
 
 /*------------  NAVBAR  ------------*/
 
@@ -371,6 +393,7 @@ h1{ font-size: 2em;}
 		list-style: none;
 		margin: 0;
 		padding: 16px 10px;
+		padding-left: 0;
 		float: left;
 	}
 
@@ -385,7 +408,7 @@ h1{ font-size: 2em;}
 			font-size: $em14px;
 			transition: .3s;
 			padding: 10px;
-			letter-spacing: 0.3px;
+			letter-spacing: 0.5px;
 
 			img{
 			    mix-blend-mode: luminosity;
@@ -418,6 +441,13 @@ h1{ font-size: 2em;}
 	min-height: 800px;
 } 
 
+.dashPages{
+	background: $whiteTwo;
+	min-height: 500px;
+	border-radius: 3px;
+	margin-top: 60px;
+	overflow: hidden;
+}
 
 
 

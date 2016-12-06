@@ -89,6 +89,11 @@
         templateUrl: 'app/appModules/orbit/orbitHome.view.html',
       })
 
+      .state('app.dashboard.orbits.create', {
+        url: '/create',
+        templateUrl: 'app/appModules/orbit/orbitCreate.view.html',
+      })
+
 
 
 

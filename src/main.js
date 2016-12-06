@@ -11,7 +11,8 @@
     	'token',
     	'login',
     	'dashboard',
-        'orbit'
+        'orbit',
+        'notify'
 
     ]);
 })();
@@ -24,6 +25,17 @@
 angular
 	.module('api', [
 	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('auth', [
+	  'token',
+	  'api'
 	]);
 
 })();
@@ -65,9 +77,8 @@ angular
 	'use strict'
 
 angular
-	.module('auth', [
-	  'token',
-	  'api'
+	.module('notify', [
+	  
 	]);
 
 })();
@@ -233,6 +244,11 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         templateUrl: 'app/appModules/orbit/orbitHome.view.html',
       })
 
+      .state('app.dashboard.orbits.create', {
+        url: '/create',
+        templateUrl: 'app/appModules/orbit/orbitCreate.view.html',
+      })
+
 
 
 
@@ -303,6 +319,96 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
 
     }
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('interceptorService', interceptorService);
+
+    interceptorService.$inject = ['tokenService' ]
+
+    function interceptorService( tokenService ) {
+
+    	var service = {
+
+    		request: request,
+            reponseError: responseError
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function request(config) {
+
+	      var token = tokenService.getToken();
+
+          if(token){
+            // console.log("setting Headers");
+            config.headers['token'] = token;
+          }
+
+          return config;
+
+	    }
+
+	    function responseError(response) {
+	      
+            // if our server returns a 403 forbidden response
+            if (response.status == 401 || response.status == 403) {
+                 $state.go('/login');
+            }
+
+            // return the errors from the server as a promise
+            return $q.reject(response);
+	    }
+
+
+
+    } //end authService
+
+	
+// end IIFE
+})();
+
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('auth')
+    	.factory('authService', authService);
+
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
+
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
+
+        var service = {
+            login: login
+        }
+
+        var ripple = apiService.rippleBaseUrl;
+        console.log(ripple);
+
+        
+
+        function login(formData) {
+            return $http.post(ripple + '/account/login/', formData).then(function(res) {
+                        return res;
+                    })//end then
+        }//end login function
+
+        return service;
+
+    }//end authService 
 
 	
 // end IIFE
@@ -745,90 +851,121 @@ function loginFormDirective() {
 
 //end IIFE
 })();
+(function() {
+	'use strict'
+
+	angular
+		.module('notify')
+		.controller('notifyController', notifyController)
+
+	notifyController.$inject = []
+
+	function notifyController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'notify';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('notify')
+    .directive('notifyDir', notifyDir);
+
+
+function notifyDir() {
+	return{
+		restrict: 'E',
+		templateUrl: 'app/appModules/notify/notify.view.html',
+		replace: false,
+		controller: function($scope,notifyService){
+			$scope.test = "testing";
+
+			notifyService.info("testing the service");
+			$scope.messages = notifyService.messages;
+
+			$scope.notify = function(message){
+				console.log('called')
+				notifyService.info(message);
+			}
+		}
+	}
+
+
+}
+
+//end IIFE
+})();
+
 (function(){
 	'use strict'
 
 	angular
-    	.module('auth')
-    	.factory('interceptorService', interceptorService);
+    	.module('notify')
+    	.factory('notifyService', notifyService);
 
-    interceptorService.$inject = ['tokenService' ]
+    notifyService.$inject = ['$timeout']
 
-    function interceptorService( tokenService ) {
+    function notifyService($timeout) {
 
     	var service = {
-
-    		request: request,
-            reponseError: responseError
-
+    		
+    		info: info,
+            messages : []
     	};
+
+        
 
     	return service;
 
     	////////////
 
-    	function request(config) {
+    	function error() {
+	      /* */
+	    }
 
-	      var token = tokenService.getToken();
+	    function info(message) {
+          console.log("info called");
+          service.messages.push(message);
 
-          if(token){
-            // console.log("setting Headers");
-            config.headers['token'] = token;
-          }
-
-          return config;
+          $timeout(function(){
+            service.messages.splice(0,1);
+          },2000)
 
 	    }
 
-	    function responseError(response) {
-	      
-            // if our server returns a 403 forbidden response
-            if (response.status == 401 || response.status == 403) {
-                 $state.go('/login');
-            }
 
-            // return the errors from the server as a promise
-            return $q.reject(response);
+	    function success() {
+	      /* */
 	    }
 
 
-
-    } //end authService
-
-	
-// end IIFE
-})();
-
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('auth')
-    	.factory('authService', authService);
-
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
-
-    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
-
-        var service = {
-            login: login
-        }
-
-        var ripple = apiService.rippleBaseUrl;
-        console.log(ripple);
-
-        
-
-        function login(formData) {
-            return $http.post(ripple + '/account/login/', formData).then(function(res) {
-                        return res;
-                    })//end then
-        }//end login function
-
-        return service;
-
-    }//end authService 
+    }
 
 	
 // end IIFE
