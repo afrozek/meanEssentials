@@ -111,47 +111,56 @@
     background: yellow;
     width: 300px; } }
 
-.message {
-  position: absolute;
-  left: 50px;
-  width: 200px;
-  height: 50px;
-  padding: 20px 10px; }
+.notificationAnimation.ng-enter {
+  -webkit-animation: enter 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation: enter 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+  display: block;
+  position: relative; }
 
-.animate-enter {
-  -webkit-animation: enter 600ms cubic-bezier(0.39, 0.575, 0.565, 1);
-  animation: enter 600ms cubic-bezier(0.39, 0.575, 0.565, 1);
+.notificationAnimation.ng-leave {
+  -webkit-animation: enter 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation: enter 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
   display: block;
   position: relative;
-  animation-duration: 1s; }
+  animation-direction: reverse; }
 
 @-webkit-keyframes enter {
   from {
     opacity: 0;
-    height: 50px;
-    width: 50px;
+    min-height: 70px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip;
     transform: scale(0); }
   30% {
     transform: scale(1.2);
     left: 0px;
-    width: 50px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip; }
   35% {
     transform: scale(1); }
   90% {
     left: 0px;
-    width: 50px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip; }
   to {
     opacity: 1;
-    height: 50px;
+    min-height: 70px;
     left: 0px;
     top: 0px;
-    width: 230px; } }
+    width: 300px; } }
+
+@-webkit-keyframes jiggle {
+  from {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(2deg); }
+  75% {
+    transform: rotate(-2deg); }
+  to {
+    transform: rotate(0deg); } }
 
 /*------------GREEN LOADING SPINNER------------*/
 .bounceSpinnerContainer {
@@ -706,47 +715,56 @@ h1 {
     background: yellow;
     width: 300px; } }
 
-.message {
-  position: absolute;
-  left: 50px;
-  width: 200px;
-  height: 50px;
-  padding: 20px 10px; }
+.notificationAnimation.ng-enter {
+  -webkit-animation: enter 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation: enter 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+  display: block;
+  position: relative; }
 
-.animate-enter {
-  -webkit-animation: enter 600ms cubic-bezier(0.39, 0.575, 0.565, 1);
-  animation: enter 600ms cubic-bezier(0.39, 0.575, 0.565, 1);
+.notificationAnimation.ng-leave {
+  -webkit-animation: enter 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation: enter 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
   display: block;
   position: relative;
-  animation-duration: 1s; }
+  animation-direction: reverse; }
 
 @-webkit-keyframes enter {
   from {
     opacity: 0;
-    height: 50px;
-    width: 50px;
+    min-height: 70px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip;
     transform: scale(0); }
   30% {
     transform: scale(1.2);
     left: 0px;
-    width: 50px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip; }
   35% {
     transform: scale(1); }
   90% {
     left: 0px;
-    width: 50px;
+    width: 70px;
     overflow: hidden;
     text-overflow: clip; }
   to {
     opacity: 1;
-    height: 50px;
+    min-height: 70px;
     left: 0px;
     top: 0px;
-    width: 230px; } }
+    width: 300px; } }
+
+@-webkit-keyframes jiggle {
+  from {
+    transform: rotate(0deg); }
+  25% {
+    transform: rotate(2deg); }
+  75% {
+    transform: rotate(-2deg); }
+  to {
+    transform: rotate(0deg); } }
 
 /*------------GREEN LOADING SPINNER------------*/
 .bounceSpinnerContainer {
@@ -834,17 +852,43 @@ h1 {
 
 /*------------  NOTIFY  ------------*/
 #notifyContainer {
-  position: fixed; }
+  position: fixed;
+  width: 100%; }
   #notifyContainer .notification {
+    margin-top: 20px;
+    margin-left: 20px;
     overflow: hidden;
-    background: #f6f6f6;
-    transition: .3s; }
-    #notifyContainer .notification img {
-      width: 50px; }
-    #notifyContainer .notification span {
-      width: 100px;
-      display: block;
-      float: left; }
+    position: relative;
+    width: 350px;
+    height: 70px;
+    display: block;
+    transition: .3s;
+    border-bottom: 1px solid #52647b; }
+    #notifyContainer .notification .imgContainer {
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      background: #36ca75; }
+      #notifyContainer .notification .imgContainer img {
+        padding: 10px;
+        width: 50px;
+        height: auto;
+        display: block;
+        box-sizing: content-box; }
+    #notifyContainer .notification .messageContainer {
+      background: #f6f6f6;
+      position: absolute;
+      height: 70px;
+      width: 280px;
+      left: 70px; }
+      #notifyContainer .notification .messageContainer .message {
+        padding: 15px; }
+      #notifyContainer .notification .messageContainer .close {
+        color: #3c4858;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        padding: 7px 7px; }
 
 /*------------  NAVBAR  ------------*/
 .navbar {

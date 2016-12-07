@@ -12,7 +12,7 @@
     var vm = this;
     vm.controllerName = "appController";
 
-    $log.debug(apiService);
+
   
 
   }//end appController

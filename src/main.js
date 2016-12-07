@@ -54,16 +54,6 @@ angular
 	'use strict'
 
 angular
-	.module('landing', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('login', [
 	  'token',
 	  'auth',
@@ -72,6 +62,16 @@ angular
 
 })();
 
+
+(function(){
+	'use strict'
+
+angular
+	.module('landing', [
+	  
+	]);
+
+})();
 
 (function(){
 	'use strict'
@@ -120,7 +120,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
     var vm = this;
     vm.controllerName = "appController";
 
-    $log.debug(apiService);
+
   
 
   }//end appController
@@ -396,7 +396,7 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
         }
 
         var ripple = apiService.rippleBaseUrl;
-        console.log(ripple);
+     
 
         
 
@@ -502,107 +502,6 @@ function dashboardDir() {
 	    function info() {
 	      /* */
           console.log("dashboardService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
 	    }
 
 	    function success() {
@@ -855,6 +754,107 @@ function loginFormDirective() {
 	'use strict'
 
 	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
 		.module('notify')
 		.controller('notifyController', notifyController)
 
@@ -904,13 +904,13 @@ function notifyDir() {
 		templateUrl: 'app/appModules/notify/notify.view.html',
 		replace: false,
 		controller: function($scope,notifyService){
-			$scope.test = "testing";
+			
 
-			notifyService.info("testing the service");
+			// notifyService.info("testing the service");
 			$scope.messages = notifyService.messages;
 
 			$scope.notify = function(message){
-				console.log('called')
+				
 				notifyService.info(message);
 			}
 		}
@@ -950,12 +950,11 @@ function notifyDir() {
 	    }
 
 	    function info(message) {
-          console.log("info called");
           service.messages.push(message);
 
           $timeout(function(){
             service.messages.splice(0,1);
-          },2000)
+          },3000)
 
 	    }
 
