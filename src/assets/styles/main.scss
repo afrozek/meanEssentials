@@ -50,14 +50,19 @@ h1{ font-size: 2em;}
 	background: white;
 }
 
+.info{ background: $paleOrange;}
+.success{ background: $greenishTeal;}
+.error{ background: $red;}
+
 /*------------  NOTIFY  ------------*/
 #notifyContainer{
 	position: fixed;
 	width: 100%;
+	z-index: 99;
+	top: 20px;
+	left: 20px;
 
 	.notification{
-		margin-top: 20px;
-		margin-left: 20px;
 		overflow: hidden;
 		// background: $whiteTwo;
 		position: relative;
@@ -65,13 +70,12 @@ h1{ font-size: 2em;}
 		height: 70px;
 		display: block;
 		transition: .3s;
-		border-bottom: 1px solid $slate;
+		margin-bottom: 1px;
 
 		.imgContainer{
 			width: 70px;
 			height: 70px;
 			position: absolute;
-			background: $greenishTeal;
 
 			img{
 				padding: 10px;
@@ -102,7 +106,9 @@ h1{ font-size: 2em;}
 		}
 
 	}
-}
+
+
+}//end notif
 
 
 /*------------  NAVBAR  ------------*/

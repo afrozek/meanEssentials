@@ -858,31 +858,33 @@ function landingDir() {
 		.module('notify')
 		.controller('notifyController', notifyController)
 
-	notifyController.$inject = []
+	notifyController.$inject = ['$scope', 'notifyService']
 
-	function notifyController() {
+	function notifyController($scope, notifyService) {
 
-	    var vm = this;
 
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'notify';
+			
 
-	    ////////////
+			// notifyService.info("testing the service");
+			$scope.messages = notifyService.messages;
 
-	    function gotoSession() {
-	      /* */
-	    }
+			$scope.info = function(message){
 
-	    function refresh() {
-	      /* */
-	    }
+				notifyService.info({class:"info", data: message});
+			}
 
-	    function search() {
-	      /* */
-	    }
+			$scope.success = function(message){
+				notifyService.success({class:"success", data: message});
+			}
+
+			$scope.error = function(message){
+				notifyService.error({class:"error", data: message});
+			}
+
+			$scope.close = function(message){
+				notifyService.removeNotification(message);
+			}
+		
 	}
 
 
@@ -903,17 +905,7 @@ function notifyDir() {
 		restrict: 'E',
 		templateUrl: 'app/appModules/notify/notify.view.html',
 		replace: false,
-		controller: function($scope,notifyService){
-			
-
-			// notifyService.info("testing the service");
-			$scope.messages = notifyService.messages;
-
-			$scope.notify = function(message){
-				
-				notifyService.info(message);
-			}
-		}
+		controller: 'notifyController'
 	}
 
 
@@ -936,8 +928,14 @@ function notifyDir() {
     	var service = {
     		
     		info: info,
+            success: success,
+            error: error,
+            removeNotification: removeNotification,
             messages : []
     	};
+
+        //dismisses after 5 seconds
+        var duration = 50500;
 
         
 
@@ -950,18 +948,70 @@ function notifyDir() {
 	    }
 
 	    function info(message) {
-          service.messages.push(message);
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
 
+          //no dupes, push message  
+          service.messages.push(message) 
+
+          //remove after x seconds
           $timeout(function(){
             service.messages.splice(0,1);
-          },3000)
+          }, duration)
 
-	    }
+	    } //end info
 
+        function success(message) {
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
 
-	    function success() {
-	      /* */
-	    }
+          //no dupes, push message  
+          service.messages.push(message)  
+
+          //remove after x seconds
+          $timeout(function(){
+            service.messages.splice(0,1);
+          }, duration)
+
+        } //end success
+
+        function error(message) {
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
+
+          //no dupes, push message  
+          service.messages.push(message)  
+
+          //remove after x seconds
+          $timeout(function(){
+            service.messages.splice(0,1);
+          }, duration)
+
+        } //end error
+
+        function removeNotification(message) {
+
+            var found = findMessage(message);
+            if(found !== false){
+                 service.messages.splice(found, 1);
+            }
+               
+        }//end removeNotification
+
+        //searches message array for message
+        //returns index of message if found
+        function findMessage(message){
+             for(var i = 0; i < service.messages.length; i++) { 
+                if(service.messages[i].data == message.data){
+                    return i;
+                }
+                
+            } //end for
+            return false;
+        }//end find message
 
 
     }
