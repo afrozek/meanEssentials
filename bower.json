@@ -19,6 +19,7 @@
     "angular-ui-router": "0.3.1",
     "bootstrap": "^3.3.7",
     "angular-animate": "1.5.8",
-    "components-font-awesome": "^4.7.0"
+    "components-font-awesome": "^4.7.0",
+    "angular-bowser": "^0.0.4"
   }
 }

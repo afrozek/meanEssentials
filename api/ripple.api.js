@@ -24,10 +24,17 @@ var ripple = express.Router();
 		  method: "POST",
 		  form: data
 		}, function(error, response, body) {
-		  	// res.send(response)
-		  	if(response.statusCode == 400)
-		  		res.status(400).json({status: false})
-		  	else res.send(response.body)
+		  	console.log(response.statusCode)
+
+		  	if(response.statusCode == 200){
+		  		res.send(response.body)	;
+		  	}
+		  	else {
+		  		// res.status(400).json({status: false})
+		  		res.status(400).send(response.body);
+		  	}
+
+		  	 
 
 		});
 

@@ -3,6 +3,10 @@
 
   angular
     .module('app', [
+        'jlareau.bowser',
+        'browserCheck',
+        'scriptBlockerCheck',
+        'tabSessionSync',
     	'api',
     	'ui.router',
         'ngAnimate',
@@ -36,6 +40,16 @@ angular
 	.module('auth', [
 	  'token',
 	  'api'
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('browserCheck', [
+	  
 	]);
 
 })();
@@ -97,6 +111,26 @@ angular
 	'use strict'
 
 angular
+	.module('scriptBlockerCheck', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('tabSessionSync', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('token', [
 	  
 	]);
@@ -113,13 +147,14 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
     .module('app')
     .controller('appController', appController);
 
-  appController.$inject = ['apiService','$log'];
+  appController.$inject = ['apiService','$log','notifyService'];
 
   /** @ngInject */
-  function appController(apiService, $log) {
+  function appController(apiService, $log, notifyService) {
     var vm = this;
     vm.controllerName = "appController";
 
+    notifyService.success("Testing");
 
   
 
@@ -267,17 +302,37 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 
 })();
 
+
+
 (function(){
 
 'use strict';
 
 	angular
 	.module('app')
-	.run(function($rootScope, $templateCache) {
+	.run(run)
+
+	run.$inject = ['$rootScope', '$templateCache', 'browserCheckService','scriptBlockerCheckService','tabSessionSyncService'];
+
+	function run($rootScope, $templateCache, browserCheckService, scriptBlockerCheckService, tabSessionSyncService) {
+
 	   $rootScope.$on('$viewContentLoaded', function() {
 	      $templateCache.removeAll();
 	   });
-	});
+
+	 //browser check  
+	 browserCheckService.checkBrowser();
+	 
+	 //script blocker check
+	 scriptBlockerCheckService.checkScripts();
+
+	 //sync session storage
+	 tabSessionSyncService.sync();
+
+
+
+
+	} //end run
 
 })();
 (function(){
@@ -419,6 +474,140 @@ $templateCache.put('app/appComponents/landing/views/landing.view.html','<div id=
 	'use strict'
 
 	angular
+		.module('browserCheck')
+		.controller('browserCheckCtrl', browserCheckCtrl)
+
+	browserCheckCtrl.$inject = []
+
+	function browserCheckCtrl() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'browserCheck';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('browserCheck')
+    .directive('browserCheckDir', browserCheckDir);
+
+function browserCheckDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('browserCheck')
+    	.factory('browserCheckService', browserCheckService);
+
+    browserCheckService.$inject = ['bowser', '$state', '$location']
+
+    function browserCheckService(bowser, $state, $location) {
+    	var service = {
+    		checkBrowser: checkBrowser,
+            oldBrowser: false
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function checkBrowser() {
+
+           
+
+	        if(bowser.mobile){
+
+            }
+            else if(bowser.tablet){
+
+            }
+            else{
+
+                  // console.log(bowser)
+                  //browser check
+
+                  if (bowser.chrome && bowser.version < 40) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.msie && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.safari && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.firefox && bowser.version < 49) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.opera && bowser.version < 10) {
+                    service.oldBrowser = true;
+                  }
+            }
+
+            if(service.oldBrowser == true){
+                // $location.path('/updatebrowser')
+                document.write("Your " + bowser.name + " browser is out of date. Please update it for the best experience");
+            }
+
+
+	    } // end check browser
+
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
 		.module('dashboard')
 		.controller('dashboardController', dashboardController)
 
@@ -539,11 +728,14 @@ function dashboardDir() {
 
 	    function login(form) {
 
+	    	//first validate form
 	    	if(validateFormFields(form) == false)
 	    		return false;
 	    	 
-	    	//
+	    	
 	    	vm.submitForm = true;
+
+	    	//wait 500 millisecs so they see the loading animation
 	    	setTimeout(sendRequest, 500)
 	    	
 
@@ -575,6 +767,7 @@ function dashboardDir() {
 	    	vm.loginForm.password = null;
 	    }
 
+	    //takes the scope version of form
 	    function validateFormFields(form){
 
 	    	var isValid = true;
@@ -731,12 +924,12 @@ function loginFormDirective() {
 
 	function link(scope, elem, attrs) {
 		var vm = scope.loginCtrl;
-		console.log(vm.loginSuccess);
+		// console.log(vm.loginSuccess);
 
 
 		scope.$watch(function(){return vm.loginSuccess}, function(newValue, oldValue) {
             if (newValue){
-                console.log("I see a data change!");
+                // console.log("I see a data change!");
                 // elem.css("display", "none");
             }
         }, true);
@@ -869,16 +1062,16 @@ function landingDir() {
 			$scope.messages = notifyService.messages;
 
 			$scope.info = function(message){
-
-				notifyService.info({class:"info", data: message});
+				console.log("bb")
+				notifyService.info(message);
 			}
 
 			$scope.success = function(message){
-				notifyService.success({class:"success", data: message});
+				notifyService.success(message);
 			}
 
 			$scope.error = function(message){
-				notifyService.error({class:"error", data: message});
+				notifyService.error(message);
 			}
 
 			$scope.close = function(message){
@@ -935,7 +1128,7 @@ function notifyDir() {
     	};
 
         //dismisses after 5 seconds
-        var duration = 50500;
+        var duration = 6000;
 
         
 
@@ -948,6 +1141,7 @@ function notifyDir() {
 	    }
 
 	    function info(message) {
+        message = {class: 'info', data: message};
         //check for dupes
             if(findMessage(message) !== false)
                 return false;
@@ -963,6 +1157,7 @@ function notifyDir() {
 	    } //end info
 
         function success(message) {
+        message = {class: 'success', data: message};
         //check for dupes
             if(findMessage(message) !== false)
                 return false;
@@ -978,6 +1173,7 @@ function notifyDir() {
         } //end success
 
         function error(message) {
+        message = {class: 'error', data: message};
         //check for dupes
             if(findMessage(message) !== false)
                 return false;
@@ -1108,6 +1304,280 @@ function orbitDir() {
 	    function info() {
 	      /* */
           console.log("orbitService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('scriptBlockerCheck')
+		.controller('scriptBlockerCheckCtrl', scriptBlockerCheckCtrl)
+
+	scriptBlockerCheckCtrl.$inject = []
+
+	function scriptBlockerCheckCtrl() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'scriptBlockerCheck';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('scriptBlockerCheck')
+    .directive('scriptBlockerCheckDir', scriptBlockerCheckDir);
+
+function scriptBlockerCheckDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('scriptBlockerCheck')
+    	.factory('scriptBlockerCheckService', scriptBlockerCheckService);
+
+    scriptBlockerCheckService.$inject = []
+
+    function scriptBlockerCheckService() {
+    	var service = {
+
+            checkScripts: checkScripts,
+            scriptsBlocked: false
+
+    	};
+
+    	return service;
+
+    	////////////
+
+        function checkScripts() {
+            console.log("Called")
+            checkStripe()
+                .then(checkRecaptcha)
+                .then(gstatic)
+        }
+
+
+
+        function checkStripe(){
+
+          return $.getScript('https://js.stripe.com/v2/')
+              .done(function( script, textStatus ) {
+                console.log("completed stripe ajax request");
+              })
+              .fail(function( jqxhr, settings, exception ) {
+                    console.log("failed stripe");
+                    service.scriptsBlocked = true;
+                    return scriptErrorHandler("Stripe");
+            }); // end getScript
+        }//end checkStripe
+
+        function checkRecaptcha(){
+
+          return $.getScript('https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit')
+              .done(function( script, textStatus ) {
+                console.log("completed stripe ajax request");
+              })
+              .fail(function( jqxhr, settings, exception ) {
+                    console.log("failed recaptcha");
+                    service.scriptsBlocked = true;
+                    return scriptErrorHandler("Recaptcha");
+            }); // end getScript
+        }//end checkStripe
+
+        function gstatic(){
+
+          return $.getScript('https://www.gstatic.com/recaptcha/api2/r20161004153729/recaptcha__en.js')
+              .done(function( script, textStatus ) {
+                console.log("completed stripe ajax request");
+              })
+              .fail(function( jqxhr, settings, exception ) {
+                    console.log("failed gstatic");
+                    service.scriptsBlocked = true;
+                    return scriptErrorHandler("Gstatic");
+            }); // end getScript
+        }//end checkStripe
+
+        function scriptErrorHandler(scriptName){
+            document.write("Failed to load " + scriptName + ". Please ensure all script blockers are disabled.")
+        }
+
+
+    }//end scriptBlockerCheckService
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('tabSessionSync')
+		.controller('tabSessionSyncCtrl', tabSessionSyncCtrl)
+
+	tabSessionSyncCtrl.$inject = []
+
+	function tabSessionSyncCtrl() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'tabSessionSync';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('tabSessionSync')
+    .directive('tabSessionSyncDir', tabSessionSyncDir);
+
+function tabSessionSyncDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('tabSessionSync')
+    	.factory('tabSessionSyncService', tabSessionSyncService);
+
+    tabSessionSyncService.$inject = []
+
+    function tabSessionSyncService() {
+    	var service = {
+
+    		sync: sync,
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function sync() {
+            //session manager bewtween tabs
+   
+
+                if (!sessionStorage.length || typeof(sessionStorage) == 'undefined') {
+                    // Ask other tabs for session storage
+                    localStorage.setItem('getSessionStorage', Date.now());
+                };
+
+                window.addEventListener('storage', function(event) {
+
+                    //console.log('storage event', event);
+
+                    if (event.key == 'getSessionStorage') {
+                        // Some tab asked for the sessionStorage -> send it
+
+                        localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
+                        localStorage.removeItem('sessionStorage');
+
+                    } else if (event.key == 'sessionStorage' && !sessionStorage.length) {
+                        // sessionStorage is empty -> fill it
+
+                        var data = JSON.parse(event.newValue),
+                                    value;
+
+                        for (var key in data) {
+                            sessionStorage.setItem(key, data[key]);
+                        }
+
+                        // showSessionStorage();
+                    }
+                });
+
+                window.onbeforeunload = function() {
+                    //sessionStorage.clear();
+                };
+
+         
+	    }
+
+	    function info() {
+	      /* */
+          console.log("tabSessionSyncService");
 	    }
 
 	    function success() {

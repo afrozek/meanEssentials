@@ -3,6 +3,10 @@
 
   angular
     .module('app', [
+        'jlareau.bowser',
+        'browserCheck',
+        'scriptBlockerCheck',
+        'tabSessionSync',
     	'api',
     	'ui.router',
         'ngAnimate',

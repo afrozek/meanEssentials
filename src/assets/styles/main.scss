@@ -130,6 +130,8 @@ h1{ font-size: 2em;}
 #horizontalLogoContainer{
 	max-width: 220px;
 	margin: 40px auto;
+	position: relative;
+	z-index: 98;
 
 	@media(min-height: 800px){
 		&{
@@ -141,10 +143,14 @@ h1{ font-size: 2em;}
 
 #horizontalLogoImage{
 	width: 100%;
+	position: relative;
+	z-index: 98;
 }
 
 .vertLogoContainer{
 	max-width: 120px;
+	position: relative;
+	z-index: 98;
 
 	@include tablet{
 		margin: 10px auto;
@@ -289,13 +295,23 @@ h1{ font-size: 2em;}
 	}
 }
 
+// .starfieldAlphaBg{
+// 	background: url('assets/images/starfieldAlpha.svg');
+// 	background-position: center;
+// 	background-size: cover;
+// 	background-repeat: no-repeat;
+// 	background-color: $azul;
+// }
+
 .starfieldAlphaBg{
 	background: url('assets/images/starfieldAlpha.svg');
-	background-position: center;
+	background-position: top;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-color: $azul;
+
 }
+
 
 
 
@@ -315,7 +331,7 @@ h1{ font-size: 2em;}
 
 
 .dashHeader{
-	padding: 60px 65px 0px 65px;
+	padding: 30px 65px 0px 65px;
 
 	.dashGreeting{
 		color: white;
@@ -325,7 +341,9 @@ h1{ font-size: 2em;}
 		letter-spacing: .6px;
 
 		h1{
-			margin: 30px 0px 40px 0px;
+			margin: 0px 0px 40px 0px;
+			position: relative;
+			top: -30px;
 		}
 
 			
@@ -338,6 +356,8 @@ h1{ font-size: 2em;}
 		width: 190px;
 		font-family: $muliExtraLight;
 		color: $whiteTwo;
+		position: relative;
+		z-index: 98;
 
 		@include tablet{
 			display: block;
@@ -458,13 +478,13 @@ h1{ font-size: 2em;}
 			    transition: .3s;
 			}
 
-			&:hover {color: $white;}
-			&:hover img{
+			&:hover, &.active {color: $white;}
+			&:hover img, &.active img {
 				color: $white;
 				mix-blend-mode: normal;
 				opacity: 1;
 			}
-		}
+		}//end
 
 		
 		

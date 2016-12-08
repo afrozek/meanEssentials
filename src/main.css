@@ -909,16 +909,22 @@ h1 {
 /*------------  LOGOS  ------------*/
 #horizontalLogoContainer {
   max-width: 220px;
-  margin: 40px auto; }
+  margin: 40px auto;
+  position: relative;
+  z-index: 98; }
   @media (min-height: 800px) {
     #horizontalLogoContainer {
       margin-top: 100px; } }
 
 #horizontalLogoImage {
-  width: 100%; }
+  width: 100%;
+  position: relative;
+  z-index: 98; }
 
 .vertLogoContainer {
-  max-width: 120px; }
+  max-width: 120px;
+  position: relative;
+  z-index: 98; }
   @media (max-width: 767px) {
     .vertLogoContainer {
       margin: 10px auto;
@@ -1011,7 +1017,7 @@ h1 {
 
 .starfieldAlphaBg {
   background: url("assets/images/starfieldAlpha.svg");
-  background-position: center;
+  background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #1340df; }
@@ -1019,7 +1025,7 @@ h1 {
 /*------------LOGIN PAGE------------*/
 /*------------DASHBOARD------------*/
 .dashHeader {
-  padding: 60px 65px 0px 65px; }
+  padding: 30px 65px 0px 65px; }
   .dashHeader .dashGreeting {
     color: white;
     text-align: center;
@@ -1027,12 +1033,16 @@ h1 {
     font-weight: 100;
     letter-spacing: .6px; }
     .dashHeader .dashGreeting h1 {
-      margin: 30px 0px 40px 0px; }
+      margin: 0px 0px 40px 0px;
+      position: relative;
+      top: -30px; }
   .dashHeader .dashMenuContainer {
     float: right;
     width: 190px;
     font-family: "Muli-ExtraLight";
-    color: #f6f6f6; }
+    color: #f6f6f6;
+    position: relative;
+    z-index: 98; }
     @media (max-width: 767px) {
       .dashHeader .dashMenuContainer {
         display: block;
@@ -1111,9 +1121,9 @@ h1 {
         margin-right: 10px;
         height: 18px;
         transition: .3s; }
-      .dashNavContainer li a:hover {
+      .dashNavContainer li a:hover, .dashNavContainer li a.active {
         color: #ffffff; }
-      .dashNavContainer li a:hover img {
+      .dashNavContainer li a:hover img, .dashNavContainer li a.active img {
         color: #ffffff;
         mix-blend-mode: normal;
         opacity: 1; }
