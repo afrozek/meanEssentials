@@ -1078,14 +1078,14 @@ h1 {
       padding: 0;
       overflow: hidden;
       box-shadow: none; }
+      .dashHeader .dashMenuContainer ul li:last-child a {
+        border-bottom: 0; }
       .dashHeader .dashMenuContainer ul li a {
         background: #1340df;
         padding: 12px 5px 12px 52px;
         border-bottom: 1px solid #1659ef;
         cursor: pointer;
         color: #ffffff; }
-        .dashHeader .dashMenuContainer ul li a:last-child {
-          border-bottom: 0; }
         .dashHeader .dashMenuContainer ul li a:hover {
           background: #1659ef; }
     .dashHeader .dashMenuContainer .open > button {

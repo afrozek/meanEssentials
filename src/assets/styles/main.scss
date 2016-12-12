@@ -405,30 +405,34 @@ h1{ font-size: 2em;}
 			padding: 0;
 			overflow: hidden;
 			box-shadow: none;
-
-
 			
-			li a{
+			li{
+				&:last-child a{
+					border-bottom: 0;
+				}
+
+				a{
 				background: $azul;
 				padding: 12px 5px 12px 52px;
 				border-bottom: 1px solid $azulTwo;
 				cursor: pointer;
 				color: $white;
 
-				@include tablet{
+					@include tablet{
 
-				}
+					}
 
-				&:last-child{
-					border-bottom: 0;
-				}
+					
 
-				&:hover{
-					background: $azulTwo;
-				}
-
+					&:hover{
+						background: $azulTwo;
+					}
+				}//end anchor
 
 			}//end li
+
+			
+
 		}//end ul
 
 		//removes radius when dropdown is open	
