@@ -5,14 +5,27 @@
     .module('app')
     .controller('appController', appController);
 
-  appController.$inject = ['apiService','$log','notifyService'];
+  appController.$inject = ['apiService','$log','notifyService','authService'];
 
   /** @ngInject */
-  function appController(apiService, $log, notifyService) {
+  function appController(apiService, $log, notifyService, authService) {
     var vm = this;
     vm.controllerName = "appController";
 
+    vm.logout = logout;
+
     notifyService.success("Testing");
+
+
+
+
+
+
+    //////////////////
+
+    function logout(){
+      authService.logout();
+    }
 
   
 

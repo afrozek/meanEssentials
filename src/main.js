@@ -48,37 +48,7 @@ angular
 	'use strict'
 
 angular
-	.module('browserCheck', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('dashboard', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('landing', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('notify', [
 	  
 	]);
 
@@ -101,7 +71,27 @@ angular
 	'use strict'
 
 angular
-	.module('orbit', [
+	.module('landing', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('browserCheck', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('notify', [
 	  
 	]);
 
@@ -112,6 +102,16 @@ angular
 
 angular
 	.module('scriptBlockerCheck', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('orbit', [
 	  
 	]);
 
@@ -159,14 +159,27 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
     .module('app')
     .controller('appController', appController);
 
-  appController.$inject = ['apiService','$log','notifyService'];
+  appController.$inject = ['apiService','$log','notifyService','authService'];
 
   /** @ngInject */
-  function appController(apiService, $log, notifyService) {
+  function appController(apiService, $log, notifyService, authService) {
     var vm = this;
     vm.controllerName = "appController";
 
+    vm.logout = logout;
+
     notifyService.success("Testing");
+
+
+
+
+
+
+    //////////////////
+
+    function logout(){
+      authService.logout();
+    }
 
   
 
@@ -454,162 +467,64 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
     	.module('auth')
     	.factory('authService', authService);
 
-    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log']
+    authService.$inject = ['tokenService', '$state', '$http', '$q', '$rootScope','apiService', '$log', '$window']
 
-    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log) {
+    function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log, $window) {
 
         var service = {
-            login: login
+            login: login,
+            logout: logout,
+            setToken: setToken,
+            getToken: getToken,
+            removeToken: removeToken
         }
 
         var ripple = apiService.rippleBaseUrl;
      
 
-        
+        return service;
+
 
         function login(formData) {
             return $http.post(ripple + '/account/login/', formData).then(function(res) {
+                       
+
+                        //set token if successful
+                        if(res.data.auth_token){
+                            service.setToken(res.data.auth_token);   
+                        }
+
                         return res;
                     })//end then
         }//end login function
 
-        return service;
+        function logout() {
+            service.removeToken();
+            $state.go('app.landing.home')
+        }
+
+
+
+        //token managment
+
+        function setToken (token) {
+            $window.sessionStorage.setItem('token', token);
+        }
+
+        function getToken () {
+            var token = $window.sessionStorage.getItem('token');
+            return token;
+        }
+
+        function removeToken () {
+            $window.sessionStorage.removeItem('token');
+        }
+
+
+
+        
 
     }//end authService 
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('browserCheck')
-		.controller('browserCheckCtrl', browserCheckCtrl)
-
-	browserCheckCtrl.$inject = []
-
-	function browserCheckCtrl() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'browserCheck';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('browserCheck')
-    .directive('browserCheckDir', browserCheckDir);
-
-function browserCheckDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('browserCheck')
-    	.factory('browserCheckService', browserCheckService);
-
-    browserCheckService.$inject = ['bowser', '$state', '$location']
-
-    function browserCheckService(bowser, $state, $location) {
-    	var service = {
-    		checkBrowser: checkBrowser,
-            oldBrowser: false
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function checkBrowser() {
-
-           
-
-	        if(bowser.mobile){
-
-            }
-            else if(bowser.tablet){
-
-            }
-            else{
-
-                  // console.log(bowser)
-                  //browser check
-
-                  if (bowser.chrome && bowser.version < 40) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.msie && bowser.version < 9) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.safari && bowser.version < 9) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.firefox && bowser.version < 49) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.opera && bowser.version < 10) {
-                    service.oldBrowser = true;
-                  }
-            }
-
-            if(service.oldBrowser == true){
-                // $location.path('/updatebrowser')
-                document.write("Your " + bowser.name + " browser is out of date. Please update it for the best experience");
-            }
-
-
-	    } // end check browser
-
-
-
-    }
 
 	
 // end IIFE
@@ -708,280 +623,6 @@ function dashboardDir() {
 	    function success() {
 	      /* */
 	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('notify')
-		.controller('notifyController', notifyController)
-
-	notifyController.$inject = ['$scope', 'notifyService']
-
-	function notifyController($scope, notifyService) {
-
-
-			
-
-			// notifyService.info("testing the service");
-			$scope.messages = notifyService.messages;
-
-			$scope.info = function(message){
-				console.log("bb")
-				notifyService.info(message);
-			}
-
-			$scope.success = function(message){
-				notifyService.success(message);
-			}
-
-			$scope.error = function(message){
-				notifyService.error(message);
-			}
-
-			$scope.close = function(message){
-				notifyService.removeNotification(message);
-			}
-		
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('notify')
-    .directive('notifyDir', notifyDir);
-
-
-function notifyDir() {
-	return{
-		restrict: 'E',
-		templateUrl: 'app/appModules/notify/notify.view.html',
-		replace: true,
-		controller: 'notifyController'
-	}
-
-
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('notify')
-    	.factory('notifyService', notifyService);
-
-    notifyService.$inject = ['$timeout']
-
-    function notifyService($timeout) {
-
-    	var service = {
-    		
-    		info: info,
-            success: success,
-            error: error,
-            removeNotification: removeNotification,
-            messages : []
-    	};
-
-        //dismisses after 5 seconds
-        var duration = 6000;
-
-        
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info(message) {
-        message = {class: 'info', data: message};
-        //check for dupes
-            if(findMessage(message) !== false)
-                return false;
-
-          //no dupes, push message  
-          service.messages.push(message) 
-
-          //remove after x seconds
-          $timeout(function(){
-            service.messages.splice(0,1);
-          }, duration)
-
-	    } //end info
-
-        function success(message) {
-        message = {class: 'success', data: message};
-        //check for dupes
-            if(findMessage(message) !== false)
-                return false;
-
-          //no dupes, push message  
-          service.messages.push(message)  
-
-          //remove after x seconds
-          $timeout(function(){
-            service.messages.splice(0,1);
-          }, duration)
-
-        } //end success
-
-        function error(message) {
-        message = {class: 'error', data: message};
-        //check for dupes
-            if(findMessage(message) !== false)
-                return false;
-
-          //no dupes, push message  
-          service.messages.push(message)  
-
-          //remove after x seconds
-          $timeout(function(){
-            service.messages.splice(0,1);
-          }, duration)
-
-        } //end error
-
-        function removeNotification(message) {
-
-            var found = findMessage(message);
-            if(found !== false){
-                 service.messages.splice(found, 1);
-            }
-               
-        }//end removeNotification
-
-        //searches message array for message
-        //returns index of message if found
-        function findMessage(message){
-             for(var i = 0; i < service.messages.length; i++) { 
-                if(service.messages[i].data == message.data){
-                    return i;
-                }
-                
-            } //end for
-            return false;
-        }//end find message
 
 
     }
@@ -1233,12 +874,12 @@ function loginFormDirective() {
 	'use strict'
 
 	angular
-		.module('orbit')
-		.controller('orbitController', orbitController)
+		.module('landing')
+		.controller('landingController', landingController)
 
-	orbitController.$inject = []
+	landingController.$inject = []
 
-	function orbitController() {
+	function landingController() {
 
 	    var vm = this;
 
@@ -1246,7 +887,7 @@ function loginFormDirective() {
 	    vm.refresh = refresh;
 	    vm.search = search;
 	    vm.sessions = [];
-	    vm.title = 'orbit';
+	    vm.title = 'landing';
 
 	    ////////////
 
@@ -1272,13 +913,13 @@ function loginFormDirective() {
 
 (function(){
 angular
-    .module('orbit')
-    .directive('orbitDir', orbitDir);
+    .module('landing')
+    .directive('landingDir', landingDir);
 
-function orbitDir() {
+function landingDir() {
 	return{
 		restrict: 'E',
-		templateUrl: '',
+		templateUrl: '../views/landingMainNav.html',
 		replace: true
 		// scope: {}
 	}
@@ -1291,12 +932,12 @@ function orbitDir() {
 	'use strict'
 
 	angular
-    	.module('orbit')
-    	.factory('orbitService', orbitService);
+    	.module('landing')
+    	.factory('landingService', landingService);
 
-    orbitService.$inject = []
+    landingService.$inject = []
 
-    function orbitService() {
+    function landingService() {
     	var service = {
 
     		error: error,
@@ -1315,12 +956,319 @@ function orbitDir() {
 
 	    function info() {
 	      /* */
-          console.log("orbitService");
+          console.log("landingService");
 	    }
 
 	    function success() {
 	      /* */
 	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('browserCheck')
+		.controller('browserCheckCtrl', browserCheckCtrl)
+
+	browserCheckCtrl.$inject = []
+
+	function browserCheckCtrl() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'browserCheck';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('browserCheck')
+    .directive('browserCheckDir', browserCheckDir);
+
+function browserCheckDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('browserCheck')
+    	.factory('browserCheckService', browserCheckService);
+
+    browserCheckService.$inject = ['bowser', '$state', '$location']
+
+    function browserCheckService(bowser, $state, $location) {
+    	var service = {
+    		checkBrowser: checkBrowser,
+            oldBrowser: false
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function checkBrowser() {
+
+           
+
+	        if(bowser.mobile){
+
+            }
+            else if(bowser.tablet){
+
+            }
+            else{
+
+                  // console.log(bowser)
+                  //browser check
+
+                  if (bowser.chrome && bowser.version < 40) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.msie && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.safari && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.firefox && bowser.version < 49) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.opera && bowser.version < 10) {
+                    service.oldBrowser = true;
+                  }
+            }
+
+            if(service.oldBrowser == true){
+                // $location.path('/updatebrowser')
+                document.write("Your " + bowser.name + " browser is out of date. Please update it for the best experience");
+            }
+
+
+	    } // end check browser
+
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('notify')
+		.controller('notifyController', notifyController)
+
+	notifyController.$inject = ['$scope', 'notifyService']
+
+	function notifyController($scope, notifyService) {
+
+
+			
+
+			// notifyService.info("testing the service");
+			$scope.messages = notifyService.messages;
+
+			$scope.info = function(message){
+				console.log("bb")
+				notifyService.info(message);
+			}
+
+			$scope.success = function(message){
+				notifyService.success(message);
+			}
+
+			$scope.error = function(message){
+				notifyService.error(message);
+			}
+
+			$scope.close = function(message){
+				notifyService.removeNotification(message);
+			}
+		
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('notify')
+    .directive('notifyDir', notifyDir);
+
+
+function notifyDir() {
+	return{
+		restrict: 'E',
+		templateUrl: 'app/appModules/notify/notify.view.html',
+		replace: true,
+		controller: 'notifyController'
+	}
+
+
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('notify')
+    	.factory('notifyService', notifyService);
+
+    notifyService.$inject = ['$timeout']
+
+    function notifyService($timeout) {
+
+    	var service = {
+    		
+    		info: info,
+            success: success,
+            error: error,
+            removeNotification: removeNotification,
+            messages : []
+    	};
+
+        //dismisses after 5 seconds
+        var duration = 6000;
+
+        
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info(message) {
+        message = {class: 'info', data: message};
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
+
+          //no dupes, push message  
+          service.messages.push(message) 
+
+          //remove after x seconds
+          $timeout(function(){
+            service.messages.splice(0,1);
+          }, duration)
+
+	    } //end info
+
+        function success(message) {
+        message = {class: 'success', data: message};
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
+
+          //no dupes, push message  
+          service.messages.push(message)  
+
+          //remove after x seconds
+          $timeout(function(){
+            service.messages.splice(0,1);
+          }, duration)
+
+        } //end success
+
+        function error(message) {
+        message = {class: 'error', data: message};
+        //check for dupes
+            if(findMessage(message) !== false)
+                return false;
+
+          //no dupes, push message  
+          service.messages.push(message)  
+
+          //remove after x seconds
+          $timeout(function(){
+            service.messages.splice(0,1);
+          }, duration)
+
+        } //end error
+
+        function removeNotification(message) {
+
+            var found = findMessage(message);
+            if(found !== false){
+                 service.messages.splice(found, 1);
+            }
+               
+        }//end removeNotification
+
+        //searches message array for message
+        //returns index of message if found
+        function findMessage(message){
+             for(var i = 0; i < service.messages.length; i++) { 
+                if(service.messages[i].data == message.data){
+                    return i;
+                }
+                
+            } //end for
+            return false;
+        }//end find message
 
 
     }
@@ -1463,6 +1411,107 @@ function scriptBlockerCheckDir() {
 
 
     }//end scriptBlockerCheckService
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('orbit')
+		.controller('orbitController', orbitController)
+
+	orbitController.$inject = []
+
+	function orbitController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'orbit';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('orbit')
+    .directive('orbitDir', orbitDir);
+
+function orbitDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('orbit')
+    	.factory('orbitService', orbitService);
+
+    orbitService.$inject = []
+
+    function orbitService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("orbitService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
 
 	
 // end IIFE

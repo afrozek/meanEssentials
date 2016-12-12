@@ -57,7 +57,7 @@ h1{ font-size: 2em;}
 /*------------  NOTIFY  ------------*/
 #notifyContainer{
 	position: fixed;
-	width: 100%;
+	width: 50%;
 	z-index: 99;
 	top: 20px;
 	left: 20px;
@@ -408,10 +408,12 @@ h1{ font-size: 2em;}
 
 
 			
-			li{
+			li a{
 				background: $azul;
 				padding: 12px 5px 12px 52px;
 				border-bottom: 1px solid $azulTwo;
+				cursor: pointer;
+				color: $white;
 
 				@include tablet{
 
@@ -424,6 +426,8 @@ h1{ font-size: 2em;}
 				&:hover{
 					background: $azulTwo;
 				}
+
+
 			}//end li
 		}//end ul
 
