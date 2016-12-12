@@ -59,6 +59,14 @@
         
       })
 
+      .state('app.auth.signupSuccess', {
+        url: '/signupSuccess',
+        controller: 'signupController',
+        controllerAs: 'signupCtrl',
+        templateUrl: 'app/appModules/signup/signupSuccess.view.html',
+        
+      })
+
       .state('test', {
         url: '/test',
         template: '<h1>HI!</h1>',

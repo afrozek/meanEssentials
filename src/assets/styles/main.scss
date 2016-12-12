@@ -21,18 +21,28 @@ hr{
   box-shadow: 0 1px 2px 0 $paleGrey;
 }
 
-h6{ font-size: 0.75em;}
-h5{ font-size: 0.875em;}
-h4{ font-size: 1em;}
-h3{ font-size: 1.125em;}
-h2{ font-size: 1.5em;}
+
+//32px
 h1{ font-size: 2em;}
 
+//24px
+h2{ font-size: 1.5em;}
 
+//18px
+h3{ font-size: 1.125em;}
 
+//16px
+h4{ font-size: 1em;}
 
+//14px
+h5{ font-size: 0.875em;}
 
+//12px
+h6{ font-size: 0.75em;}
 
+a:hover{
+	text-decoration: none;
+}
 
 /*------------BG CLASSES------------*/
 
@@ -53,6 +63,42 @@ h1{ font-size: 2em;}
 .info{ background: $paleOrange;}
 .success{ background: $greenishTeal;}
 .error{ background: $red;}
+
+
+
+/*------------ HEADINGS ------------*/
+
+// h1
+.heading{
+	font-family: $muliExtraLight;
+	font-weight: 200;
+	color: $darkThree;
+	margin-bottom: 30px;
+}
+
+//h4
+.subHeading{
+	font-family: $muliExtraLight;
+	color: $slateTwo;
+	letter-spacing: .3px;
+	margin-bottom: 30px;
+}
+
+//h3
+.gridbotHeading{
+	color: $darkThree;
+	font-family: $avenirRoman;
+	font-weight: 900;
+}
+
+
+/*------------ GRIDBOT ------------*/
+.gridbotSmall{
+	max-width: 85px;
+	display: block;
+}
+
+
 
 /*------------  NOTIFY  ------------*/
 #notifyContainer{
@@ -181,7 +227,7 @@ h1{ font-size: 2em;}
 
 .floatingFormContainerSmall{
 	max-width: 500px;
-	height: 520px;
+	height: 550px;
 }
 
 .floatingFormContainerLarge{

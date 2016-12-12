@@ -841,23 +841,26 @@ hr {
   border-color: #dddedf;
   box-shadow: 0 1px 2px 0 #f5f8fb; }
 
-h6 {
-  font-size: 0.75em; }
-
-h5 {
-  font-size: 0.875em; }
-
-h4 {
-  font-size: 1em; }
-
-h3 {
-  font-size: 1.125em; }
+h1 {
+  font-size: 2em; }
 
 h2 {
   font-size: 1.5em; }
 
-h1 {
-  font-size: 2em; }
+h3 {
+  font-size: 1.125em; }
+
+h4 {
+  font-size: 1em; }
+
+h5 {
+  font-size: 0.875em; }
+
+h6 {
+  font-size: 0.75em; }
+
+a:hover {
+  text-decoration: none; }
 
 /*------------BG CLASSES------------*/
 .blueSkyBg {
@@ -877,6 +880,29 @@ h1 {
 
 .error {
   background: #d41616; }
+
+/*------------ HEADINGS ------------*/
+.heading {
+  font-family: "Muli-ExtraLight";
+  font-weight: 200;
+  color: #202f42;
+  margin-bottom: 30px; }
+
+.subHeading {
+  font-family: "Muli-ExtraLight";
+  color: #3c4858;
+  letter-spacing: .3px;
+  margin-bottom: 30px; }
+
+.gridbotHeading {
+  color: #202f42;
+  font-family: "Avenir-Roman";
+  font-weight: 900; }
+
+/*------------ GRIDBOT ------------*/
+.gridbotSmall {
+  max-width: 85px;
+  display: block; }
 
 /*------------  NOTIFY  ------------*/
 #notifyContainer {
@@ -961,7 +987,7 @@ h1 {
 
 .floatingFormContainerSmall {
   max-width: 500px;
-  height: 520px; }
+  height: 550px; }
 
 .floatingFormContainerLarge {
   max-width: 650px;
