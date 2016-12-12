@@ -2,6 +2,59 @@
 						              HELPERS
 =========================================================*/
 
+
+/*
+* Media queries
+*/
+$extraSmallWidth: 360px;
+$smallerWidth: 420px;
+$smallWidth: 768px;
+$mediumWidth: 1280px;
+$largeWidth: 1900px;
+
+@mixin phone {
+  @media (max-width: #{$extraSmallWidth - 1px}) {
+    @content;
+  }
+}
+
+@mixin bigPhone{
+  @media(max-width: #{$smallerWidth}){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$smallWidth - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$mediumWidth}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{$largeWidth}) {
+    @content;
+  }
+}
+
+
+@include tablet{
+
+  .cpTablet{
+    padding: 0px;
+  }
+
+  .container-fluid, .container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 /*
 * common helpers
 */
@@ -142,6 +195,10 @@
   margin-bottom: 60px !important;
 }
 
+.mb80{
+  margin-bottom: 80px !important;
+}
+
 .mt100{
   margin-top: 100px;
 }
@@ -165,44 +222,7 @@
 
 
 
-/*
-* Media queries
-*/
-$extraSmallWidth: 360px;
-$smallerWidth: 420px;
-$smallWidth: 768px;
-$mediumWidth: 1280px;
-$largeWidth: 1900px;
 
-@mixin phone {
-  @media (max-width: #{$extraSmallWidth - 1px}) {
-    @content;
-  }
-}
-
-@mixin bigPhone{
-  @media(max-width: #{$smallerWidth}){
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (max-width: #{$smallWidth - 1px}) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: #{$mediumWidth}) {
-    @content;
-  }
-}
-
-@mixin large-desktop {
-  @media (min-width: #{$largeWidth}) {
-    @content;
-  }
-}
 
 
 

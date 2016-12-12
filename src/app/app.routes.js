@@ -53,6 +53,12 @@
         
       })
 
+      .state('app.auth.signup', {
+        url: '/signup',
+        templateUrl: 'app/appModules/signup/signup.view.html',
+        
+      })
+
       .state('test', {
         url: '/test',
         template: '<h1>HI!</h1>',

@@ -13,10 +13,12 @@
     	'landing',
     	'auth',
     	'token',
+        'signup',
     	'login',
     	'dashboard',
         'orbit',
         'notify'
+
 
     ]);
 })();

@@ -277,6 +277,16 @@
 						              HELPERS
 =========================================================*/
 /*
+* Media queries
+*/
+@media (max-width: 767px) {
+  .cpTablet {
+    padding: 0px; }
+  .container-fluid, .container {
+    padding-left: 0;
+    padding-right: 0; } }
+
+/*
 * common helpers
 */
 /* 
@@ -377,6 +387,9 @@
 .mb60 {
   margin-bottom: 60px !important; }
 
+.mb80 {
+  margin-bottom: 80px !important; }
+
 .mt100 {
   margin-top: 100px; }
 
@@ -391,15 +404,21 @@
 
 .pb60 {
   padding-bottom: 60px; }
-
-/*
-* Media queries
-*/
 
 /*=========================================================
 						              HELPERS
 =========================================================*/
 /*
+* Media queries
+*/
+@media (max-width: 767px) {
+  .cpTablet {
+    padding: 0px; }
+  .container-fluid, .container {
+    padding-left: 0;
+    padding-right: 0; } }
+
+/*
 * common helpers
 */
 /* 
@@ -500,6 +519,9 @@
 .mb60 {
   margin-bottom: 60px !important; }
 
+.mb80 {
+  margin-bottom: 80px !important; }
+
 .mt100 {
   margin-top: 100px; }
 
@@ -515,9 +537,6 @@
 .pb60 {
   padding-bottom: 60px; }
 
-/*
-* Media queries
-*/
 h6 {
   font-size: 0.75em; }
 
@@ -933,13 +952,20 @@ h1 {
 /*------------FORMS------------*/
 .floatingFormContainer {
   position: relative;
-  padding: 40px;
+  padding: 40px 60px;
   border-radius: 4px;
   max-width: 500px;
-  height: 520px;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden; }
+
+.floatingFormContainerSmall {
+  max-width: 500px;
+  height: 520px; }
+
+.floatingFormContainerLarge {
+  max-width: 650px;
+  height: 615px; }
 
 .form {
   color: #52647b; }
@@ -1047,7 +1073,8 @@ h1 {
       .dashHeader .dashMenuContainer {
         display: block;
         float: none;
-        width: 100%; } }
+        width: 100%;
+        top: 75px; } }
     .dashHeader .dashMenuContainer .dropdown, .dashHeader .dashMenuContainer button, .dashHeader .dashMenuContainer ul, .dashHeader .dashMenuContainer li {
       width: 100%; }
     .dashHeader .dashMenuContainer button {

@@ -13,10 +13,12 @@
     	'landing',
     	'auth',
     	'token',
+        'signup',
     	'login',
     	'dashboard',
         'orbit',
         'notify'
+
 
     ]);
 })();
@@ -48,6 +50,26 @@ angular
 	'use strict'
 
 angular
+	.module('browserCheck', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
+	.module('landing', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('dashboard', [
 	  
 	]);
@@ -71,37 +93,7 @@ angular
 	'use strict'
 
 angular
-	.module('landing', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('browserCheck', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
 	.module('notify', [
-	  
-	]);
-
-})();
-
-(function(){
-	'use strict'
-
-angular
-	.module('scriptBlockerCheck', [
 	  
 	]);
 
@@ -121,11 +113,34 @@ angular
 	'use strict'
 
 angular
+	.module('scriptBlockerCheck', [
+	  
+	]);
+
+})();
+
+(function(){
+	'use strict'
+
+angular
 	.module('tabSessionSync', [
 	  
 	]);
 
 })();
+
+(function(){
+	'use strict'
+
+angular
+	.module('signup', [
+	  'token',
+	  'auth',
+	  'ngAnimate'
+	]);
+
+})();
+
 
 (function(){
 	'use strict'
@@ -265,6 +280,12 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
       .state('app.auth.login', {
         url: '/login',
         templateUrl: 'app/appModules/login/login.view.html',
+        
+      })
+
+      .state('app.auth.signup', {
+        url: '/signup',
+        templateUrl: 'app/appModules/signup/signup.view.html',
         
       })
 
@@ -472,6 +493,7 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
     function authService( tokenService, $state, $http , $q, $rootScope, apiService, $log, $window) {
 
         var service = {
+            signup: signup,
             login: login,
             logout: logout,
             setToken: setToken,
@@ -485,6 +507,23 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
         return service;
 
 
+
+        function signup(formData) {
+            return $http.post(ripple + '/account/signup/', formData).then(function(res) {
+                       
+
+                        //set token if successful
+                        // if(res.data.auth_token){
+                        //     service.setToken(res.data.auth_token);   
+                        // }
+
+                        return res;
+                    },function(err){
+                        return $q.reject(err);
+                    })//end then
+        }//end signup function
+
+
         function login(formData) {
             return $http.post(ripple + '/account/login/', formData).then(function(res) {
                        
@@ -495,6 +534,8 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
                         }
 
                         return res;
+                    },function(err){
+                        return $q.reject(err);
                     })//end then
         }//end login function
 
@@ -525,6 +566,241 @@ $templateCache.put('app/appModules/tabSessionSync/tabSessionSync.view.html','<di
         
 
     }//end authService 
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('browserCheck')
+		.controller('browserCheckCtrl', browserCheckCtrl)
+
+	browserCheckCtrl.$inject = []
+
+	function browserCheckCtrl() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'browserCheck';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('browserCheck')
+    .directive('browserCheckDir', browserCheckDir);
+
+function browserCheckDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('browserCheck')
+    	.factory('browserCheckService', browserCheckService);
+
+    browserCheckService.$inject = ['bowser', '$state', '$location']
+
+    function browserCheckService(bowser, $state, $location) {
+    	var service = {
+    		checkBrowser: checkBrowser,
+            oldBrowser: false
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function checkBrowser() {
+
+           
+
+	        if(bowser.mobile){
+
+            }
+            else if(bowser.tablet){
+
+            }
+            else{
+
+                  // console.log(bowser)
+                  //browser check
+
+                  if (bowser.chrome && bowser.version < 40) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.msie && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.safari && bowser.version < 9) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.firefox && bowser.version < 49) {
+                    service.oldBrowser = true;
+                  }
+
+                  //browser check
+                  if(bowser.opera && bowser.version < 10) {
+                    service.oldBrowser = true;
+                  }
+            }
+
+            if(service.oldBrowser == true){
+                // $location.path('/updatebrowser')
+                document.write("Your " + bowser.name + " browser is out of date. Please update it for the best experience");
+            }
+
+
+	    } // end check browser
+
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
+		.module('landing')
+		.controller('landingController', landingController)
+
+	landingController.$inject = []
+
+	function landingController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'landing';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('landing')
+    .directive('landingDir', landingDir);
+
+function landingDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '../views/landingMainNav.html',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('landing')
+    	.factory('landingService', landingService);
+
+    landingService.$inject = []
+
+    function landingService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("landingService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
 
 	
 // end IIFE
@@ -700,7 +976,7 @@ function dashboardDir() {
 	    	var isValid = true;
 
 	    	//username check
-	    	if(form.username.$dirty || form.username.$touched ){
+	    	if(form.username.$dirty || form.username.$touched || vm.loginError ){
 				var username = vm.loginForm.username;
 				console.log("touched")
 				//empty check
@@ -723,7 +999,7 @@ function dashboardDir() {
 	    	}
 
 	    	//password check
-	    	if(form.username.$dirty || form.username.$touched ){
+	    	if(form.username.$dirty || form.username.$touched || vm.loginError ){
 				var password = vm.loginForm.password;
 				console.log("touched")
 				//empty check
@@ -870,241 +1146,6 @@ function loginFormDirective() {
 
 //end IIFE
 })();
-(function() {
-	'use strict'
-
-	angular
-		.module('landing')
-		.controller('landingController', landingController)
-
-	landingController.$inject = []
-
-	function landingController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'landing';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('landing')
-    .directive('landingDir', landingDir);
-
-function landingDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '../views/landingMainNav.html',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('landing')
-    	.factory('landingService', landingService);
-
-    landingService.$inject = []
-
-    function landingService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("landingService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('browserCheck')
-		.controller('browserCheckCtrl', browserCheckCtrl)
-
-	browserCheckCtrl.$inject = []
-
-	function browserCheckCtrl() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'browserCheck';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('browserCheck')
-    .directive('browserCheckDir', browserCheckDir);
-
-function browserCheckDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('browserCheck')
-    	.factory('browserCheckService', browserCheckService);
-
-    browserCheckService.$inject = ['bowser', '$state', '$location']
-
-    function browserCheckService(bowser, $state, $location) {
-    	var service = {
-    		checkBrowser: checkBrowser,
-            oldBrowser: false
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function checkBrowser() {
-
-           
-
-	        if(bowser.mobile){
-
-            }
-            else if(bowser.tablet){
-
-            }
-            else{
-
-                  // console.log(bowser)
-                  //browser check
-
-                  if (bowser.chrome && bowser.version < 40) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.msie && bowser.version < 9) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.safari && bowser.version < 9) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.firefox && bowser.version < 49) {
-                    service.oldBrowser = true;
-                  }
-
-                  //browser check
-                  if(bowser.opera && bowser.version < 10) {
-                    service.oldBrowser = true;
-                  }
-            }
-
-            if(service.oldBrowser == true){
-                // $location.path('/updatebrowser')
-                document.write("Your " + bowser.name + " browser is out of date. Please update it for the best experience");
-            }
-
-
-	    } // end check browser
-
-
-
-    }
-
-	
-// end IIFE
-})();
-
-
 (function() {
 	'use strict'
 
@@ -1282,6 +1323,107 @@ function notifyDir() {
 	'use strict'
 
 	angular
+		.module('orbit')
+		.controller('orbitController', orbitController)
+
+	orbitController.$inject = []
+
+	function orbitController() {
+
+	    var vm = this;
+
+	    vm.gotoSession = gotoSession;
+	    vm.refresh = refresh;
+	    vm.search = search;
+	    vm.sessions = [];
+	    vm.title = 'orbit';
+
+	    ////////////
+
+	    function gotoSession() {
+	      /* */
+	    }
+
+	    function refresh() {
+	      /* */
+	    }
+
+	    function search() {
+	      /* */
+	    }
+	}
+
+
+//end IIFE
+})();
+
+
+
+
+(function(){
+angular
+    .module('orbit')
+    .directive('orbitDir', orbitDir);
+
+function orbitDir() {
+	return{
+		restrict: 'E',
+		templateUrl: '',
+		replace: true
+		// scope: {}
+	}
+}
+
+//end IIFE
+})();
+
+(function(){
+	'use strict'
+
+	angular
+    	.module('orbit')
+    	.factory('orbitService', orbitService);
+
+    orbitService.$inject = []
+
+    function orbitService() {
+    	var service = {
+
+    		error: error,
+    		info: info,
+    		success: success
+
+    	};
+
+    	return service;
+
+    	////////////
+
+    	function error() {
+	      /* */
+	    }
+
+	    function info() {
+	      /* */
+          console.log("orbitService");
+	    }
+
+	    function success() {
+	      /* */
+	    }
+
+
+    }
+
+	
+// end IIFE
+})();
+
+
+(function() {
+	'use strict'
+
+	angular
 		.module('scriptBlockerCheck')
 		.controller('scriptBlockerCheckCtrl', scriptBlockerCheckCtrl)
 
@@ -1411,107 +1553,6 @@ function scriptBlockerCheckDir() {
 
 
     }//end scriptBlockerCheckService
-
-	
-// end IIFE
-})();
-
-
-(function() {
-	'use strict'
-
-	angular
-		.module('orbit')
-		.controller('orbitController', orbitController)
-
-	orbitController.$inject = []
-
-	function orbitController() {
-
-	    var vm = this;
-
-	    vm.gotoSession = gotoSession;
-	    vm.refresh = refresh;
-	    vm.search = search;
-	    vm.sessions = [];
-	    vm.title = 'orbit';
-
-	    ////////////
-
-	    function gotoSession() {
-	      /* */
-	    }
-
-	    function refresh() {
-	      /* */
-	    }
-
-	    function search() {
-	      /* */
-	    }
-	}
-
-
-//end IIFE
-})();
-
-
-
-
-(function(){
-angular
-    .module('orbit')
-    .directive('orbitDir', orbitDir);
-
-function orbitDir() {
-	return{
-		restrict: 'E',
-		templateUrl: '',
-		replace: true
-		// scope: {}
-	}
-}
-
-//end IIFE
-})();
-
-(function(){
-	'use strict'
-
-	angular
-    	.module('orbit')
-    	.factory('orbitService', orbitService);
-
-    orbitService.$inject = []
-
-    function orbitService() {
-    	var service = {
-
-    		error: error,
-    		info: info,
-    		success: success
-
-    	};
-
-    	return service;
-
-    	////////////
-
-    	function error() {
-	      /* */
-	    }
-
-	    function info() {
-	      /* */
-          console.log("orbitService");
-	    }
-
-	    function success() {
-	      /* */
-	    }
-
-
-    }
 
 	
 // end IIFE
@@ -1653,6 +1694,230 @@ function tabSessionSyncDir() {
 })();
 
 
+(function() {
+	'use strict'
+
+	angular
+		.module('signup')
+		.controller('signupController', signupController)
+
+	signupController.$inject = [ '$state','tokenService', 'authService'];
+
+	function signupController( $state, tokenService, authService) {
+	    var vm = this;
+
+	    vm.signup = signup;
+	    vm.signupForm = {};
+	    vm.signupSuccess = false;
+	    vm.submitForm = false;
+	    vm.validateFormFields = validateFormFields;
+
+
+
+	    ////////////
+
+	    function signup(form) {
+
+	    	//first validate form
+	    	if(validateFormFields(form) == false)
+	    		return false;
+	    	 
+	    	
+	    	vm.submitForm = true;
+
+	    	//wait 500 millisecs so they see the loading animation
+	    	setTimeout(sendRequest, 500)
+	    	
+
+	    	function sendRequest(){
+
+	    		// make copy of data
+	    		var formData = angular.copy(vm.signupForm)
+
+	    		//send request
+	    		authService.signup(formData).then(signupRequestHandler,signupRequestErrorHandler);
+	    	}//end sendRequest function
+
+	    }//end signup function
+
+	    function signupRequestHandler(res){
+	    	console.log("handled");
+	    	console.log(res);
+		    vm.signupSuccess = true;
+		    // setTimeout(function(){
+		    // 	$state.go('app.dashboard.home');
+		    // },100)
+		    console.log(res)
+	    }
+
+	    function signupRequestErrorHandler(err){
+	    	console.log(err);
+	    	vm.signupSuccess = false;
+	    	vm.submitForm = false;
+	    	vm.signupError = "Signup Failed"
+	    	vm.signupForm.password = null;
+	    	vm.signupForm.confirmPass = null;
+	    }
+
+	    //takes the scope version of form
+	    function validateFormFields(form){
+
+	    	var isValid = true;
+
+	    	//username check
+	    	if(form.username.$dirty || form.username.$touched || vm.signupError ){
+				var username = vm.signupForm.username;
+				console.log("touched")
+				//empty check
+				if( typeof(username) == 'undefined' || username == "" || username == null){
+					 form.username.customError = "Username field is required.";
+					 isValid = false;
+				}
+				// else if(username.length < 3){
+				// 	form.username.customError = "Minimum 3 characters";
+				// 	isValid = false;
+				// }
+				// else if(username.length > 8){
+				// 	form.username.customError = "Maximum 8 characters";
+				// 	isValid = false;
+				// }
+				else{
+					form.username.customError = "";
+				}	
+
+	    	}
+
+	    	//email check
+	    	if(form.email.$dirty || form.email.$touched || vm.signupError ){
+				var email = vm.signupForm.email;
+				console.log("touched")
+				//empty check
+				if( typeof(email) == 'undefined' || email == "" || email == null){
+					 form.email.customError = "email field is required.";
+					 isValid = false;
+				}
+				// else if(email.length < 3){
+				// 	form.email.customError = "Minimum 3 characters";
+				// 	isValid = false;
+				// }
+				// else if(email.length > 8){
+				// 	form.email.customError = "Maximum 8 characters";
+				// 	isValid = false;
+				// }
+				else{
+					form.email.customError = "";
+				}	
+
+	    	}
+
+	    	//password check
+	    	if(form.username.$dirty || form.username.$touched || vm.signupError ){
+				var password = vm.signupForm.password;
+				console.log("touched")
+				//empty check
+				if( typeof(password) == 'undefined' || password == "" || password == null){
+					 form.password.customError = "password field is required.";
+					 isValid = false;
+				}
+				else if(password.length < 3){
+					form.password.customError = "Minimum 3 characters";
+					isValid = false;
+				}
+				else if(password.length > 8){
+					form.password.customError = "Maximum 8 characters";
+					isValid = false;
+				}
+				else{
+					form.password.customError = "";
+				}	
+
+	    	}
+
+	    	//password check
+	    	if(form.username.$dirty || form.username.$touched || vm.signupError ){
+	    		var password = vm.signupForm.password;
+				var confirmPass = vm.signupForm.confirmPass;
+				console.log("touched")
+				//empty check
+				if( typeof(confirmPass) == 'undefined' || confirmPass == "" || confirmPass == null){
+					 form.confirmPass.customError = "This field is required.";
+					 isValid = false;
+				}
+				else if(confirmPass.length < 3){
+					form.confirmPass.customError = "Minimum 3 characters";
+					isValid = false;
+				}
+				else if(confirmPass.length > 8){
+					form.confirmPass.customError = "Maximum 8 characters";
+					isValid = false;
+				}
+				else if(confirmPass !== password){
+					form.confirmPass.customError = "Passwords Don't Match";
+					isValid = false;
+				}
+				else{
+					form.confirmPass.customError = "";
+				}	
+
+	    	}
+
+	    	return isValid;
+
+			
+	    		
+	   	} //end validateFormFields
+
+	    function clearForm() {
+	    	vm.signupForm = {};
+	    }
+			
+			
+
+
+	}//end signupController
+
+
+//end IIFE
+})();
+
+
+
+(function(){
+angular
+    .module('signup')
+    .directive('signupFormDirective', signupFormDirective);
+
+function signupFormDirective() {
+	return{
+		restrict: 'E',
+		templateUrl: 'app/appModules/signup/signupForm.view.html',
+		replace: true,
+		controller: 'signupController',
+		controllerAs: 'signupCtrl',
+		link: link
+	}
+
+	function link(scope, elem, attrs) {
+		var vm = scope.signupCtrl;
+		// console.log(vm.signupSuccess);
+
+
+		// scope.$watch(function(){return vm.signupSuccess}, function(newValue, oldValue) {
+  //           if (newValue){
+  //               // console.log("I see a data change!");
+  //               // elem.css("display", "none");
+  //           }
+  //       }, true);
+
+
+		
+	}//end link function
+
+
+}//end signupFormDirective function
+
+//end IIFE
+})();
 (function(){
 	'use strict'
 
